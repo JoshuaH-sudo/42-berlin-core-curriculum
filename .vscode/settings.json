@@ -1,5 +1,8 @@
 {
   "files.associations": {
-    "stdio.h": "c"
-  }
+    "stdio.h": "c",
+    "strings.h": "c"
+  },
+  "42header.email": "jhoban@student.42berlin.de",
+  "42header.username": "jhoban"
 }
