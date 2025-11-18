@@ -1,8 +1,8 @@
-- isalpha
-- isdigit
-- isalnum
-- isascii
-- isprint
+- ~~isalpha~~
+- ~~isdigit~~
+- ~~isalnum~~
+- ~~isascii~~
+- ~~isprint~~
 - memset
 - memcpy
 - memmove

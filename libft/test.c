@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 16:57:40 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 19:17:01 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,66 @@ int test_ft_strnstr(void)
     return ok;
 }
 
+int test_ft_tolower(void)
+{
+    int ok = 1;
+    char test1[] = "HELLO WORLD";
+    char expected1[] = "hello world";
+    char *result1 = ft_tolower(test1);
+    ok &= (strcmp(result1, expected1) == 0);
+    printf("checked uppercase to lowercase: %d\n", ok);
+    
+    char test2[] = "hello world";
+    char expected2[] = "hello world";
+    char *result2 = ft_tolower(test2);
+    ok &= (strcmp(result2, expected2) == 0);
+    printf("checked already lowercase: %d\n", ok);
+    
+    char test3[] = "Hello123World!";
+    char expected3[] = "hello123world!";
+    char *result3 = ft_tolower(test3);
+    ok &= (strcmp(result3, expected3) == 0);
+    printf("checked mixed case with numbers/symbols: %d\n", ok);
+    
+    char test4[] = "";
+    char expected4[] = "";
+    char *result4 = ft_tolower(test4);
+    ok &= (strcmp(result4, expected4) == 0);
+    printf("checked empty string: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_toupper(void)
+{
+    int ok = 1;
+    char test1[] = "hello world";
+    char expected1[] = "HELLO WORLD";
+    char *result1 = ft_toupper(test1);
+    ok &= (strcmp(result1, expected1) == 0);
+    printf("checked lowercase to uppercase: %d\n", ok);
+    
+    char test2[] = "HELLO WORLD";
+    char expected2[] = "HELLO WORLD";
+    char *result2 = ft_toupper(test2);
+    ok &= (strcmp(result2, expected2) == 0);
+    printf("checked already uppercase: %d\n", ok);
+    
+    char test3[] = "Hello123World!";
+    char expected3[] = "HELLO123WORLD!";
+    char *result3 = ft_toupper(test3);
+    ok &= (strcmp(result3, expected3) == 0);
+    printf("checked mixed case with numbers/symbols: %d\n", ok);
+    
+    char test4[] = "";
+    char expected4[] = "";
+    char *result4 = ft_toupper(test4);
+    ok &= (strcmp(result4, expected4) == 0);
+    printf("checked empty string: %d\n", ok);
+    
+    return ok;
+}
+
 int main(void)
 {
     run_test("ft_bzero", test_ft_bzero);
@@ -216,5 +276,7 @@ int main(void)
     // run_test("ft_strlcpy", test_ft_strlcpy);
     // run_test("ft_strlcat", test_ft_strlcat);
     run_test("ft_strnstr", test_ft_strnstr);
+    run_test("ft_strlowcase", test_ft_tolower);
+    run_test("ft_strupcase", test_ft_toupper);
     return 0;
 }

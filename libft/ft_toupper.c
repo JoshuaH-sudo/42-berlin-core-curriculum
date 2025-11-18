@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strupcase.c                                     :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:20:21 by jhoban            #+#    #+#             */
-/*   Updated: 2025/10/18 13:09:08 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 19:17:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strupcase(char *str)
+char ft_toupper(int c)
 {
-	int	index;
-
-	index = 0;
-	while (str[index])
-	{
-		if (str[index] >= 'a' && str[index] <= 'z')
-			str[index] = str[index] - 32;
-		index++;
-	}
-	return (str);
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }
-
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	word[] = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
-	printf("word: %s\n", word);
-	ft_strupcase(word);
-	printf("word: %s\n", word);
-}
-*/
