@@ -76,8 +76,6 @@ int test_ft_isalpha(void)
 
 int test_ft_isascii(void)
 {
-    printf("return %d\n", isascii(128));
-    printf("return ft %d\n", ft_isascii(128));
     int ok = 1;
     ok &= ((ft_isascii(0) == 1) == (isascii(0) == 1));
     printf("checked 0: %d\n", ok);
@@ -103,6 +101,10 @@ int test_ft_isdigit(void)
     printf("checked 'a': %d\n", ok);
     ok &= (ft_isdigit('/') == isdigit('/'));
     printf("checked '/': %d\n", ok);
+    ok &= (ft_isdigit(0) == isdigit(0));
+    printf("checked 0: %d\n", ok);
+    ok &= (ft_isdigit(127) == isdigit(127));
+    printf("checked 127: %d\n", ok);
     return ok;
 }
 
@@ -122,6 +124,72 @@ int test_ft_isprint(void)
     return ok;
 }
 
+    int test_ft_strlen(void)
+    {
+        int ok = 1;
+        ok &= (ft_strlen("") == strlen(""));
+        printf("checked empty: %d\n", ok);
+        ok &= (ft_strlen("abc") == strlen("abc"));
+        printf("checked 'abc': %d\n", ok);
+        ok &= (ft_strlen("hello world") == strlen("hello world"));
+        printf("checked 'hello world': %d\n", ok);
+        ok &= (ft_strlen("a\0hidden") == strlen("a\0hidden"));
+        printf("checked 'a\\0hidden': %d\n", ok);
+        return ok;
+    }
+
+    int test_ft_strncmp(void)
+    {
+        printf("empty result: %d\n", strncmp("abc", "", 2));
+        printf("empty ft_result: %d\n", ft_strncmp("abc", "", 2));
+
+        int ok = 1;
+        ok &= (ft_strncmp("abc", "abc", 3) == strncmp("abc", "abc", 3));
+        printf("checked equal: %d\n", ok);
+        ok &= (ft_strncmp("abc", "abd", 3) == strncmp("abc", "abd", 3));
+        printf("checked diff: %d\n", ok);
+        ok &= (ft_strncmp("abc", "abc", 0) == strncmp("abc", "abc", 0));
+        printf("checked n=0: %d\n", ok);
+        ok &= (ft_strncmp("abc", "", 2) == strncmp("abc", "", 2));
+        printf("checked vs empty: %d\n", ok);
+        return ok;
+    }
+
+    int test_ft_strlcpy(void)
+    {
+        char src[] = "hello, world!";
+        char dest1[20];
+        char dest2[20];
+        unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
+        unsigned int ret2 = strlcpy(dest2, src, sizeof(dest2));
+        int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
+        printf("checked strlcpy: %d\n", ok);
+        return ok;
+    }
+
+    int test_ft_strlcat(void)
+    {
+        char dest1[20] = "hello ";
+        char dest2[20] = "hello ";
+        char src[] = "world";
+        unsigned int ret1 = ft_strlcat(dest1, src, sizeof(dest1));
+        unsigned int ret2 = strlcat(dest2, src, sizeof(dest2));
+        int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
+        printf("checked strlcat: %d\n", ok);
+        return ok;
+    }
+
+    int test_ft_strnstr(void)
+    {
+        char str[] = "hello world world start";
+        char to_find[] = "world";
+        char *res1 = ft_strnstr(str, to_find);
+        char *res2 = strstr(str, to_find);
+        int ok = (res1 == res2 || (res1 && res2 && strcmp(res1, res2) == 0));
+        printf("checked strnstr: %d\n", ok);
+        return ok;
+    }
+
 int main(void)
 {
     run_test("ft_bzero", test_ft_bzero);
@@ -131,5 +199,10 @@ int main(void)
     run_test("ft_isascii", test_ft_isascii);
     run_test("ft_isdigit", test_ft_isdigit);
     run_test("ft_isprint", test_ft_isprint);
+    run_test("ft_strlen", test_ft_strlen);
+    run_test("ft_strncmp", test_ft_strncmp);
+    run_test("ft_strlcpy", test_ft_strlcpy);
+    run_test("ft_strlcat", test_ft_strlcat);
+    run_test("ft_strnstr", test_ft_strnstr);
     return 0;
 }
