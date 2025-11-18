@@ -45,9 +45,20 @@ int test_ft_memcpy(void)
     return 0; // Test failed
 }
 
+int test_ft_memchr(void)
+{
+    char str[] = "Hello, World!";
+    char *res1 = ft_memchr(str, 'W', sizeof(str));
+    char *res2 = memchr(str, 'W', sizeof(str));
+    if (res1 == res2)
+        return 1; // Test passed
+    return 0; // Test failed
+}
+
 int main(void)
 {
     run_test("ft_bzero", test_ft_bzero);
     run_test("ft_memcpy", test_ft_memcpy);
+    run_test("ft_memchr", test_ft_memchr);
     return 0;
 }
