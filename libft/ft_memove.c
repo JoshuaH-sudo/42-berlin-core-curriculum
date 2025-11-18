@@ -6,9 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:43:39 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 17:43:44 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 17:43:56 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <string.h>
 
 void *ft_memmove(void *dest, const void *src, size_t n)
 {
