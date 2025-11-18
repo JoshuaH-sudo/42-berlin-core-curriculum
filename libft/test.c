@@ -17,10 +17,14 @@
 
 void  run_test(char *name, int (*fn)(void))
 {
+    printf("--------------------------------\n");
+    printf("Running test: %s\n", name);
+    printf("--------------------------------\n");
     if (fn())
         printf("Test %s OK!\n", name);
     else
         printf("Test %s KO!\n", name);
+    printf("--------------------------------\n\n");
 }
 
 int test_ft_bzero(void)
@@ -68,13 +72,19 @@ int test_ft_isalpha(void)
 
 int test_ft_isascii(void)
 {
-    printf("return %d\n", isascii(-1));
+    printf("return %d\n", isascii(128));
+    printf("return ft %d\n", ft_isascii(128));
     int ok = 1;
-    ok &= (ft_isascii(0) == isascii(0));
-    ok &= (ft_isascii(127) == isascii(127));
-    ok &= (ft_isascii(128) == isascii(128));
-    ok &= (ft_isascii(-1) == isascii(-1));
-    ok &= (ft_isascii(256) == isascii(256));
+    ok &= ((ft_isascii(0) == 1) == (isascii(0) == 1));
+    printf("checked 0: %d\n", ok);
+    ok &= ((ft_isascii(127) == 1) == (isascii(127) == 1));
+    printf("checked 127: %d\n", ok);
+    ok &= ((ft_isascii(128) == 0) == (isascii(128) == 0));
+    printf("checked 128: %d\n", ok);
+    ok &= ((ft_isascii(-1) == 0) == (isascii(-1) == 0));
+    printf("checked -1: %d\n", ok);
+    ok &= ((ft_isascii(256) == 0) == (isascii(256) == 0));
+    printf("checked 256: %d\n", ok);
     return ok;
 }
 
@@ -100,12 +110,12 @@ int test_ft_isprint(void)
 
 int main(void)
 {
-    // run_test("ft_bzero", test_ft_bzero);
-    // run_test("ft_memcpy", test_ft_memcpy);
-    // run_test("ft_memchr", test_ft_memchr);
-    // run_test("ft_isalpha", test_ft_isalpha);
+    run_test("ft_bzero", test_ft_bzero);
+    run_test("ft_memcpy", test_ft_memcpy);
+    run_test("ft_memchr", test_ft_memchr);
+    run_test("ft_isalpha", test_ft_isalpha);
     run_test("ft_isascii", test_ft_isascii);
-    // run_test("ft_isdigit", test_ft_isdigit);
-    // run_test("ft_isprint", test_ft_isprint);
+    run_test("ft_isdigit", test_ft_isdigit);
+    run_test("ft_isprint", test_ft_isprint);
     return 0;
 }
