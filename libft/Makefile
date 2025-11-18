@@ -18,6 +18,7 @@ all:
 
 clean:
 	rm -f *.o
+	rm -f test
 
 fclean: clean
 	rm -f $(NAME)
