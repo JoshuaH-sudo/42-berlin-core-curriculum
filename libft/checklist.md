@@ -3,20 +3,20 @@
 - isalnum
 - isascii
 - isprint
-- strlen
 - memset
-- bzero
 - memcpy
 - memmove
-- strlcpy
-- strlcat
+- memchr
+- memcmp
+- bzero
 - toupper
 - tolower
+- strlcpy
+- strlcat
+- strlen
 - strchr
 - strrchr
 - strncmp
-- memchr
-- memcmp
 - strnstr
 - atoi
 

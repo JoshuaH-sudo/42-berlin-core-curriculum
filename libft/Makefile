@@ -29,4 +29,5 @@ ar: all
 test: all ar
 	cc -o test test.c $(NAME)
 	echo "Running tests:"
-	./test
+	./test | tee test_output.txt
+	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
