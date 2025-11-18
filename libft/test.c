@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 16:23:13 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 16:57:40 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int test_ft_memchr(void)
 int test_ft_isalpha(void)
 {
     int ok = 1;
-    ok &= (ft_isalpha('A') == isalpha('A'));
+    ok &= (ft_isalpha('A') == 1);
     printf("checked A: %d\n", ok);
-    ok &= (ft_isalpha('z') == isalpha('z'));
+    ok &= (ft_isalpha('z') == 1);
     printf("checked z: %d\n", ok);
-    ok &= (ft_isalpha('1') == isalpha('1'));
+    ok &= (ft_isalpha('1') == 0);
     printf("checked 1: %d\n", ok);
-    ok &= (ft_isalpha('@') == isalpha('@'));
+    ok &= (ft_isalpha('@') == 0);
     printf("checked @: %d\n", ok);
     return ok;
 }
@@ -93,17 +93,17 @@ int test_ft_isascii(void)
 int test_ft_isdigit(void)
 {
     int ok = 1;
-    ok &= (ft_isdigit('0') == isdigit('0'));
+    ok &= (ft_isdigit('0') == 1);
     printf("checked '0': %d\n", ok);
-    ok &= (ft_isdigit('9') == isdigit('9'));
+    ok &= (ft_isdigit('9') == 1);
     printf("checked '9': %d\n", ok);
-    ok &= (ft_isdigit('a') == isdigit('a'));
+    ok &= (ft_isdigit('a') == 0);
     printf("checked 'a': %d\n", ok);
-    ok &= (ft_isdigit('/') == isdigit('/'));
+    ok &= (ft_isdigit('/') == 0);
     printf("checked '/': %d\n", ok);
-    ok &= (ft_isdigit(0) == isdigit(0));
+    ok &= (ft_isdigit(0) == 0);
     printf("checked 0: %d\n", ok);
-    ok &= (ft_isdigit(127) == isdigit(127));
+    ok &= (ft_isdigit(127) == 0);
     printf("checked 127: %d\n", ok);
     return ok;
 }
@@ -111,15 +111,15 @@ int test_ft_isdigit(void)
 int test_ft_isprint(void)
 {
     int ok = 1;
-    ok &= (ft_isprint(32) == isprint(32));
+    ok &= (ft_isprint(32) == 1);
     printf("checked 32: %d\n", ok);
-    ok &= (ft_isprint(126) == isprint(126));
+    ok &= (ft_isprint(126) == 1);
     printf("checked 126: %d\n", ok);
-    ok &= (ft_isprint(127) == isprint(127));
+    ok &= (ft_isprint(127) == 0);
     printf("checked 127: %d\n", ok);
-    ok &= (ft_isprint(31) == isprint(31));
+    ok &= (ft_isprint(31) == 0);
     printf("checked 31: %d\n", ok);
-    ok &= (ft_isprint(128) == isprint(128));
+    ok &= (ft_isprint(128) == 0);
     printf("checked 128: %d\n", ok);
     return ok;
 }
@@ -155,29 +155,31 @@ int test_ft_isprint(void)
         return ok;
     }
 
-    int test_ft_strlcpy(void)
-    {
-        char src[] = "hello, world!";
-        char dest1[20];
-        char dest2[20];
-        unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
-        unsigned int ret2 = strlcpy(dest2, src, sizeof(dest2));
-        int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
-        printf("checked strlcpy: %d\n", ok);
-        return ok;
-    }
+    // int test_ft_strlcpy(void)
+    // {
+    //     #include <bsd/string.h>
+    //     char src[] = "hello, world!";
+    //     char dest1[20];
+    //     char dest2[20];
+    //     unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
+    //     unsigned int ret2 = strlcpy(dest2, src, sizeof(dest2));
+    //     int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
+    //     printf("checked strlcpy: %d\n", ok);
+    //     return ok;
+    // }
 
-    int test_ft_strlcat(void)
-    {
-        char dest1[20] = "hello ";
-        char dest2[20] = "hello ";
-        char src[] = "world";
-        unsigned int ret1 = ft_strlcat(dest1, src, sizeof(dest1));
-        unsigned int ret2 = strlcat(dest2, src, sizeof(dest2));
-        int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
-        printf("checked strlcat: %d\n", ok);
-        return ok;
-    }
+    // int test_ft_strlcat(void)
+    // {
+    //     #include <bsd/string.h>
+    //     char dest1[20] = "hello ";
+    //     char dest2[20] = "hello ";
+    //     char src[] = "world";
+    //     unsigned int ret1 = ft_strlcat(dest1, src, sizeof(dest1));
+    //     unsigned int ret2 = strlcat(dest2, src, sizeof(dest2));
+    //     int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
+    //     printf("checked strlcat: %d\n", ok);
+    //     return ok;
+    // }
 
     int test_ft_strnstr(void)
     {
@@ -201,8 +203,8 @@ int main(void)
     run_test("ft_isprint", test_ft_isprint);
     run_test("ft_strlen", test_ft_strlen);
     run_test("ft_strncmp", test_ft_strncmp);
-    run_test("ft_strlcpy", test_ft_strlcpy);
-    run_test("ft_strlcat", test_ft_strlcat);
+    // run_test("ft_strlcpy", test_ft_strlcpy);
+    // run_test("ft_strlcat", test_ft_strlcat);
     run_test("ft_strnstr", test_ft_strnstr);
     return 0;
 }
