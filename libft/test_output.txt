@@ -1,2 +1,0 @@
-return 0
-Test ft_isascii KO!
