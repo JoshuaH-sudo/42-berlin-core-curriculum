@@ -27,7 +27,7 @@ ar: all
 	ar rcs $(NAME) *.o
 
 test: all ar
-	cc -lbsd -o test test.c $(NAME)
+	cc -o test test.c $(NAME)
 	echo "Running tests:"
 	./test | tee test_output.txt
 	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
