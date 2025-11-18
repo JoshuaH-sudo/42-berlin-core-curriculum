@@ -16,7 +16,7 @@ int ft_isalpha(int c)
 	{
 		return (0);
 	}
-	return (c);
+	return (1);
 }
 
 /*

@@ -64,9 +64,13 @@ int test_ft_isalpha(void)
 {
     int ok = 1;
     ok &= (ft_isalpha('A') == isalpha('A'));
+    printf("checked A: %d\n", ok);
     ok &= (ft_isalpha('z') == isalpha('z'));
+    printf("checked z: %d\n", ok);
     ok &= (ft_isalpha('1') == isalpha('1'));
+    printf("checked 1: %d\n", ok);
     ok &= (ft_isalpha('@') == isalpha('@'));
+    printf("checked @: %d\n", ok);
     return ok;
 }
 
@@ -92,9 +96,13 @@ int test_ft_isdigit(void)
 {
     int ok = 1;
     ok &= (ft_isdigit('0') == isdigit('0'));
+    printf("checked '0': %d\n", ok);
     ok &= (ft_isdigit('9') == isdigit('9'));
+    printf("checked '9': %d\n", ok);
     ok &= (ft_isdigit('a') == isdigit('a'));
+    printf("checked 'a': %d\n", ok);
     ok &= (ft_isdigit('/') == isdigit('/'));
+    printf("checked '/': %d\n", ok);
     return ok;
 }
 
@@ -102,9 +110,15 @@ int test_ft_isprint(void)
 {
     int ok = 1;
     ok &= (ft_isprint(32) == isprint(32));
+    printf("checked 32: %d\n", ok);
+    ok &= (ft_isprint(126) == isprint(126));
+    printf("checked 126: %d\n", ok);
     ok &= (ft_isprint(127) == isprint(127));
+    printf("checked 127: %d\n", ok);
     ok &= (ft_isprint(31) == isprint(31));
+    printf("checked 31: %d\n", ok);
     ok &= (ft_isprint(128) == isprint(128));
+    printf("checked 128: %d\n", ok);
     return ok;
 }
 
