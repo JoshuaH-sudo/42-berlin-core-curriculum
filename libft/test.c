@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 19:17:01 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 19:30:20 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,75 @@ int test_ft_toupper(void)
     return ok;
 }
 
+int test_ft_strlcpy(void)
+{
+    int ok = 1;
+    
+    // Test basic functionality
+    char src[] = "hello, world!";
+    char dest1[20];
+    char dest2[20];
+    unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
+    unsigned int ret2 = strlen(src); // strlcpy should return source length
+    ok &= (strcmp(dest1, src) == 0) && (strcmp(dest2, src) == 0) && (ret1 == ret2);
+    printf("checked basic copy: %d (ret1=%d, ret2=%d)\n", ok, ret1, ret2);
+    
+    // Test size smaller than source
+    char dest3[6];
+    unsigned int ret3 = ft_strlcpy(dest3, src, sizeof(dest3));
+    ok &= (strncmp(dest3, "hello", 5) == 0) && (dest3[5] == '\0') && (ret3 == strlen(src));
+    printf("checked truncated copy: %d\n", ok);
+    
+    // Test size 0
+    char dest4[20] = "unchanged";
+    unsigned int ret4 = ft_strlcpy(dest4, src, 0);
+    ok &= (strcmp(dest4, "unchanged") == 0) && (ret4 == strlen(src));
+    printf("checked size 0: %d\n", ok);
+    
+    // Test empty source
+    char empty[] = "";
+    char dest5[10];
+    unsigned int ret5 = ft_strlcpy(dest5, empty, sizeof(dest5));
+    ok &= (strcmp(dest5, "") == 0) && (ret5 == 0);
+    printf("checked empty source: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_strlcat(void)
+{
+    int ok = 1;
+    
+    // Test basic concatenation
+    char dest1[20] = "hello ";
+    char src[] = "world";
+    unsigned int ret1 = ft_strlcat(dest1, src, sizeof(dest1));
+    unsigned int expected_ret1 = strlen("hello ") + strlen("world");
+    ok &= (strcmp(dest1, "hello world") == 0) && (ret1 == expected_ret1);
+    printf("checked basic cat: %d (ret=%d, expected=%d)\n", ok, ret1, expected_ret1);
+    
+    // Test size limit
+    char dest2[10] = "hello ";
+    unsigned int ret2 = ft_strlcat(dest2, "world!", sizeof(dest2));
+    ok &= (strcmp(dest2, "hello wor") == 0) && (dest2[9] == '\0') && (ret2 == strlen("hello ") + strlen("world!"));
+    printf("checked size limit: %d (result='%s')\n", ok, dest2);
+    
+    // Test dest length >= size
+    char dest3[5] = "hello";
+    unsigned int ret3 = ft_strlcat(dest3, "world", 3);
+    unsigned int expected_ret3 = 3 + strlen("world"); // size + src_len when dest_len >= size
+    ok &= (ret3 == expected_ret3);
+    printf("checked dest >= size: %d\n", ok);
+    
+    // Test empty source
+    char dest4[20] = "hello";
+    unsigned int ret4 = ft_strlcat(dest4, "", sizeof(dest4));
+    ok &= (strcmp(dest4, "hello") == 0) && (ret4 == strlen("hello"));
+    printf("checked empty src: %d\n", ok);
+    
+    return ok;
+}
+
 int main(void)
 {
     run_test("ft_bzero", test_ft_bzero);
@@ -276,7 +345,9 @@ int main(void)
     // run_test("ft_strlcpy", test_ft_strlcpy);
     // run_test("ft_strlcat", test_ft_strlcat);
     run_test("ft_strnstr", test_ft_strnstr);
-    run_test("ft_strlowcase", test_ft_tolower);
-    run_test("ft_strupcase", test_ft_toupper);
+    run_test("ft_tolower", test_ft_tolower);
+    run_test("ft_toupper", test_ft_toupper);
+    run_test("ft_strlcpy", test_ft_strlcpy);
+    run_test("ft_strlcat", test_ft_strlcat);
     return 0;
 }

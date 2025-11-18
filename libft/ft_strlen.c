@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 16:55:42 by jhoban            #+#    #+#             */
-/*   Updated: 2025/10/19 16:59:20 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 19:19:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,3 @@ int	ft_strlen(char *str)
 	}
 	return (index);
 }
-
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char word[] = "hello world";
-	int result = ft_strlen(word);
-
-	printf("word: %s\nlength: %d", word, result);
-}
-*/

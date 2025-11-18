@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:19:08 by jhoban            #+#    #+#             */
-/*   Updated: 2025/10/18 13:45:19 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 19:19:41 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,3 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 	}
 	return (index);
 }
-
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	*src = "hello, world!";
-	char	dest[10]; // should get: "Hello, wo"
-
-	printf("src: %s\ndest_size:%lu", src, sizeof(dest));
-
-	ft_strlcpy(dest, src, sizeof(dest));
-	printf("\n\n");
-
-	printf("dest: %s", dest);
-}
-*/

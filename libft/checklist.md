@@ -9,8 +9,8 @@
 - memchr
 - memcmp
 - bzero
-- toupper
-- tolower
+- ~~toupper~~
+- ~~tolower~~
 - strlcpy
 - strlcat
 - strlen
