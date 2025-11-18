@@ -13,6 +13,14 @@
 #include "libft.h"
 #include <stdio.h>
 
+void  run_test(char *name, int (*fn)(void))
+{
+    printf("Running test: %s\n", name);
+    if (fn())
+        printf("Test %s passed!\n", name);
+    else
+        printf("Test %s failed!\n", name);
+}
 
 int test_ft_bzero(void)
 {
@@ -25,11 +33,21 @@ int test_ft_bzero(void)
     return 0; // Test failed
 }
 
+int test_ft_memcpy(void)
+{
+    char src[] = "Hello, World!";
+    char dest1[20];
+    char dest2[20];
+    ft_memcpy(dest1, src, sizeof(src));
+    memcpy(dest2, src, sizeof(src));
+    if (memcmp(dest1, dest2, sizeof(src)) == 0)
+        return 1; // Test passed
+    return 0; // Test failed
+}
+
 int main(void)
 {
-    if (test_ft_bzero())
-        printf("ft_bzero test passed!\n");
-    else
-        printf("ft_bzero test failed!\n");
+    run_test("ft_bzero", test_ft_bzero);
+    run_test("ft_memcpy", test_ft_memcpy);
     return 0;
 }

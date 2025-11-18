@@ -25,7 +25,7 @@ fclean: clean
 ar: all
 	ar rcs $(NAME) *.o
 
-test: all
+test: all ar
 	cc -o test test.c $(NAME)
 	echo "Running tests:"
 	./test
