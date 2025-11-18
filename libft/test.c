@@ -6,13 +6,14 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/17 21:38:32 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 16:23:13 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 void  run_test(char *name, int (*fn)(void))
 {
