@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 20:31:27 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:10:34 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,142 @@ int test_ft_memmove(void)
     memmove(same_test2, same_test2, strlen(same_test2));
     ok &= (memcmp(same_test1, same_test2, sizeof(same_test1)) == 0);
     printf("checked same src/dest: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_memset(void)
+{
+    int ok = 1;
+    
+    // Test 1: Basic functionality with character
+    char test1[20] = "hello world";
+    char test2[20] = "hello world";
+    
+    ft_memset(test1, 'X', 5);
+    memset(test2, 'X', 5);
+    ok &= (memcmp(test1, test2, 20) == 0);
+    printf("checked basic char fill: %d\n", ok);
+    
+    // Test 2: Fill entire buffer
+    char buf1[10];
+    char buf2[10];
+    
+    ft_memset(buf1, 'A', sizeof(buf1));
+    memset(buf2, 'A', sizeof(buf2));
+    ok &= (memcmp(buf1, buf2, sizeof(buf1)) == 0);
+    printf("checked full buffer fill: %d\n", ok);
+    
+    // Test 3: Fill with zero
+    char zero1[15] = "some test data";
+    char zero2[15] = "some test data";
+    
+    ft_memset(zero1, 0, 10);
+    memset(zero2, 0, 10);
+    ok &= (memcmp(zero1, zero2, 15) == 0);
+    printf("checked zero fill: %d\n", ok);
+    
+    // Test 4: Fill with byte value > 127
+    unsigned char high1[8];
+    unsigned char high2[8];
+    
+    ft_memset(high1, 255, sizeof(high1));
+    memset(high2, 255, sizeof(high2));
+    ok &= (memcmp(high1, high2, sizeof(high1)) == 0);
+    printf("checked high byte value: %d\n", ok);
+    
+    // Test 5: Zero length
+    char unchanged1[10] = "unchanged";
+    char unchanged2[10] = "unchanged";
+    
+    ft_memset(unchanged1, 'Z', 0);
+    memset(unchanged2, 'Z', 0);
+    ok &= (memcmp(unchanged1, unchanged2, 10) == 0);
+    printf("checked zero length: %d\n", ok);
+    
+    // Test 6: Integer array (testing byte-by-byte fill)
+    int int_arr1[5] = {1, 2, 3, 4, 5};
+    int int_arr2[5] = {1, 2, 3, 4, 5};
+    
+    ft_memset(int_arr1, 0, sizeof(int_arr1));
+    memset(int_arr2, 0, sizeof(int_arr2));
+    ok &= (memcmp(int_arr1, int_arr2, sizeof(int_arr1)) == 0);
+    printf("checked integer array: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_memcmp(void)
+{
+    int ok = 1;
+    
+    // Test 1: Equal strings
+    char str1[] = "hello world";
+    char str2[] = "hello world";
+    
+    int ft_result = ft_memcmp(str1, str2, 11);
+    int std_result = memcmp(str1, str2, 11);
+    ok &= ((ft_result == 0) == (std_result == 0));
+    printf("checked equal strings: %d\n", ok);
+    
+    // Test 2: Different strings - first different
+    char diff1[] = "abc";
+    char diff2[] = "abd";
+    
+    ft_result = ft_memcmp(diff1, diff2, 3);
+    std_result = memcmp(diff1, diff2, 3);
+    ok &= ((ft_result < 0) == (std_result < 0));
+    printf("checked first string smaller: %d\n", ok);
+    
+    // Test 3: Different strings - second different
+    ft_result = ft_memcmp(diff2, diff1, 3);
+    std_result = memcmp(diff2, diff1, 3);
+    ok &= ((ft_result > 0) == (std_result > 0));
+    printf("checked first string larger: %d\n", ok);
+    
+    // Test 4: Zero length comparison
+    ft_result = ft_memcmp("abc", "xyz", 0);
+    std_result = memcmp("abc", "xyz", 0);
+    ok &= (ft_result == std_result);
+    printf("checked zero length: %d\n", ok);
+    
+    // Test 5: Partial comparison
+    char partial1[] = "abcdef";
+    char partial2[] = "abcxyz";
+    
+    ft_result = ft_memcmp(partial1, partial2, 3);
+    std_result = memcmp(partial1, partial2, 3);
+    ok &= (ft_result == std_result);
+    printf("checked partial equal: %d\n", ok);
+    
+    ft_result = ft_memcmp(partial1, partial2, 4);
+    std_result = memcmp(partial1, partial2, 4);
+    ok &= ((ft_result < 0) == (std_result < 0));
+    printf("checked partial different: %d\n", ok);
+    
+    // Test 6: Binary data with null bytes
+    unsigned char bin1[] = {0x01, 0x02, 0x00, 0x04, 0x05};
+    unsigned char bin2[] = {0x01, 0x02, 0x00, 0x04, 0x05};
+    unsigned char bin3[] = {0x01, 0x02, 0x00, 0x03, 0x05};
+    
+    ft_result = ft_memcmp(bin1, bin2, 5);
+    std_result = memcmp(bin1, bin2, 5);
+    ok &= (ft_result == std_result);
+    printf("checked binary equal: %d\n", ok);
+    
+    ft_result = ft_memcmp(bin1, bin3, 5);
+    std_result = memcmp(bin1, bin3, 5);
+    ok &= ((ft_result > 0) == (std_result > 0));
+    printf("checked binary different: %d\n", ok);
+    
+    // Test 7: Unsigned char comparison (important for values > 127)
+    unsigned char high1[] = {200, 100};
+    unsigned char high2[] = {100, 200};
+    
+    ft_result = ft_memcmp(high1, high2, 2);
+    std_result = memcmp(high1, high2, 2);
+    ok &= ((ft_result > 0) == (std_result > 0));
+    printf("checked high byte values: %d\n", ok);
     
     return ok;
 }
@@ -381,22 +517,22 @@ int test_ft_strlcat(void)
 
 int main(void)
 {
-    // run_test("ft_bzero", test_ft_bzero);
-    run_test("ft_memcpy", test_ft_memcpy);
-    run_test("ft_memmove", test_ft_memmove);
-    /*
-    run_test("ft_memchr", test_ft_memchr);
+    run_test("ft_bzero", test_ft_bzero);
     run_test("ft_isalpha", test_ft_isalpha);
     run_test("ft_isascii", test_ft_isascii);
     run_test("ft_isdigit", test_ft_isdigit);
     run_test("ft_isprint", test_ft_isprint);
+    run_test("ft_tolower", test_ft_tolower);
+    run_test("ft_toupper", test_ft_toupper);
     run_test("ft_strlen", test_ft_strlen);
     run_test("ft_strncmp", test_ft_strncmp);
     run_test("ft_strnstr", test_ft_strnstr);
-    run_test("ft_tolower", test_ft_tolower);
-    run_test("ft_toupper", test_ft_toupper);
     run_test("ft_strlcpy", test_ft_strlcpy);
     run_test("ft_strlcat", test_ft_strlcat);
-    */
+    run_test("ft_memcpy", test_ft_memcpy);
+    run_test("ft_memmove", test_ft_memmove);
+    run_test("ft_memset", test_ft_memset);
+    run_test("ft_memcmp", test_ft_memcmp);
+    run_test("ft_memchr", test_ft_memchr);
     return 0;
 }
