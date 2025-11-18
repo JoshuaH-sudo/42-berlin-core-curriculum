@@ -6,11 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:20:21 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 19:17:50 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:16:09 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char ft_tolower(int c)
+int ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
 		c += 32;

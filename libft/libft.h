@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:09:56 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:16:37 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char *ft_strnstr(char *str, char *to_find);
 unsigned int ft_strlcat(char *dest, char *src, unsigned int size);
 unsigned int ft_strlcpy(char *dest, char *src, unsigned int size);
 int ft_atoi(char *str);
-char *ft_tolower(char *str);
-char *ft_toupper(char *str);
+int ft_tolower(int c);
+int ft_toupper(int c);
 void ft_bzero(void *s, size_t n);
 void *ft_memcpy(void *dest, const void *src, size_t n);
 void *ft_memmove(void *dest, const void *src, size_t n);

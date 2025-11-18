@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:10:34 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:15:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,29 +389,40 @@ int test_ft_strnstr(void)
 int test_ft_tolower(void)
 {
     int ok = 1;
-    char test1[] = "HELLO WORLD";
-    char expected1[] = "hello world";
-    char *result1 = ft_tolower(test1);
-    ok &= (strcmp(result1, expected1) == 0);
-    printf("checked uppercase to lowercase: %d\n", ok);
     
-    char test2[] = "hello world";
-    char expected2[] = "hello world";
-    char *result2 = ft_tolower(test2);
-    ok &= (strcmp(result2, expected2) == 0);
-    printf("checked already lowercase: %d\n", ok);
+    // Test uppercase letters
+    ok &= (ft_tolower('A') == tolower('A'));
+    printf("checked 'A': %d\n", ok);
+    ok &= (ft_tolower('Z') == tolower('Z'));
+    printf("checked 'Z': %d\n", ok);
+    ok &= (ft_tolower('M') == tolower('M'));
+    printf("checked 'M': %d\n", ok);
     
-    char test3[] = "Hello123World!";
-    char expected3[] = "hello123world!";
-    char *result3 = ft_tolower(test3);
-    ok &= (strcmp(result3, expected3) == 0);
-    printf("checked mixed case with numbers/symbols: %d\n", ok);
+    // Test lowercase letters (should remain unchanged)
+    ok &= (ft_tolower('a') == tolower('a'));
+    printf("checked 'a': %d\n", ok);
+    ok &= (ft_tolower('z') == tolower('z'));
+    printf("checked 'z': %d\n", ok);
+    ok &= (ft_tolower('m') == tolower('m'));
+    printf("checked 'm': %d\n", ok);
     
-    char test4[] = "";
-    char expected4[] = "";
-    char *result4 = ft_tolower(test4);
-    ok &= (strcmp(result4, expected4) == 0);
-    printf("checked empty string: %d\n", ok);
+    // Test non-alphabetic characters (should remain unchanged)
+    ok &= (ft_tolower('0') == tolower('0'));
+    printf("checked '0': %d\n", ok);
+    ok &= (ft_tolower('9') == tolower('9'));
+    printf("checked '9': %d\n", ok);
+    ok &= (ft_tolower('!') == tolower('!'));
+    printf("checked '!': %d\n", ok);
+    ok &= (ft_tolower(' ') == tolower(' '));
+    printf("checked space: %d\n", ok);
+    ok &= (ft_tolower('@') == tolower('@'));
+    printf("checked '@': %d\n", ok);
+    
+    // Test edge cases
+    ok &= (ft_tolower(0) == tolower(0));
+    printf("checked null char: %d\n", ok);
+    ok &= (ft_tolower(127) == tolower(127));
+    printf("checked 127: %d\n", ok);
     
     return ok;
 }
@@ -419,31 +430,42 @@ int test_ft_tolower(void)
 int test_ft_toupper(void)
 {
     int ok = 1;
-    char test1[] = "hello world";
-    char expected1[] = "HELLO WORLD";
-    char *result1 = ft_toupper(test1);
-    ok &= (strcmp(result1, expected1) == 0);
-    printf("checked lowercase to uppercase: %d\n", ok);
     
-    char test2[] = "HELLO WORLD";
-    char expected2[] = "HELLO WORLD";
-    char *result2 = ft_toupper(test2);
-    ok &= (strcmp(result2, expected2) == 0);
-    printf("checked already uppercase: %d\n", ok);
+    // Test lowercase letters
+    ok &= (ft_toupper('a') == toupper('a'));
+    printf("checked 'a': %d\n", ok);
+    ok &= (ft_toupper('z') == toupper('z'));
+    printf("checked 'z': %d\n", ok);
+    ok &= (ft_toupper('m') == toupper('m'));
+    printf("checked 'm': %d\n", ok);
     
-    char test3[] = "Hello123World!";
-    char expected3[] = "HELLO123WORLD!";
-    char *result3 = ft_toupper(test3);
-    ok &= (strcmp(result3, expected3) == 0);
-    printf("checked mixed case with numbers/symbols: %d\n", ok);
+    // Test uppercase letters (should remain unchanged)
+    ok &= (ft_toupper('A') == toupper('A'));
+    printf("checked 'A': %d\n", ok);
+    ok &= (ft_toupper('Z') == toupper('Z'));
+    printf("checked 'Z': %d\n", ok);
+    ok &= (ft_toupper('M') == toupper('M'));
+    printf("checked 'M': %d\n", ok);
     
-    char test4[] = "";
-    char expected4[] = "";
-    char *result4 = ft_toupper(test4);
-    ok &= (strcmp(result4, expected4) == 0);
-    printf("checked empty string: %d\n", ok);
+    // Test non-alphabetic characters (should remain unchanged)
+    ok &= (ft_toupper('0') == toupper('0'));
+    printf("checked '0': %d\n", ok);
+    ok &= (ft_toupper('9') == toupper('9'));
+    printf("checked '9': %d\n", ok);
+    ok &= (ft_toupper('!') == toupper('!'));
+    printf("checked '!': %d\n", ok);
+    ok &= (ft_toupper(' ') == toupper(' '));
+    printf("checked space: %d\n", ok);
+    ok &= (ft_toupper('@') == toupper('@'));
+    printf("checked '@': %d\n", ok);
     
-    return (ok);
+    // Test edge cases
+    ok &= (ft_toupper(0) == toupper(0));
+    printf("checked null char: %d\n", ok);
+    ok &= (ft_toupper(127) == toupper(127));
+    printf("checked 127: %d\n", ok);
+    
+    return ok;
 }
 
 int test_ft_strlcpy(void)
