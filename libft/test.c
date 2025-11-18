@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 19:30:20 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 20:31:27 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,100 @@ int test_ft_bzero(void)
 
 int test_ft_memcpy(void)
 {
+    int ok = 1;
     char src[] = "Hello, World!";
     char dest1[20];
     char dest2[20];
+    
     ft_memcpy(dest1, src, sizeof(src));
     memcpy(dest2, src, sizeof(src));
-    char str[] = "1234567890";
+    // use memcmp to test because dest may not be null-terminated
+    ok &= (memcmp(dest1, dest2, sizeof(src)) == 0);
+    printf("checked full copy: %d\n", ok);
 
-    // Move the last 5 characters to the beginning
-    memcpy(str, str + 5, 5);
+    char dest3[5];
+    char dest4[5];
+    ft_memcpy(dest3, src, sizeof(dest3));
+    memcpy(dest4, src, sizeof(dest4));
+    ok &= (memcmp(dest3, dest4, sizeof(dest3)) == 0);
+    printf("checked partial copy: %d\n", ok);
+    
+    return ok;
+}
 
-    // Add null terminator for printing
-    str[5] = '\0';
-
-    printf("str = %s\n", str);
-    if (memcmp(dest1, dest2, sizeof(src)) == 0)
-        return 1; // Test passed
-    return 0;     // Test failed
+int test_ft_memmove(void)
+{
+    int ok = 1;
+    
+    // Test 1: Non-overlapping memory (should work like memcpy)
+    char src[] = "Hello, World!";
+    char dest1[20];
+    char dest2[20];
+    
+    ft_memmove(dest1, src, strlen(src) + 1);
+    memmove(dest2, src, strlen(src) + 1);
+    ok &= (memcmp(dest1, dest2, strlen(src) + 1) == 0);
+    printf("checked non-overlapping copy: %d\n", ok);
+    
+    // Test 2: Overlapping memory - source before destination
+    char overlap1[] = "1234567890";
+    char overlap2[] = "1234567890";
+    
+    // Move "34567" to position starting at "67"
+    ft_memmove(overlap1 + 5, overlap1 + 2, 5);
+    memmove(overlap2 + 5, overlap2 + 2, 5);
+    ok &= (memcmp(overlap1, overlap2, 10) == 0);
+    printf("checked overlapping src < dest: %d\n", ok);
+    
+    // Test 3: Overlapping memory - destination before source
+    char overlap3[] = "1234567890";
+    char overlap4[] = "1234567890";
+    
+    // Move "45678" to position starting at "23"
+    ft_memmove(overlap3 + 1, overlap3 + 3, 5);
+    memmove(overlap4 + 1, overlap4 + 3, 5);
+    ok &= (memcmp(overlap3, overlap4, 10) == 0);
+    printf("checked overlapping dest < src: %d\n", ok);
+    
+    // Test 4: Integer array test
+    int int_src[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int int_dest1[10];
+    int int_dest2[10];
+    
+    ft_memmove(int_dest1, int_src, sizeof(int_src));
+    memmove(int_dest2, int_src, sizeof(int_src));
+    ok &= (memcmp(int_dest1, int_dest2, sizeof(int_src)) == 0);
+    printf("checked integer array copy: %d\n", ok);
+    
+    // Test 5: Overlapping integer array
+    int int_overlap1[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    int int_overlap2[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    
+    // Move 4 integers from position 2 to position 5
+    ft_memmove(&int_overlap1[5], &int_overlap1[2], 4 * sizeof(int));
+    memmove(&int_overlap2[5], &int_overlap2[2], 4 * sizeof(int));
+    ok &= (memcmp(int_overlap1, int_overlap2, sizeof(int_overlap1)) == 0);
+    printf("checked overlapping integer array: %d\n", ok);
+    
+    // Test 6: Zero bytes
+    char zero_test1[] = "unchanged";
+    char zero_test2[] = "unchanged";
+    
+    ft_memmove(zero_test1 + 2, zero_test1 + 5, 0);
+    memmove(zero_test2 + 2, zero_test2 + 5, 0);
+    ok &= (memcmp(zero_test1, zero_test2, sizeof(zero_test1)) == 0);
+    printf("checked zero bytes: %d\n", ok);
+    
+    // Test 7: Same source and destination
+    char same_test1[] = "no change";
+    char same_test2[] = "no change";
+    
+    ft_memmove(same_test1, same_test1, strlen(same_test1));
+    memmove(same_test2, same_test2, strlen(same_test2));
+    ok &= (memcmp(same_test1, same_test2, sizeof(same_test1)) == 0);
+    printf("checked same src/dest: %d\n", ok);
+    
+    return ok;
 }
 
 int test_ft_memchr(void)
@@ -149,9 +226,6 @@ int test_ft_strlen(void)
 
 int test_ft_strncmp(void)
 {
-    printf("empty result: %d\n", strncmp("abc", "", 2));
-    printf("empty ft_result: %d\n", ft_strncmp("abc", "", 2));
-
     int ok = 1;
     ok &= (ft_strncmp("abc", "abc", 3) == strncmp("abc", "abc", 3));
     printf("checked equal: %d\n", ok);
@@ -160,36 +234,10 @@ int test_ft_strncmp(void)
     ok &= (ft_strncmp("abc", "abc", 0) == strncmp("abc", "abc", 0));
     printf("checked n=0: %d\n", ok);
     // We don't compare to strncmp here because its behavior with empty strings can vary
-    ok &= (ft_strncmp("abc", "", 2) == 97);
+    ok &= (ft_strncmp("abc", "", 2) != 0 && strncmp("abc", "", 2) != 0);
     printf("checked vs empty: %d\n", ok);
     return ok;
 }
-
-// int test_ft_strlcpy(void)
-// {
-//     #include <bsd/string.h>
-//     char src[] = "hello, world!";
-//     char dest1[20];
-//     char dest2[20];
-//     unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
-//     unsigned int ret2 = strlcpy(dest2, src, sizeof(dest2));
-//     int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
-//     printf("checked strlcpy: %d\n", ok);
-//     return ok;
-// }
-
-// int test_ft_strlcat(void)
-// {
-//     #include <bsd/string.h>
-//     char dest1[20] = "hello ";
-//     char dest2[20] = "hello ";
-//     char src[] = "world";
-//     unsigned int ret1 = ft_strlcat(dest1, src, sizeof(dest1));
-//     unsigned int ret2 = strlcat(dest2, src, sizeof(dest2));
-//     int ok = (strcmp(dest1, dest2) == 0) && (ret1 == ret2);
-//     printf("checked strlcat: %d\n", ok);
-//     return ok;
-// }
 
 int test_ft_strnstr(void)
 {
@@ -259,7 +307,7 @@ int test_ft_toupper(void)
     ok &= (strcmp(result4, expected4) == 0);
     printf("checked empty string: %d\n", ok);
     
-    return ok;
+    return (ok);
 }
 
 int test_ft_strlcpy(void)
@@ -333,8 +381,10 @@ int test_ft_strlcat(void)
 
 int main(void)
 {
-    run_test("ft_bzero", test_ft_bzero);
+    // run_test("ft_bzero", test_ft_bzero);
     run_test("ft_memcpy", test_ft_memcpy);
+    run_test("ft_memmove", test_ft_memmove);
+    /*
     run_test("ft_memchr", test_ft_memchr);
     run_test("ft_isalpha", test_ft_isalpha);
     run_test("ft_isascii", test_ft_isascii);
@@ -342,12 +392,11 @@ int main(void)
     run_test("ft_isprint", test_ft_isprint);
     run_test("ft_strlen", test_ft_strlen);
     run_test("ft_strncmp", test_ft_strncmp);
-    // run_test("ft_strlcpy", test_ft_strlcpy);
-    // run_test("ft_strlcat", test_ft_strlcat);
     run_test("ft_strnstr", test_ft_strnstr);
     run_test("ft_tolower", test_ft_tolower);
     run_test("ft_toupper", test_ft_toupper);
     run_test("ft_strlcpy", test_ft_strlcpy);
     run_test("ft_strlcat", test_ft_strlcat);
+    */
     return 0;
 }

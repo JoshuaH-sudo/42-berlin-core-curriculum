@@ -13,7 +13,7 @@
 - ~~tolower~~
 - strlcpy
 - strlcat
-- strlen
+- ~~strlen~~
 - strchr
 - strrchr
 - strncmp
