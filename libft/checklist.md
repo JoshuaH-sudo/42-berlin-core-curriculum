@@ -21,5 +21,5 @@
 - ~~atoi~~
 
 requires malloc():
-- calloc
-- strdup
+- ~~calloc~~
+- ~~strdup~~
