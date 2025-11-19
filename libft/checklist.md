@@ -18,7 +18,7 @@
 - ~~strrchr~~
 - ~~strncmp~~
 - ~~strnstr~~
-- atoi
+- ~~atoi~~
 
 requires malloc():
 - calloc

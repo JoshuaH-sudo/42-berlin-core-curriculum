@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:31:46 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:48:43 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -690,6 +690,143 @@ int test_ft_atoi(void)
     return ok;
 }
 
+int test_ft_strdup(void)
+{
+    int ok = 1;
+    
+    // Test basic string duplication
+    char src[] = "hello world";
+    char *ft_dup = ft_strdup(src);
+    char *std_dup = strdup(src);
+    ok &= (ft_dup != NULL && std_dup != NULL);
+    ok &= (strcmp(ft_dup, std_dup) == 0);
+    ok &= (ft_dup != src); // Should be different pointer
+    printf("checked basic dup: %d (ft='%s', std='%s')\n", ok, ft_dup ? ft_dup : "NULL", std_dup ? std_dup : "NULL");
+    free(ft_dup);
+    free(std_dup);
+    
+    // Test empty string
+    char empty[] = "";
+    ft_dup = ft_strdup(empty);
+    std_dup = strdup(empty);
+    ok &= (ft_dup != NULL && std_dup != NULL);
+    ok &= (strcmp(ft_dup, std_dup) == 0);
+    ok &= (strlen(ft_dup) == 0 && strlen(std_dup) == 0);
+    printf("checked empty string: %d (ft='%s', std='%s')\n", ok, ft_dup ? ft_dup : "NULL", std_dup ? std_dup : "NULL");
+    free(ft_dup);
+    free(std_dup);
+    
+    // Test single character
+    char single[] = "a";
+    ft_dup = ft_strdup(single);
+    std_dup = strdup(single);
+    ok &= (ft_dup != NULL && std_dup != NULL);
+    ok &= (strcmp(ft_dup, std_dup) == 0);
+    ok &= (strlen(ft_dup) == 1 && strlen(std_dup) == 1);
+    printf("checked single char: %d (ft='%s', std='%s')\n", ok, ft_dup ? ft_dup : "NULL", std_dup ? std_dup : "NULL");
+    free(ft_dup);
+    free(std_dup);
+    
+    // Test string with special characters
+    char special[] = "hello\tworld\n!@#$%^&*()";
+    ft_dup = ft_strdup(special);
+    std_dup = strdup(special);
+    ok &= (ft_dup != NULL && std_dup != NULL);
+    ok &= (strcmp(ft_dup, std_dup) == 0);
+    printf("checked special chars: %d\n", ok);
+    free(ft_dup);
+    free(std_dup);
+    
+    // Test longer string
+    char long_str[] = "This is a much longer string to test the duplication of longer content and ensure it works properly";
+    ft_dup = ft_strdup(long_str);
+    std_dup = strdup(long_str);
+    ok &= (ft_dup != NULL && std_dup != NULL);
+    ok &= (strcmp(ft_dup, std_dup) == 0);
+    ok &= (strlen(ft_dup) == strlen(long_str));
+    printf("checked long string: %d (len=%lu)\n", ok, strlen(ft_dup));
+    free(ft_dup);
+    free(std_dup);
+    
+    return ok;
+}
+
+int test_ft_calloc(void)
+{
+    int ok = 1;
+    
+    // Test basic allocation - integers
+    int *ft_mem = (int *)ft_calloc(5, sizeof(int));
+    int *std_mem = (int *)calloc(5, sizeof(int));
+    ok &= (ft_mem != NULL && std_mem != NULL);
+    // Check that memory is zeroed
+    int ft_zero = 1, std_zero = 1;
+    for (int i = 0; i < 5; i++) {
+        if (ft_mem[i] != 0) ft_zero = 0;
+        if (std_mem[i] != 0) std_zero = 0;
+    }
+    ok &= (ft_zero && std_zero);
+    printf("checked int calloc: %d (zeroed: ft=%d, std=%d)\n", ok, ft_zero, std_zero);
+    free(ft_mem);
+    free(std_mem);
+    
+    // Test character array allocation
+    char *ft_chars = (char *)ft_calloc(10, sizeof(char));
+    char *std_chars = (char *)calloc(10, sizeof(char));
+    ok &= (ft_chars != NULL && std_chars != NULL);
+    // Check that memory is zeroed
+    ft_zero = 1, std_zero = 1;
+    for (int i = 0; i < 10; i++) {
+        if (ft_chars[i] != '\0') ft_zero = 0;
+        if (std_chars[i] != '\0') std_zero = 0;
+    }
+    ok &= (ft_zero && std_zero);
+    printf("checked char calloc: %d (zeroed: ft=%d, std=%d)\n", ok, ft_zero, std_zero);
+    free(ft_chars);
+    free(std_chars);
+    
+    // Test zero count
+    ft_mem = (int *)ft_calloc(0, sizeof(int));
+    std_mem = (int *)calloc(0, sizeof(int));
+    // Both should either return NULL or a valid pointer that can be freed
+    // The behavior is implementation-defined, so we just check they behave the same
+    ok &= ((ft_mem == NULL) == (std_mem == NULL));
+    printf("checked zero count: %d (ft=%p, std=%p)\n", ok, (void*)ft_mem, (void*)std_mem);
+    if (ft_mem) free(ft_mem);
+    if (std_mem) free(std_mem);
+    
+    // Test zero size
+    ft_mem = (int *)ft_calloc(5, 0);
+    std_mem = (int *)calloc(5, 0);
+    ok &= ((ft_mem == NULL) == (std_mem == NULL));
+    printf("checked zero size: %d (ft=%p, std=%p)\n", ok, (void*)ft_mem, (void*)std_mem);
+    if (ft_mem) free(ft_mem);
+    if (std_mem) free(std_mem);
+    
+    // Test single element
+    ft_mem = (int *)ft_calloc(1, sizeof(int));
+    std_mem = (int *)calloc(1, sizeof(int));
+    ok &= (ft_mem != NULL && std_mem != NULL);
+    ok &= (*ft_mem == 0 && *std_mem == 0);
+    printf("checked single element: %d (ft=%d, std=%d)\n", ok, *ft_mem, *std_mem);
+    free(ft_mem);
+    free(std_mem);
+    
+    // Test larger allocation
+    size_t large_count = 1000;
+    ft_chars = (char *)ft_calloc(large_count, sizeof(char));
+    std_chars = (char *)calloc(large_count, sizeof(char));
+    ok &= (ft_chars != NULL && std_chars != NULL);
+    // Check first, middle, and last elements are zero
+    ok &= (ft_chars[0] == 0 && ft_chars[large_count/2] == 0 && ft_chars[large_count-1] == 0);
+    ok &= (std_chars[0] == 0 && std_chars[large_count/2] == 0 && std_chars[large_count-1] == 0);
+    printf("checked large allocation: %d (count=%lu)\n", ok, large_count);
+    free(ft_chars);
+    free(std_chars);
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -868,5 +1005,7 @@ int main(void)
     run_test("ft_memcmp", test_ft_memcmp);
     run_test("ft_memchr", test_ft_memchr);
     run_test("ft_atoi", test_ft_atoi);
+    run_test("ft_strdup", test_ft_strdup);
+    run_test("ft_calloc", test_ft_calloc);
     return 0;
 }
