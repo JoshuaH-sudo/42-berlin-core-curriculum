@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:53:56 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 15:43:29 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -896,6 +896,293 @@ int test_ft_calloc_edge_cases(void)
     return ok;
 }
 
+int test_ft_substr(void)
+{
+    int ok = 1;
+    char *result;
+    
+    // Test basic substring extraction
+    result = ft_substr("hello world", 0, 5);
+    ok &= (result != NULL && strcmp(result, "hello") == 0);
+    printf("checked basic substr: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test substring from middle
+    result = ft_substr("hello world", 6, 5);
+    ok &= (result != NULL && strcmp(result, "world") == 0);
+    printf("checked middle substr: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test start beyond string length
+    result = ft_substr("hello", 10, 3);
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked start beyond length: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test len greater than remaining string
+    result = ft_substr("hello", 2, 10);
+    ok &= (result != NULL && strcmp(result, "llo") == 0);
+    printf("checked len > remaining: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test empty string
+    result = ft_substr("", 0, 5);
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked empty string: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test len = 0
+    result = ft_substr("hello", 2, 0);
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked len = 0: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test single character
+    result = ft_substr("hello", 1, 1);
+    ok &= (result != NULL && strcmp(result, "e") == 0);
+    printf("checked single char: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test NULL input
+    result = ft_substr(NULL, 0, 5);
+    ok &= (result == NULL);
+    printf("checked NULL input: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_strjoin(void)
+{
+    int ok = 1;
+    char *result;
+    
+    // Test basic string joining
+    result = ft_strjoin("hello ", "world");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked basic join: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test empty first string
+    result = ft_strjoin("", "world");
+    ok &= (result != NULL && strcmp(result, "world") == 0);
+    printf("checked empty s1: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test empty second string
+    result = ft_strjoin("hello", "");
+    ok &= (result != NULL && strcmp(result, "hello") == 0);
+    printf("checked empty s2: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test both empty strings
+    result = ft_strjoin("", "");
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked both empty: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test longer strings
+    result = ft_strjoin("The quick brown ", "fox jumps over the lazy dog");
+    ok &= (result != NULL && strcmp(result, "The quick brown fox jumps over the lazy dog") == 0);
+    printf("checked long strings: %d (len=%lu)\n", ok, result ? strlen(result) : 0);
+    free(result);
+    
+    // Test single characters
+    result = ft_strjoin("a", "b");
+    ok &= (result != NULL && strcmp(result, "ab") == 0);
+    printf("checked single chars: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test NULL inputs
+    result = ft_strjoin(NULL, "world");
+    ok &= (result == NULL);
+    printf("checked NULL s1: %d\n", ok);
+    
+    result = ft_strjoin("hello", NULL);
+    ok &= (result == NULL);
+    printf("checked NULL s2: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_strtrim(void)
+{
+    int ok = 1;
+    char *result;
+    
+    // Test basic trimming
+    result = ft_strtrim("   hello world   ", " ");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked basic trim: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test multiple trim characters
+    result = ft_strtrim("...!!!hello world!!!...", ".!");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked multiple trim chars: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test no trimming needed
+    result = ft_strtrim("hello world", " ");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked no trim needed: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test trim entire string
+    result = ft_strtrim("   ", " ");
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked trim all: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test empty string
+    result = ft_strtrim("", " ");
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked empty string: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test empty set
+    result = ft_strtrim("  hello  ", "");
+    ok &= (result != NULL && strcmp(result, "  hello  ") == 0);
+    printf("checked empty set: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test trim only from beginning
+    result = ft_strtrim("...hello world", ".");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked trim beginning: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test trim only from end
+    result = ft_strtrim("hello world...", ".");
+    ok &= (result != NULL && strcmp(result, "hello world") == 0);
+    printf("checked trim end: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test NULL inputs
+    result = ft_strtrim(NULL, " ");
+    ok &= (result == NULL);
+    printf("checked NULL string: %d\n", ok);
+    
+    result = ft_strtrim("hello", NULL);
+    ok &= (result == NULL);
+    printf("checked NULL set: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_split(void)
+{
+    int ok = 1;
+    char **result;
+    int i;
+    
+    // Test basic split
+    result = ft_split("hello,world,test", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "hello") == 0);
+    ok &= (result[1] != NULL && strcmp(result[1], "world") == 0);
+    ok &= (result[2] != NULL && strcmp(result[2], "test") == 0);
+    ok &= (result[3] == NULL);
+    printf("checked basic split: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            printf("  [%d]: '%s'\n", i, result[i]);
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    // Test split with spaces
+    result = ft_split("hello world test", ' ');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "hello") == 0);
+    ok &= (result[1] != NULL && strcmp(result[1], "world") == 0);
+    ok &= (result[2] != NULL && strcmp(result[2], "test") == 0);
+    ok &= (result[3] == NULL);
+    printf("checked space split: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    // Test consecutive delimiters
+    result = ft_split("hello,,world", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "hello") == 0);
+    ok &= (result[1] != NULL && strcmp(result[1], "world") == 0);
+    ok &= (result[2] == NULL);
+    printf("checked consecutive delimiters: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    // Test leading and trailing delimiters
+    result = ft_split(",hello,world,", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "hello") == 0);
+    ok &= (result[1] != NULL && strcmp(result[1], "world") == 0);
+    ok &= (result[2] == NULL);
+    printf("checked leading/trailing delimiters: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    // Test no delimiters
+    result = ft_split("hello", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "hello") == 0);
+    ok &= (result[1] == NULL);
+    printf("checked no delimiters: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    // Test empty string
+    result = ft_split("", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] == NULL);
+    printf("checked empty string: %d\n", ok);
+    if (result) {
+        free(result);
+    }
+    
+    // Test only delimiters
+    result = ft_split(",,,", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] == NULL);
+    printf("checked only delimiters: %d\n", ok);
+    if (result) {
+        free(result);
+    }
+    
+    // Test single character strings
+    result = ft_split("a,b,c", ',');
+    ok &= (result != NULL);
+    ok &= (result[0] != NULL && strcmp(result[0], "a") == 0);
+    ok &= (result[1] != NULL && strcmp(result[1], "b") == 0);
+    ok &= (result[2] != NULL && strcmp(result[2], "c") == 0);
+    ok &= (result[3] == NULL);
+    printf("checked single chars: %d\n", ok);
+    if (result) {
+        for (i = 0; result[i]; i++) {
+            free(result[i]);
+        }
+        free(result);
+    }
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -1077,5 +1364,9 @@ int main(void)
     run_test("ft_strdup", test_ft_strdup);
     run_test("ft_calloc", test_ft_calloc);
     run_test("ft_calloc_edge_cases", test_ft_calloc_edge_cases);
+    run_test("ft_substr", test_ft_substr);
+    run_test("ft_strjoin", test_ft_strjoin);
+    run_test("ft_strtrim", test_ft_strtrim);
+    run_test("ft_split", test_ft_split);
     return 0;
 }

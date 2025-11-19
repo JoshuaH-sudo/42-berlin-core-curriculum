@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:06:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 15:40:58 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 15:44:03 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char **ft_split(char const *s, char c)
 {
     char **result;
     size_t count;
-    char *temp;
 
     count = count_substrings(s, c);
     result = (char **)malloc((count + 1) * sizeof(char *));

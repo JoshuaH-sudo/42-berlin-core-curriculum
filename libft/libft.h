@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 15:06:33 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 15:46:14 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int ft_isascii(int c);
 int ft_isdigit(int c);
 int ft_isprint(int c);
 void *ft_memset(void *str, int c, size_t n);
-int ft_strlen(const char *str);
+size_t ft_strlen(const char *str);
 int ft_strncmp(const char *s1, const char *s2, unsigned int n);
 char *ft_strchr(const char *s, int c);
 char *ft_strrchr(const char *s, int c);
