@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 16:42:40 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 16:59:14 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1291,6 +1291,162 @@ int test_ft_itoa(void)
     return ok;
 }
 
+// Helper functions for testing ft_strmapi and ft_striteri
+char test_toupper_with_index(unsigned int i, char c)
+{
+    (void)i; // Index not used in this test
+    if (c >= 'a' && c <= 'z')
+        return c - 32;
+    return c;
+}
+
+char add_index_to_char(unsigned int i, char c)
+{
+    // Add index to character (useful for testing)
+    if (c >= 'a' && c <= 'z')
+        return c + i;
+    return c;
+}
+
+void test_toupper_with_index_void(unsigned int i, char *c)
+{
+    (void)i; // Index not used in this test
+    if (*c >= 'a' && *c <= 'z')
+        *c = *c - 32;
+}
+
+void add_one_to_char(unsigned int i, char *c)
+{
+    (void)i; // Index not used in this test
+    if (*c >= 'a' && *c <= 'z')
+        *c = *c + 1;
+}
+
+void capitalize_even_indices(unsigned int i, char *c)
+{
+    if (i % 2 == 0 && *c >= 'a' && *c <= 'z')
+        *c = *c - 32;
+}
+
+int test_ft_strmapi(void)
+{
+    int ok = 1;
+    char *result;
+    
+    // Test basic uppercase conversion
+    result = ft_strmapi("hello world", test_toupper_with_index);
+    ok &= (result != NULL && strcmp(result, "HELLO WORLD") == 0);
+    printf("checked uppercase conversion: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test with empty string
+    result = ft_strmapi("", test_toupper_with_index);
+    ok &= (result != NULL && strcmp(result, "") == 0);
+    printf("checked empty string: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test with mixed case
+    result = ft_strmapi("HeLLo WoRLd", test_toupper_with_index);
+    ok &= (result != NULL && strcmp(result, "HELLO WORLD") == 0);
+    printf("checked mixed case: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test with numbers and symbols
+    result = ft_strmapi("hello123!@#", test_toupper_with_index);
+    ok &= (result != NULL && strcmp(result, "HELLO123!@#") == 0);
+    printf("checked with numbers/symbols: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test single character
+    result = ft_strmapi("a", test_toupper_with_index);
+    ok &= (result != NULL && strcmp(result, "A") == 0);
+    printf("checked single char: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test that original string is unchanged
+    char original[] = "hello";
+    result = ft_strmapi(original, test_toupper_with_index);
+    ok &= (strcmp(original, "hello") == 0); // Original should be unchanged
+    printf("checked original unchanged: %d\n", ok);
+    free(result);
+    
+    // Test NULL inputs
+    result = ft_strmapi(NULL, test_toupper_with_index);
+    ok &= (result == NULL);
+    printf("checked NULL string: %d\n", ok);
+    
+    result = ft_strmapi("hello", NULL);
+    ok &= (result == NULL);
+    printf("checked NULL function: %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_striteri(void)
+{
+    int ok = 1;
+    char test_str[100];
+    
+    // Test basic uppercase conversion (modifies in place)
+    strcpy(test_str, "hello world");
+    ft_striteri(test_str, test_toupper_with_index_void);
+    ok &= (strcmp(test_str, "HELLO WORLD") == 0);
+    printf("checked in-place uppercase: %d (result='%s')\n", ok, test_str);
+    
+    // Test with empty string
+    strcpy(test_str, "");
+    ft_striteri(test_str, test_toupper_with_index_void);
+    ok &= (strcmp(test_str, "") == 0);
+    printf("checked empty string: %d (result='%s')\n", ok, test_str);
+    
+    // Test character shifting
+    strcpy(test_str, "abc");
+    ft_striteri(test_str, add_one_to_char);
+    ok &= (strcmp(test_str, "bcd") == 0);
+    printf("checked char shifting: %d (result='%s')\n", ok, test_str);
+    
+    // Test with mixed content
+    strcpy(test_str, "hello123!@#");
+    ft_striteri(test_str, test_toupper_with_index_void);
+    ok &= (strcmp(test_str, "HELLO123!@#") == 0);
+    printf("checked mixed content: %d (result='%s')\n", ok, test_str);
+    
+    // Test single character
+    strcpy(test_str, "a");
+    ft_striteri(test_str, test_toupper_with_index_void);
+    ok &= (strcmp(test_str, "A") == 0);
+    printf("checked single char: %d (result='%s')\n", ok, test_str);
+    
+    // Test index-dependent transformation (capitalize even indices)
+    strcpy(test_str, "hello world");
+    ft_striteri(test_str, capitalize_even_indices);
+    ok &= (strcmp(test_str, "HeLlO WoRlD") == 0);
+    printf("checked index-dependent: %d (result='%s')\n", ok, test_str);
+    
+    // Test that function is called for each character
+    strcpy(test_str, "abcdef");
+    ft_striteri(test_str, add_one_to_char);
+    ok &= (strcmp(test_str, "bcdefg") == 0);
+    printf("checked all chars processed: %d (result='%s')\n", ok, test_str);
+    
+    // Test with longer string
+    strcpy(test_str, "the quick brown fox");
+    ft_striteri(test_str, test_toupper_with_index_void);
+    ok &= (strcmp(test_str, "THE QUICK BROWN FOX") == 0);
+    printf("checked longer string: %d (result='%s')\n", ok, test_str);
+    
+    // Test NULL inputs (should not crash)
+    ft_striteri(NULL, test_toupper_with_index_void);
+    printf("checked NULL string (no crash): 1\n");
+    
+    strcpy(test_str, "hello");
+    ft_striteri(test_str, NULL);
+    ok &= (strcmp(test_str, "hello") == 0); // Should remain unchanged
+    printf("checked NULL function (unchanged): %d\n", ok);
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -1477,5 +1633,8 @@ int main(void)
     run_test("ft_strtrim", test_ft_strtrim);
     run_test("ft_split", test_ft_split);
     run_test("ft_itoa", test_ft_itoa);
+    run_test("ft_strmapi", test_ft_strmapi);
+    run_test("ft_striteri", test_ft_striteri);
+    
     return 0;
 }
