@@ -14,10 +14,10 @@
 - ~~strlcpy~~
 - ~~strlcat~~
 - ~~strlen~~
-- strchr
-- strrchr
+- ~~strchr~~
+- ~~strrchr~~
 - ~~strncmp~~
-- strnstr
+- ~~strnstr~~
 - atoi
 
 requires malloc():

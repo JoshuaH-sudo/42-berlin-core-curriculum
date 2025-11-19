@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:12:16 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:31:46 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
 void run_test(char *name, int (*fn)(void))
 {
@@ -582,6 +583,113 @@ int test_ft_strnstr(void)
     return ok;
 }
 
+int test_ft_atoi(void)
+{
+    int ok = 1;
+    
+    // Test basic positive number
+    int ft_result = ft_atoi("123");
+    int std_result = atoi("123");
+    ok &= (ft_result == std_result);
+    printf("checked '123': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test basic negative number
+    ft_result = ft_atoi("-456");
+    std_result = atoi("-456");
+    ok &= (ft_result == std_result);
+    printf("checked '-456': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test zero
+    ft_result = ft_atoi("0");
+    std_result = atoi("0");
+    ok &= (ft_result == std_result);
+    printf("checked '0': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with leading whitespace
+    ft_result = ft_atoi("   42");
+    std_result = atoi("   42");
+    ok &= (ft_result == std_result);
+    printf("checked '   42': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with leading whitespace and sign
+    ft_result = ft_atoi("  -789");
+    std_result = atoi("  -789");
+    ok &= (ft_result == std_result);
+    printf("checked '  -789': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with positive sign
+    ft_result = ft_atoi("+123");
+    std_result = atoi("+123");
+    ok &= (ft_result == std_result);
+    printf("checked '+123': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with trailing non-digits
+    ft_result = ft_atoi("42abc");
+    std_result = atoi("42abc");
+    ok &= (ft_result == std_result);
+    printf("checked '42abc': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with no digits
+    ft_result = ft_atoi("abc");
+    std_result = atoi("abc");
+    ok &= (ft_result == std_result);
+    printf("checked 'abc': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test empty string
+    ft_result = ft_atoi("");
+    std_result = atoi("");
+    ok &= (ft_result == std_result);
+    printf("checked '': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with only whitespace
+    ft_result = ft_atoi("   ");
+    std_result = atoi("   ");
+    ok &= (ft_result == std_result);
+    printf("checked '   ': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with only sign
+    ft_result = ft_atoi("-");
+    std_result = atoi("-");
+    ok &= (ft_result == std_result);
+    printf("checked '-': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    ft_result = ft_atoi("+");
+    std_result = atoi("+");
+    ok &= (ft_result == std_result);
+    printf("checked '+': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with multiple signs (should stop at first non-sign)
+    ft_result = ft_atoi("--123");
+    std_result = atoi("--123");
+    ok &= (ft_result == std_result);
+    printf("checked '--123': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    ft_result = ft_atoi("+-123");
+    std_result = atoi("+-123");
+    ok &= (ft_result == std_result);
+    printf("checked '+-123': %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test with tabs and other whitespace
+    ft_result = ft_atoi("\\t\\n\\r 123");
+    std_result = atoi("\\t\\n\\r 123");
+    ok &= (ft_result == std_result);
+    printf("checked tab/newline/space: %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test large positive number
+    ft_result = ft_atoi("2147483647");
+    std_result = atoi("2147483647");
+    ok &= (ft_result == std_result);
+    printf("checked INT_MAX: %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    // Test large negative number
+    ft_result = ft_atoi("-2147483648");
+    std_result = atoi("-2147483648");
+    ok &= (ft_result == std_result);
+    printf("checked INT_MIN: %d (ft=%d, std=%d)\n", ok, ft_result, std_result);
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -759,5 +867,6 @@ int main(void)
     run_test("ft_memset", test_ft_memset);
     run_test("ft_memcmp", test_ft_memcmp);
     run_test("ft_memchr", test_ft_memchr);
+    run_test("ft_atoi", test_ft_atoi);
     return 0;
 }
