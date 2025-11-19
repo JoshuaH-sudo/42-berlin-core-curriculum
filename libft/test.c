@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 16:59:14 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:22:08 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 void run_test(char *name, int (*fn)(void))
 {
@@ -1603,6 +1605,262 @@ int test_ft_strlcat(void)
     return ok;
 }
 
+int test_ft_putchar_fd(void)
+{
+    int ok = 1;
+    char buffer[100];
+    int pipefd[2];
+    ssize_t bytes_read;
+
+    // Create a pipe for testing
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    // Test basic character output
+    ft_putchar_fd('A', pipefd[1]);
+    close(pipefd[1]);  // Close write end
+    bytes_read = read(pipefd[0], buffer, 1);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 1 && buffer[0] == 'A');
+    printf("checked basic char 'A': %d\n", ok);
+    close(pipefd[0]);
+
+    // Test with different characters
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putchar_fd('z', pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 1);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 1 && buffer[0] == 'z');
+    printf("checked char 'z': %d\n", ok);
+    close(pipefd[0]);
+
+    // Test with special characters
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putchar_fd('\n', pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 1);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 1 && buffer[0] == '\n');
+    printf("checked newline char: %d\n", ok);
+    close(pipefd[0]);
+
+    return ok;
+}
+
+int test_ft_putstr_fd(void)
+{
+    int ok = 1;
+    char buffer[100];
+    int pipefd[2];
+    ssize_t bytes_read;
+
+    // Create a pipe for testing
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    // Test basic string output
+    char *test_str = "hello";
+    ft_putstr_fd(test_str, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, strlen(test_str));
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == (ssize_t)strlen(test_str) && strcmp(buffer, test_str) == 0);
+    printf("checked basic string 'hello': %d\n", ok);
+    close(pipefd[0]);
+
+    // Test empty string
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putstr_fd("", pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    ok &= (bytes_read == 0);
+    printf("checked empty string: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test NULL string
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putstr_fd(NULL, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    ok &= (bytes_read == 0);
+    printf("checked NULL string: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test longer string
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    char *long_str = "hello world test string";
+    ft_putstr_fd(long_str, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, strlen(long_str));
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == (ssize_t)strlen(long_str) && strcmp(buffer, long_str) == 0);
+    printf("checked long string: %d\n", ok);
+    close(pipefd[0]);
+
+    return ok;
+}
+
+int test_ft_putendl_fd(void)
+{
+    int ok = 1;
+    char buffer[100];
+    int pipefd[2];
+    ssize_t bytes_read;
+
+    // Create a pipe for testing
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    // Test basic string output with newline
+    char *test_str = "hello";
+    ft_putendl_fd(test_str, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, strlen(test_str) + 1);
+    buffer[bytes_read] = '\0';
+    char expected[100];
+    strcpy(expected, test_str);
+    strcat(expected, "\n");
+    ok &= (bytes_read == (ssize_t)(strlen(test_str) + 1) && strcmp(buffer, expected) == 0);
+    printf("checked basic string with newline: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test empty string with newline
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putendl_fd("", pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 2);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 1 && buffer[0] == '\n');
+    printf("checked empty string with newline: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test NULL string
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putendl_fd(NULL, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    ok &= (bytes_read == 0);
+    printf("checked NULL string: %d\n", ok);
+    close(pipefd[0]);
+
+    return ok;
+}
+
+int test_ft_putnbr_fd(void)
+{
+    int ok = 1;
+    char buffer[100];
+    int pipefd[2];
+    ssize_t bytes_read;
+
+    // Test positive number
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putnbr_fd(123, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 3 && strcmp(buffer, "123") == 0);
+    printf("checked positive number 123: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test negative number
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putnbr_fd(-456, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 4 && strcmp(buffer, "-456") == 0);
+    printf("checked negative number -456: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test zero
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putnbr_fd(0, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 10);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 1 && strcmp(buffer, "0") == 0);
+    printf("checked zero: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test INT_MAX
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putnbr_fd(2147483647, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 15);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 10 && strcmp(buffer, "2147483647") == 0);
+    printf("checked INT_MAX: %d\n", ok);
+    close(pipefd[0]);
+
+    // Test INT_MIN
+    if (pipe(pipefd) == -1) {
+        printf("pipe creation failed\n");
+        return 0;
+    }
+
+    ft_putnbr_fd(-2147483648, pipefd[1]);
+    close(pipefd[1]);
+    bytes_read = read(pipefd[0], buffer, 15);
+    buffer[bytes_read] = '\0';
+    ok &= (bytes_read == 11 && strcmp(buffer, "-2147483648") == 0);
+    printf("checked INT_MIN: %d\n", ok);
+    close(pipefd[0]);
+
+    return ok;
+}
+
 int main(void)
 {
     run_test("ft_bzero", test_ft_bzero);
@@ -1635,6 +1893,10 @@ int main(void)
     run_test("ft_itoa", test_ft_itoa);
     run_test("ft_strmapi", test_ft_strmapi);
     run_test("ft_striteri", test_ft_striteri);
+    run_test("ft_putchar_fd", test_ft_putchar_fd);
+    run_test("ft_putstr_fd", test_ft_putstr_fd);
+    run_test("ft_putendl_fd", test_ft_putendl_fd);
+    run_test("ft_putnbr_fd", test_ft_putnbr_fd);
     
     return 0;
 }
