@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:48:43 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:53:56 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -827,6 +827,75 @@ int test_ft_calloc(void)
     return ok;
 }
 
+int test_ft_calloc_edge_cases(void)
+{
+    int ok = 1;
+    
+    // Test that calloc(0, size) returns a valid pointer that can be freed
+    void *ft_ptr1 = ft_calloc(0, sizeof(int));
+    void *std_ptr1 = calloc(0, sizeof(int));
+    
+    // Both should behave the same way (either both NULL or both non-NULL)
+    ok &= ((ft_ptr1 == NULL) == (std_ptr1 == NULL));
+    printf("checked calloc(0, sizeof(int)): %d (ft=%p, std=%p)\n", ok, ft_ptr1, std_ptr1);
+    
+    // If non-NULL, should be safely freeable
+    if (ft_ptr1) {
+        free(ft_ptr1);  // This should not crash
+        printf("ft_calloc(0, size) pointer freed successfully\n");
+    }
+    if (std_ptr1) {
+        free(std_ptr1);
+    }
+    
+    // Test that calloc(count, 0) returns a valid pointer that can be freed
+    void *ft_ptr2 = ft_calloc(5, 0);
+    void *std_ptr2 = calloc(5, 0);
+    
+    ok &= ((ft_ptr2 == NULL) == (std_ptr2 == NULL));
+    printf("checked calloc(5, 0): %d (ft=%p, std=%p)\n", ok, ft_ptr2, std_ptr2);
+    
+    // If non-NULL, should be safely freeable
+    if (ft_ptr2) {
+        free(ft_ptr2);  // This should not crash
+        printf("ft_calloc(count, 0) pointer freed successfully\n");
+    }
+    if (std_ptr2) {
+        free(std_ptr2);
+    }
+    
+    // Test that calloc(0, 0) returns a valid pointer that can be freed
+    void *ft_ptr3 = ft_calloc(0, 0);
+    void *std_ptr3 = calloc(0, 0);
+    
+    ok &= ((ft_ptr3 == NULL) == (std_ptr3 == NULL));
+    printf("checked calloc(0, 0): %d (ft=%p, std=%p)\n", ok, ft_ptr3, std_ptr3);
+    
+    // If non-NULL, should be safely freeable
+    if (ft_ptr3) {
+        free(ft_ptr3);  // This should not crash
+        printf("ft_calloc(0, 0) pointer freed successfully\n");
+    }
+    if (std_ptr3) {
+        free(std_ptr3);
+    }
+    
+    // Test multiple allocations to ensure each returns unique pointers
+    void *ft_ptr4 = ft_calloc(0, 1);
+    void *ft_ptr5 = ft_calloc(0, 1);
+    
+    // If both are non-NULL, they should be different (unique pointers)
+    if (ft_ptr4 && ft_ptr5) {
+        ok &= (ft_ptr4 != ft_ptr5);
+        printf("checked unique pointers for zero-size allocs: %d\n", ok);
+    }
+    
+    if (ft_ptr4) free(ft_ptr4);
+    if (ft_ptr5) free(ft_ptr5);
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -1007,5 +1076,6 @@ int main(void)
     run_test("ft_atoi", test_ft_atoi);
     run_test("ft_strdup", test_ft_strdup);
     run_test("ft_calloc", test_ft_calloc);
+    run_test("ft_calloc_edge_cases", test_ft_calloc_edge_cases);
     return 0;
 }
