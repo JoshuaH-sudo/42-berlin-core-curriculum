@@ -6,13 +6,13 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:11:16 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 16:40:46 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:09:32 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*convert(int nb, char *str, int start)
+static char	*convert(int nb, char *str, int start)
 {
 	int		mod;
 
@@ -28,7 +28,7 @@ char	*convert(int nb, char *str, int start)
   return str;
 }
 
-int count_digits(int n)
+static int count_digits(int n)
 {
   int	count;
 
