@@ -1183,6 +1183,114 @@ int test_ft_split(void)
     return ok;
 }
 
+int test_ft_itoa(void)
+{
+    int ok = 1;
+    char *result;
+    
+    // Test positive numbers
+    result = ft_itoa(123);
+    ok &= (result != NULL && strcmp(result, "123") == 0);
+    printf("checked positive 123: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(42);
+    ok &= (result != NULL && strcmp(result, "42") == 0);
+    printf("checked positive 42: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test negative numbers
+    result = ft_itoa(-123);
+    ok &= (result != NULL && strcmp(result, "-123") == 0);
+    printf("checked negative -123: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(-42);
+    ok &= (result != NULL && strcmp(result, "-42") == 0);
+    printf("checked negative -42: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test zero
+    result = ft_itoa(0);
+    ok &= (result != NULL && strcmp(result, "0") == 0);
+    printf("checked zero: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test single digit positive
+    result = ft_itoa(7);
+    ok &= (result != NULL && strcmp(result, "7") == 0);
+    printf("checked single digit 7: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test single digit negative
+    result = ft_itoa(-5);
+    ok &= (result != NULL && strcmp(result, "-5") == 0);
+    printf("checked single digit -5: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test larger numbers
+    result = ft_itoa(9876);
+    ok &= (result != NULL && strcmp(result, "9876") == 0);
+    printf("checked larger 9876: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(-9876);
+    ok &= (result != NULL && strcmp(result, "-9876") == 0);
+    printf("checked larger negative -9876: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test INT_MAX
+    result = ft_itoa(2147483647);
+    ok &= (result != NULL && strcmp(result, "2147483647") == 0);
+    printf("checked INT_MAX: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test INT_MIN
+    result = ft_itoa(-2147483648);
+    ok &= (result != NULL && strcmp(result, "-2147483648") == 0);
+    printf("checked INT_MIN: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test powers of 10
+    result = ft_itoa(10);
+    ok &= (result != NULL && strcmp(result, "10") == 0);
+    printf("checked 10: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(100);
+    ok &= (result != NULL && strcmp(result, "100") == 0);
+    printf("checked 100: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(1000);
+    ok &= (result != NULL && strcmp(result, "1000") == 0);
+    printf("checked 1000: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(-10);
+    ok &= (result != NULL && strcmp(result, "-10") == 0);
+    printf("checked -10: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(-100);
+    ok &= (result != NULL && strcmp(result, "-100") == 0);
+    printf("checked -100: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    // Test various multi-digit numbers
+    result = ft_itoa(12345);
+    ok &= (result != NULL && strcmp(result, "12345") == 0);
+    printf("checked 12345: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    result = ft_itoa(-54321);
+    ok &= (result != NULL && strcmp(result, "-54321") == 0);
+    printf("checked -54321: %d (result='%s')\n", ok, result ? result : "NULL");
+    free(result);
+    
+    return ok;
+}
+
 int test_ft_tolower(void)
 {
     int ok = 1;
@@ -1368,5 +1476,6 @@ int main(void)
     run_test("ft_strjoin", test_ft_strjoin);
     run_test("ft_strtrim", test_ft_strtrim);
     run_test("ft_split", test_ft_split);
+    run_test("ft_itoa", test_ft_itoa);
     return 0;
 }
