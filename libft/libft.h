@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:16:37 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:40:39 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void *ft_memset(void *str, int c, size_t n);
 int ft_strlen(char *str);
 int ft_strncmp(char *s1, char *s2, unsigned int n);
 char *ft_strnstr(char *str, char *to_find);
-unsigned int ft_strlcat(char *dest, char *src, unsigned int size);
-unsigned int ft_strlcpy(char *dest, char *src, unsigned int size);
+size_t ft_strlcat(char *dst, char *src, size_t dstsize);
+size_t ft_strlcpy(char *dst, char *src, size_t dstsize);
 int ft_atoi(char *str);
 int ft_tolower(int c);
 int ft_toupper(int c);

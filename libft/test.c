@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:15:26 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:52:03 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,33 +472,38 @@ int test_ft_strlcpy(void)
 {
     int ok = 1;
     
-    // Test basic functionality
+    // Test basic functionality - compare return value and result
     char src[] = "hello, world!";
     char dest1[20];
-    char dest2[20];
     unsigned int ret1 = ft_strlcpy(dest1, src, sizeof(dest1));
-    unsigned int ret2 = strlen(src); // strlcpy should return source length
-    ok &= (strcmp(dest1, src) == 0) && (strcmp(dest2, src) == 0) && (ret1 == ret2);
-    printf("checked basic copy: %d (ret1=%d, ret2=%d)\n", ok, ret1, ret2);
+    unsigned int expected_ret = strlen(src);
+    ok &= (strcmp(dest1, src) == 0) && (ret1 == expected_ret);
+    printf("checked basic copy: %d (ret1=%d, expected=%d, dest='%s')\n", ok, ret1, expected_ret, dest1);
     
-    // Test size smaller than source
+    // Test size smaller than source - should truncate but return full source length
     char dest3[6];
     unsigned int ret3 = ft_strlcpy(dest3, src, sizeof(dest3));
     ok &= (strncmp(dest3, "hello", 5) == 0) && (dest3[5] == '\0') && (ret3 == strlen(src));
-    printf("checked truncated copy: %d\n", ok);
+    printf("checked truncated copy: %d (ret3=%d, expected=%d, dest='%s')\n", ok, ret3, (unsigned int)strlen(src), dest3);
     
-    // Test size 0
+    // Test size 0 - should not modify dest, but return source length
     char dest4[20] = "unchanged";
     unsigned int ret4 = ft_strlcpy(dest4, src, 0);
     ok &= (strcmp(dest4, "unchanged") == 0) && (ret4 == strlen(src));
-    printf("checked size 0: %d\n", ok);
+    printf("checked size 0: %d (ret4=%d, expected=%d, dest='%s')\n", ok, ret4, (unsigned int)strlen(src), dest4);
     
     // Test empty source
     char empty[] = "";
     char dest5[10];
     unsigned int ret5 = ft_strlcpy(dest5, empty, sizeof(dest5));
     ok &= (strcmp(dest5, "") == 0) && (ret5 == 0);
-    printf("checked empty source: %d\n", ok);
+    printf("checked empty source: %d (ret5=%d, dest='%s')\n", ok, ret5, dest5);
+    
+    // Test exact size match
+    char dest6[14]; // exactly strlen("hello, world!") + 1
+    unsigned int ret6 = ft_strlcpy(dest6, src, sizeof(dest6));
+    ok &= (strcmp(dest6, src) == 0) && (ret6 == strlen(src));
+    printf("checked exact size: %d (ret6=%d, dest='%s')\n", ok, ret6, dest6);
     
     return ok;
 }

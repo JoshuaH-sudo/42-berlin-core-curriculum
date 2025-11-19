@@ -6,23 +6,25 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:19:08 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 19:19:41 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:19:34 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+#include <string.h>
+
+size_t ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
-	unsigned int	index;
+	size_t index;
 
 	index = 0;
-	if (size > 0)
+	if (dstsize > 0)
 	{
-		while (src[index] != '\0' && index < size - 1)
+		while (src[index] != '\0' && index < dstsize - 1)
 		{
-			dest[index] = src[index];
+			dst[index] = src[index];
 			index++;
 		}
-		dest[index] = '\0';
+		dst[index] = '\0';
 	}
 	return (index);
 }
