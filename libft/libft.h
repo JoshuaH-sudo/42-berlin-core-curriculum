@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 17:14:21 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:25:02 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int ft_strncmp(const char *s1, const char *s2, unsigned int n);
 char *ft_strchr(const char *s, int c);
 char *ft_strrchr(const char *s, int c);
 char *ft_strnstr(const char *haystack, const char *needle, size_t len);
-size_t ft_strlcat(char *dst, char *src, size_t dstsize);
-size_t ft_strlcpy(char *dst, char *src, size_t dstsize);
+size_t ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int ft_atoi(const char *str);
 int ft_tolower(int c);
 int ft_toupper(int c);

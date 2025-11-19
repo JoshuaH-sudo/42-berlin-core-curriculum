@@ -6,14 +6,14 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:19:08 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:20:13 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:25:11 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include "libft.h"
 
-size_t ft_strlcpy(char *dst, char *src, size_t dstsize)
+size_t ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t index;
 

@@ -6,13 +6,15 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 15:44:11 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:08:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:25:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
+#include "string.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned int	index;
+	size_t	index;
 
 	index = 0;
 	while ((s1[index] || s2[index]) && index < n)
