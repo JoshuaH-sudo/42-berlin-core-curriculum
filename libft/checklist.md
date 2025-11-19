@@ -6,7 +6,7 @@
 - ~~memset~~
 - ~~memcpy~~
 - ~~memmove~~
-- memchr
+- ~~memchr~~
 - ~~memcmp~~
 - ~~bzero~~
 - ~~toupper~~

@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:40:39 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:07:48 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int ft_isascii(int c);
 int ft_isdigit(int c);
 int ft_isprint(int c);
 void *ft_memset(void *str, int c, size_t n);
-int ft_strlen(char *str);
-int ft_strncmp(char *s1, char *s2, unsigned int n);
-char *ft_strnstr(char *str, char *to_find);
+int ft_strlen(const char *str);
+int ft_strncmp(const char *s1, const char *s2, unsigned int n);
+char *ft_strchr(const char *s, int c);
+char *ft_strrchr(const char *s, int c);
+char *ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t ft_strlcat(char *dst, char *src, size_t dstsize);
 size_t ft_strlcpy(char *dst, char *src, size_t dstsize);
 int ft_atoi(char *str);

@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:52:03 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:04:00 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,14 +375,183 @@ int test_ft_strncmp(void)
     return ok;
 }
 
+int test_ft_strchr(void)
+{
+    int ok = 1;
+    
+    // Test finding existing character
+    char str[] = "hello world";
+    char *res1 = ft_strchr(str, 'w');
+    char *res2 = strchr(str, 'w');
+    ok &= (res1 == res2);
+    printf("checked finding 'w': %d\n", ok);
+    
+    // Test finding first character
+    res1 = ft_strchr(str, 'h');
+    res2 = strchr(str, 'h');
+    ok &= (res1 == res2);
+    printf("checked finding first char 'h': %d\n", ok);
+    
+    // Test finding last character (before null)
+    res1 = ft_strchr(str, 'd');
+    res2 = strchr(str, 'd');
+    ok &= (res1 == res2);
+    printf("checked finding last char 'd': %d\n", ok);
+    
+    // Test finding null terminator
+    res1 = ft_strchr(str, '\0');
+    res2 = strchr(str, '\0');
+    ok &= (res1 == res2);
+    printf("checked finding null terminator: %d\n", ok);
+    
+    // Test character not found
+    res1 = ft_strchr(str, 'x');
+    res2 = strchr(str, 'x');
+    ok &= (res1 == res2); // Both should be NULL
+    printf("checked char not found: %d\n", ok);
+    
+    // Test with empty string
+    char empty[] = "";
+    res1 = ft_strchr(empty, 'a');
+    res2 = strchr(empty, 'a');
+    ok &= (res1 == res2);
+    printf("checked empty string: %d\n", ok);
+    
+    // Test finding null in empty string
+    res1 = ft_strchr(empty, '\0');
+    res2 = strchr(empty, '\0');
+    ok &= (res1 == res2);
+    printf("checked null in empty string: %d\n", ok);
+    
+    // Test with repeated characters (should find first)
+    char repeated[] = "hello";
+    res1 = ft_strchr(repeated, 'l');
+    res2 = strchr(repeated, 'l');
+    ok &= (res1 == res2);
+    printf("checked repeated chars (first): %d\n", ok);
+    
+    return ok;
+}
+
+int test_ft_strrchr(void)
+{
+    int ok = 1;
+    
+    // Test finding existing character
+    char str[] = "hello world";
+    char *res1 = ft_strrchr(str, 'w');
+    char *res2 = strrchr(str, 'w');
+    ok &= (res1 == res2);
+    printf("checked finding 'w': %d\n", ok);
+    
+    // Test finding last character (before null)
+    res1 = ft_strrchr(str, 'd');
+    res2 = strrchr(str, 'd');
+    ok &= (res1 == res2);
+    printf("checked finding last char 'd': %d\n", ok);
+    
+    // Test finding null terminator
+    res1 = ft_strrchr(str, '\0');
+    res2 = strrchr(str, '\0');
+    ok &= (res1 == res2);
+    printf("checked finding null terminator: %d\n", ok);
+    
+    // Test character not found
+    res1 = ft_strrchr(str, 'x');
+    res2 = strrchr(str, 'x');
+    ok &= (res1 == res2); // Both should be NULL
+    printf("checked char not found: %d\n", ok);
+    
+    // Test with repeated characters (should find last)
+    char repeated[] = "hello";
+    res1 = ft_strrchr(repeated, 'l');
+    res2 = strrchr(repeated, 'l');
+    ok &= (res1 == res2);
+    printf("checked repeated chars (last): %d\n", ok);
+    
+    // Test with empty string
+    char empty[] = "";
+    res1 = ft_strrchr(empty, 'a');
+    res2 = strrchr(empty, 'a');
+    ok &= (res1 == res2);
+    printf("checked empty string: %d\n", ok);
+    
+    // Test finding null in empty string
+    res1 = ft_strrchr(empty, '\0');
+    res2 = strrchr(empty, '\0');
+    ok &= (res1 == res2);
+    printf("checked null in empty string: %d\n", ok);
+    
+    // Test first character
+    res1 = ft_strrchr(str, 'h');
+    res2 = strrchr(str, 'h');
+    ok &= (res1 == res2);
+    printf("checked first char 'h': %d\n", ok);
+    
+    return ok;
+}
+
 int test_ft_strnstr(void)
 {
-    char str[] = "hello world world start";
-    char to_find[] = "world";
-    char *res1 = ft_strnstr(str, to_find);
-    char *res2 = strstr(str, to_find);
-    int ok = (res1 == res2 || (res1 && res2 && strcmp(res1, res2) == 0));
-    printf("checked strnstr: %d\n", ok);
+    int ok = 1;
+    
+    // Test basic substring finding
+    char haystack[] = "hello world world start";
+    char needle[] = "world";
+    char *res1 = ft_strnstr(haystack, needle, strlen(haystack));
+    char *res2 = strstr(haystack, needle); // Compare with strstr since strnstr isn't standard everywhere
+    ok &= (res1 == res2 || (res1 && res2 && strcmp(res1, res2) == 0));
+    printf("checked basic substring: %d\n", ok);
+    
+    // Test with length limit that includes the needle
+    res1 = ft_strnstr(haystack, needle, 15); // Should find first "world"
+    ok &= (res1 && strncmp(res1, "world world start", 17) == 0);
+    printf("checked with length limit (found): %d\n", ok);
+    
+    // Test with length limit that excludes the needle
+    res1 = ft_strnstr(haystack, needle, 5); // Too short to find "world"
+    ok &= (res1 == NULL);
+    printf("checked with length limit (not found): %d\n", ok);
+    
+    // Test empty needle (should return haystack)
+    char empty_needle[] = "";
+    res1 = ft_strnstr(haystack, empty_needle, strlen(haystack));
+    ok &= (res1 == haystack);
+    printf("checked empty needle: %d\n", ok);
+    
+    // Test needle not found
+    char not_found[] = "xyz";
+    res1 = ft_strnstr(haystack, not_found, strlen(haystack));
+    ok &= (res1 == NULL);
+    printf("checked needle not found: %d\n", ok);
+    
+    // Test needle longer than haystack
+    char long_needle[] = "this is much longer than haystack";
+    res1 = ft_strnstr("short", long_needle, 5);
+    ok &= (res1 == NULL);
+    printf("checked needle longer than haystack: %d\n", ok);
+    
+    // Test with len = 0
+    res1 = ft_strnstr(haystack, needle, 0);
+    ok &= (res1 == NULL);
+    printf("checked with len = 0: %d\n", ok);
+    
+    // Test exact match with exact length
+    char exact[] = "test";
+    res1 = ft_strnstr("test", exact, 4);
+    ok &= (res1 && strcmp(res1, "test") == 0);
+    printf("checked exact match: %d\n", ok);
+    
+    // Test partial needle at end of length limit
+    res1 = ft_strnstr("hello world", "worl", 10); // Should find "worl"
+    ok &= (res1 && strncmp(res1, "world", 5) == 0);
+    printf("checked partial at length limit: %d\n", ok);
+    
+    // Test needle that would be cut off by length limit
+    res1 = ft_strnstr("hello world", "world", 9); // "world" starts at pos 6, but len=9 only goes to pos 8
+    ok &= (res1 == NULL);
+    printf("checked needle cut off by length: %d\n", ok);
+    
     return ok;
 }
 
@@ -552,6 +721,8 @@ int main(void)
     run_test("ft_tolower", test_ft_tolower);
     run_test("ft_toupper", test_ft_toupper);
     run_test("ft_strlen", test_ft_strlen);
+    run_test("ft_strchr", test_ft_strchr);
+    run_test("ft_strrchr", test_ft_strrchr);
     run_test("ft_strncmp", test_ft_strncmp);
     run_test("ft_strnstr", test_ft_strnstr);
     run_test("ft_strlcpy", test_ft_strlcpy);

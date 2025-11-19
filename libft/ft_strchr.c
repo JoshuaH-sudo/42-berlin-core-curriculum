@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 15:44:11 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:08:00 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/19 13:52:03 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/19 13:56:38 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
+#include <string.h>
+
+char	*ft_strchr(const char *s, int c)
 {
-	unsigned int	index;
+	int		index;
+	char	*ptr_to_char;
 
 	index = 0;
-	while ((s1[index] || s2[index]) && index < n)
+	while (s[index] != '\0')
 	{
-		if ((unsigned char)s1[index] != (unsigned char)s2[index])
-			return (s1[index] - s2[index]);
+    if (s[index] == (char)c)
+    {
+				ptr_to_char = (char *)&s[index];
+				return (ptr_to_char);
+    }
 		index++;
 	}
-	return (0);
+  // null terminator is apart of the string,
+  // Check if c is '\0'
+  if (s[index] == (char)c)
+  {
+      ptr_to_char = (char *)&s[index];
+      return (ptr_to_char);
+  }
+	return (NULL);
 }

@@ -6,11 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 16:55:42 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 19:19:55 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:07:16 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	index;
 
