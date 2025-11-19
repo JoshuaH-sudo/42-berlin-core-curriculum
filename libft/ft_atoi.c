@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 17:39:29 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:31:58 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:35:53 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ int	ft_atoi(const char *str)
 	index = 0;
 	result = 0;
 	minus_count = 0;
-	while (is_space(str[index]) || str[index] == '-' || str[index] == '+')
+	while (is_space(str[index]))
+	{
+		index++;
+	}
+	// Only check the first sign character
+	if (str[index] == '-' || str[index] == '+')
 	{
 		if (str[index] == '-')
 			minus_count++;
