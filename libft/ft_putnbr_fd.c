@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 17:06:30 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 17:22:24 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:30:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,34 @@
 #include <unistd.h>
 #include "libft.h"
 
+static void convert(int nb, int fd)
+{
+	int		mod;
+  char  letter;
+
+	if (nb != 0)
+	{
+		mod = nb % 10;
+		nb = nb / 10;
+		convert(nb, fd);
+		if (mod < 0)
+			mod = 0 - mod;
+    letter = mod + '0';
+		write(fd, &letter, 1);
+	}
+}
+
 void ft_putnbr_fd(int n, int fd)
 {
-  char *str;
-
-  str = ft_itoa(n);
-  if (!str)
-    return;
-  write(fd, str, ft_strlen(str));
+    if (n < 0)
+    {
+        write(fd, "-", 1);
+        n = -n;
+    }
+    if (n == 0)
+    {
+        write(fd, "0", 1);
+        return ;
+    }
+    convert(n, fd);
 }
