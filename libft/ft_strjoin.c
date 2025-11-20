@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:01:13 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 12:15:59 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:35:05 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-int	join(char *dest, const char *src, size_t start)
+char	*join(char *dest, const char *src, size_t start)
 {
 	size_t	i;
 	size_t	len;
-
-	i = start;
+	i = 0;
 	len = ft_strlen(src);
 	while (i < len)
 	{
-		dest[i + start] = src[i];
+		dest[start + i] = src[i];
 		i++;
 	}
-	return (i);
+	return (dest);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -42,8 +41,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	joined_str = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!joined_str)
 		return (NULL);
-	join(joined_str, s1, 0);
-	join(joined_str, s1, len2);
+	joined_str = join(joined_str, s1, 0);
+	joined_str = join(joined_str, s2, len1);
 	joined_str[len1 + len2] = '\0';
 	return (joined_str);
 }

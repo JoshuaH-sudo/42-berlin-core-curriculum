@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 12:20:42 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:29:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#if defined(__linux__)
 #include <bsd/string.h>
+#endif
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
