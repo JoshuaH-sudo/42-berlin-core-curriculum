@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:44 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 11:23:01 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
-
 #ifndef LIBFT_H
-
 # define LIBFT_H
+# include <strings.h>
 
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -50,5 +48,4 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-
 #endif // LIBFT_H
