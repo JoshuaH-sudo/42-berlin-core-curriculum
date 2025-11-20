@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:01:13 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 12:02:50 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:15:59 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int	join(char *dest, char *src, size_t start)
+int	join(char *dest, const char *src, size_t start)
 {
 	size_t	i;
 	size_t	len;

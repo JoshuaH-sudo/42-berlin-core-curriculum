@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/20 10:34:41 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/20 12:17:35 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ar: all
 	ar rcs $(NAME) *.o
 
 test: all ar
-	cc -o test test.c $(NAME)
+	cc -o test ../test.c $(NAME)
 	echo "Running tests:"
 	./test | tee test_output.txt
 	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."

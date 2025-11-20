@@ -6,11 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:24 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 17:22:08 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:17:50 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
