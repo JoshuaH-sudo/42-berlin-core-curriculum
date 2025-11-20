@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:53:17 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:44 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:05:45 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*ft_strrchr(const char *s, int c)
 	char	*ptr_to_char;
 
 	index = ft_strlen(s);
-	// We go backwards through the string to get the last occurrence
 	while (index >= 0)
 	{
 		if (s[index] == (char)c)

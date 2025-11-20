@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:52:03 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:42 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 11:52:49 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ char	*ft_strchr(const char *s, int c)
 		}
 		index++;
 	}
-	// null terminator is apart of the string,
-	// Check if c is '\0'
 	if (s[index] == (char)c)
 	{
 		ptr_to_char = (char *)&s[index];

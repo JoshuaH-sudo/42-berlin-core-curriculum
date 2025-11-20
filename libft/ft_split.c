@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:06:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:42 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 11:47:58 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,16 @@ static size_t	count_substrings(char const *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char	**assign_strings(char const *s, char c, int count)
 {
-	char **result;
-	size_t count;
+	size_t	index;
+	size_t	item;
+	size_t	start;
+	size_t	end;
+	char	**result;
 
-	count = count_substrings(s, c);
-	result = (char **)malloc((count + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
-	result[count] = NULL;
-	size_t index = 0;
-	size_t item = 0;
-	size_t start = 0;
-	size_t end = 0;
+	index = 0;
+	item = 0;
 	while (s[index])
 	{
 		if (s[index] != c)
@@ -69,6 +65,18 @@ char	**ft_split(char const *s, char c)
 			index++;
 		}
 	}
+}
 
+char	**ft_split(char const *s, char c)
+{
+	char	**result;
+	size_t	count;
+
+	count = count_substrings(s, c);
+	result = (char **)malloc((count + 1) * sizeof(char *));
+	if (!result)
+		return (NULL);
+	result = assign_strings(s, c, count);
+	result[count] = NULL;
 	return (result);
 }

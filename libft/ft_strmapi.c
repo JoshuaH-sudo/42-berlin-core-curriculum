@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:44:29 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:43 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 12:05:08 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char *new_str;
-	unsigned int i;
+	char			*new_str;
+	unsigned int	i;
 
 	if (!s || !f)
 		return (NULL);
-
 	new_str = ft_calloc((ft_strlen(s) + 1), sizeof(char));
 	if (!new_str)
 		return (NULL);
-
 	i = 0;
 	while (s[i] != '\0')
 	{
