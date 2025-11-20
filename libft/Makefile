@@ -6,13 +6,13 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/20 12:20:12 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/20 12:21:58 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-.PHONY: all clean fclean ar test test-mac
+.PHONY: all clean fclean ar norm test test-mac
 all:
 	cc -Wall -Wextra -Werror -c *.c
 
@@ -25,6 +25,9 @@ fclean: clean
 
 ar: all
 	ar rcs $(NAME) *.o
+
+norm:
+	norminette
 
 test-mac: all ar
 	cc -o test ../test.c $(NAME)
