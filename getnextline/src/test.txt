@@ -1,4 +1,7 @@
 hello world
-how
-are
-you today?
+this is a test file
+for get next line function
+it contains multiple lines
+to check if it works correctly
+each line should be read
+one at a time until the end of the file is reached.

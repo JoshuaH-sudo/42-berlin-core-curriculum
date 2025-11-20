@@ -4,6 +4,7 @@
     "strings.h": "c",
     "libft.h": "c",
     "unistd.h": "c",
+    "fcntl.h": "c"
   },
   "42header.email": "jhoban@student.42berlin.de",
   "42header.username": "jhoban"
