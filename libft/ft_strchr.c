@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:52:03 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 13:56:38 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 10:34:42 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ char	*ft_strchr(const char *s, int c)
 	index = 0;
 	while (s[index] != '\0')
 	{
-    if (s[index] == (char)c)
-    {
-				ptr_to_char = (char *)&s[index];
-				return (ptr_to_char);
-    }
+		if (s[index] == (char)c)
+		{
+			ptr_to_char = (char *)&s[index];
+			return (ptr_to_char);
+		}
 		index++;
 	}
-  // null terminator is apart of the string,
-  // Check if c is '\0'
-  if (s[index] == (char)c)
-  {
-      ptr_to_char = (char *)&s[index];
-      return (ptr_to_char);
-  }
+	// null terminator is apart of the string,
+	// Check if c is '\0'
+	if (s[index] == (char)c)
+	{
+		ptr_to_char = (char *)&s[index];
+		return (ptr_to_char);
+	}
 	return (NULL);
 }

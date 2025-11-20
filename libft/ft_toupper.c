@@ -6,11 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:20:21 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/18 21:16:16 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 10:34:44 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		c -= 32;

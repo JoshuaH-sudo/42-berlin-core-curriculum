@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 16:55:42 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 15:46:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 10:34:43 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	int	index;
+	int index;
 
 	index = 0;
 	while (str[index])

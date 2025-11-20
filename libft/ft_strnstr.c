@@ -6,17 +6,17 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:59:29 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 14:06:47 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 10:34:43 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
-char *ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t str_index;
-	size_t search_index;
-	char *ptr_to_substring;
+	size_t	str_index;
+	size_t	search_index;
+	char	*ptr_to_substring;
 
 	str_index = 0;
 	search_index = 0;
@@ -25,7 +25,8 @@ char *ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return ((char *)haystack);
 	while (haystack[str_index] != '\0')
 	{
-		while (haystack[str_index + search_index] == needle[search_index] && (str_index + search_index) < len)
+		while (haystack[str_index + search_index] == needle[search_index]
+			&& (str_index + search_index) < len)
 		{
 			if (needle[search_index + 1] == '\0')
 			{

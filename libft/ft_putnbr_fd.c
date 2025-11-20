@@ -6,20 +6,20 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 17:06:30 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/19 17:30:55 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 10:34:42 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Outputs the integer 'n' to the specified file
 // descriptor
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-static void convert(int nb, int fd)
+static void	convert(int nb, int fd)
 {
 	int		mod;
-  char  letter;
+	char	letter;
 
 	if (nb != 0)
 	{
@@ -28,22 +28,22 @@ static void convert(int nb, int fd)
 		convert(nb, fd);
 		if (mod < 0)
 			mod = 0 - mod;
-    letter = mod + '0';
+		letter = mod + '0';
 		write(fd, &letter, 1);
 	}
 }
 
-void ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-    if (n < 0)
-    {
-        write(fd, "-", 1);
-        n = -n;
-    }
-    if (n == 0)
-    {
-        write(fd, "0", 1);
-        return ;
-    }
-    convert(n, fd);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n = -n;
+	}
+	if (n == 0)
+	{
+		write(fd, "0", 1);
+		return ;
+	}
+	convert(n, fd);
 }
