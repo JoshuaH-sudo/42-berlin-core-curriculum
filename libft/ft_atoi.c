@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 17:39:29 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:41 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/20 11:24:57 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static int	calculate(const char *str, int minus_count, int *index, int *result)
 
 int	ft_atoi(const char *str)
 {
-	int minus_count;
-	int index = 0;
-	int result;
+	int		minus_count;
+	int		index;
+	int		result;
 
 	index = 0;
 	result = 0;
@@ -52,7 +52,6 @@ int	ft_atoi(const char *str)
 	{
 		index++;
 	}
-
 	if (str[index] == '-' || str[index] == '+')
 	{
 		if (str[index] == '-')

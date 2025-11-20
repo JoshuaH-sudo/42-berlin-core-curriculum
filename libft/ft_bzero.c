@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 21:16:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:41 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/20 11:26:23 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/20 11:26:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	ft_bzero(void *s, size_t n)
 	size_t			i;
 
 	ptr = (unsigned char *)s;
-	for (i = 0; i < n; i++)
+	while (1 < n)
 	{
 		ptr[i] = 0;
+		i++;
 	}
 }
