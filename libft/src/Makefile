@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/20 12:21:58 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/21 16:24:55 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ fclean: clean
 
 ar: all
 	ar rcs $(NAME) *.o
+
+re: fclean all ar
 
 norm:
 	norminette
