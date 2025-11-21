@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 21:17:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 11:23:01 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/21 16:30:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
+int		ft_isalnum(int c);
 int		ft_isprint(int c);
 void	*ft_memset(void *str, int c, size_t n);
 size_t	ft_strlen(const char *str);
