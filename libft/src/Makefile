@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/21 16:24:55 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/21 16:51:30 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = libft.a
 .PHONY: all clean fclean ar norm test test-mac
 all:
 	cc -Wall -Wextra -Werror -c *.c
+
+$(NAME): all ar
 
 clean:
 	rm -f *.o
