@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 15:44:11 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/21 16:40:17 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/21 17:17:31 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	index;
-	unsigned char *uc_s1;
-	unsigned char *uc_s2;
+	size_t			index;
+	unsigned char	*uc_s1;
+	unsigned char	*uc_s2;
 
 	uc_s1 = (unsigned char *)s1;
 	uc_s2 = (unsigned char *)s2;

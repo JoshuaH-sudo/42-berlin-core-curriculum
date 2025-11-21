@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:01:13 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/21 17:07:18 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/21 17:16:57 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*join(char *dest, const char *src, size_t start)
 {
 	size_t	i;
 	size_t	len;
+
 	i = 0;
 	len = ft_strlen(src);
 	while (i < len)
