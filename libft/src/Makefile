@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/21 16:51:30 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/21 17:00:19 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ NAME = libft.a
 all:
 	cc -Wall -Wextra -Werror -c *.c
 
-$(NAME): all ar
+$(NAME): all
+	ar rcs $(NAME) *.o
 
 clean:
 	rm -f *.o
@@ -25,10 +26,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-ar: all
-	ar rcs $(NAME) *.o
-
-re: fclean all ar
+re: fclean $(NAME)
 
 norm:
 	norminette
