@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/22 15:06:11 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 15:27:04 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char  *append_str(char *dest, char *src, size_t dest_len, size_t src_len)
     j++;
   }
   new_str[dest_len + src_len] = '\0';
+  free(dest);
   return (new_str);
 }
 
@@ -105,29 +106,35 @@ char *get_next_line(int fd)
   ssize_t nread;
   size_t buffer_len;
   int newline_index;
-  char *line;
+  char *line = NULL;
 
   if (fd < 0)
     return (NULL);
   if (!buffer)
   {
     buffer = (char *)malloc(BUFFER_SIZE);
-    line = (char *)malloc(BUFFER_SIZE);
     if (!buffer)
       return (NULL);
     buffer[0] = '\0';
   }
-
+  if (!line)
+  {
+    line = (char *)malloc(1);
+    if (!line)
+      return (NULL);
+    line[0] = '\0';
+  }
   buffer_len = ft_strlen(buffer);
   if (buffer_len == 0)
   {
     nread = read(fd, buffer, BUFFER_SIZE);
-    if (nread <= 0)
+    if (nread < 0)
     {
       free(buffer);
-      buffer = NULL;
       return (NULL);
     }
+    buffer[nread] = '\0';
+    buffer_len = ft_strlen(buffer);
   }
   if (buffer_len > 0)
   {
