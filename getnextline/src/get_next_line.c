@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/22 17:29:18 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 18:05:47 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	*get_next_line(int fd)
     buffer[0] = '\0';
   }
 
-	while ((nread = read(fd, buffer, BUFFER_SIZE)) > 0 || find_newline(buffer) != -1)
+	while ((nread = read(fd, buffer, BUFFER_SIZE)) > 0 && find_newline(buffer) != -1)
 	{
 		buffer[nread] = '\0';
 		newline_index = find_newline(buffer);
