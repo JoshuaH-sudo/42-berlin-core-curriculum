@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 17:23:06 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 14:25:46 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,87 @@
 #include <stdio.h>
 #include "get_next_line.h"
 
-// char  *find_newline(char *str)
-// {
-//   char *ptr;
+size_t  ft_strlen(const char *s)
+{
+  size_t  len;
 
-//   ptr = str;
-//   while (*ptr != '\0' && *ptr != '\n' && i < BUFFER_SIZE)
-//   {
-//     ptr++;
-//   }
-//   return (ptr);
-// }
+  len = 0;
+  while (s[len] != '\0')
+    len++;
+  return (len);
+}
 
-// char  *get_line(char *str)
-// {
-//   int i;
-//   int len;
-//   char *line;
+int   find_newline(char *str)
+{
+  int i;
 
-//   len = count_to_newline(str);
-//   line = (char *)malloc((len + 1) * sizeof(char));
-//   printf("Allocated %d bytes for line\n", len + 1);
-//   if (!line)
-//     return (NULL);
-//   i = 0;
-//   while (i < len)
-//   {
-//     line[i] = str[i];
-//     i++;
-//   }
-//   line[i] = '\0';
-//   return (line);
-// }
+  i = 0;
+  while ((unsigned char)str[i] != '\0')
+  {
+    if ((unsigned char)str[i] == '\n')
+      return (i);
+    i++;
+  }
+  return (-1);
+}
+
+char  *append_str(char *dest, char *src, size_t dest_len, size_t src_len)
+{
+  char *new_str;
+  size_t i;
+
+  new_str = (char *)malloc(dest_len + src_len + 1);
+  if (!new_str)
+    return (NULL);
+  i = 0;
+  while (i < dest_len)
+  {
+    new_str[i] = dest[i];
+    i++;
+  }
+  size_t j = 0;
+  while (j < src_len)
+  {
+    new_str[i + j] = src[j];
+    j++;
+  }
+  new_str[dest_len + src_len] = '\0';
+  free(dest);
+  return (new_str);
+}
 
 char  *get_next_line(int fd)
 {
-  // static int chunk_index = 0;
-  char buffer[BUFFER_SIZE + 1];
+  static char buffer[BUFFER_SIZE];
+  static size_t leftover;
+  ssize_t nread;
   char *line;
-  ssize_t nread = 0;
+  int newline_index;
 
-  line = NULL;
+  leftover = 0;
+  newline_index = -1;
+  nread = 0;
+  line = (char *)malloc(BUFFER_SIZE);
   if (fd < 0)
     return (NULL);
-  while(read(fd, buffer, BUFFER_SIZE) > 0)
+  if (leftover == 0)
   {
-    printf("Read %zd bytes from fd %d\n", nread, fd);
-    printf("Buffer content: %s\n", buffer);
+    nread = read(fd, buffer, BUFFER_SIZE); 
+    if (nread < 0)
+      return (NULL);
+    buffer[nread] = '\0';
+    leftover = nread;
   }
+  while((nread = read(fd,buffer, 1)) > 0)
+  {
+    newline_index = find_newline(buffer);
+    if (newline_index != -1)
+    {
+      line = append_str(line, buffer, ft_strlen(line), newline_index);
+      break;
+    }
+    line = append_str(line, buffer, ft_strlen(line), ft_strlen(buffer));
+  }
+  leftover = 0;
   return (line);
 }
