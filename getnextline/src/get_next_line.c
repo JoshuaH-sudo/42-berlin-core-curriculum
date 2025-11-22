@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/22 18:05:47 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 18:24:29 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,45 +117,48 @@ char	*get_next_line(int fd)
 			return (NULL);
 		line[0] = '\0';
 	}
-  
-	if (find_newline(buffer) != -1)
+	newline_index = find_newline(buffer);
+	if (newline_index != -1)
 	{
-		line_new = append_str(line, buffer, ft_strlen(line), ft_strlen(buffer));
+		// Append only up to and including the newline
+		line_new = append_str(line, buffer, ft_strlen(line), newline_index + 1);
 		free(line);
-    return (line_new);
+		// Shift leftover to front
 		leftover = ft_strlen(buffer) - (newline_index + 1);
-		ft_memmove(buffer, buffer + newline_index + 1, leftover);
-	} else {
-    line_new = append_str(line, buffer, ft_strlen(line), ft_strlen(buffer));
-    free(line);
-    line = line_new;
-    buffer[0] = '\0';
-  }
-
-	while ((nread = read(fd, buffer, BUFFER_SIZE)) > 0 && find_newline(buffer) != -1)
+		if (leftover > 0)
+			ft_memmove(buffer, buffer + newline_index + 1, leftover);
+		buffer[leftover] = '\0';
+		return (line_new);
+	}
+	while ((nread = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[nread] = '\0';
 		newline_index = find_newline(buffer);
 		if (newline_index != -1)
 		{
-			line_new = append_str(line, buffer, ft_strlen(line), newline_index
-					+ 1);
+			// Append up to and including the newline
+			line_new = append_str(line, buffer, ft_strlen(line), newline_index + 1);
 			free(line);
 			line = line_new;
-			// shift leftover
-			leftover = ft_strlen(buffer) - (newline_index + 1);
-			ft_memmove(buffer, buffer + newline_index + 1, leftover);
+			// Shift leftover
+			leftover = nread - (newline_index + 1);
+			if (leftover > 0)
+				ft_memmove(buffer, buffer + newline_index + 1, leftover);
 			buffer[leftover] = '\0';
 			return (line);
 		}
 		else
 		{
-			line_new = append_str(line, buffer, ft_strlen(line),
-					ft_strlen(buffer));
+			// Append the whole buffer
+			line_new = append_str(line, buffer, ft_strlen(line), nread);
 			free(line);
 			line = line_new;
+			buffer[0] = '\0';
 		}
 	}
-
-	return (line);
+	// If we have accumulated any data, return it
+	if (ft_strlen(line) > 0)
+		return (line);
+	free(line);
+	return (NULL);
 }
