@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:01:13 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/21 17:16:57 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 14:56:27 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char	*join(char *dest, const char *src, size_t start)
+static char	*join(char *dest, const char *src, size_t start)
 {
 	size_t	i;
 	size_t	len;
