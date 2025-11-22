@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/22 14:25:46 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/22 15:06:11 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,42 +60,85 @@ char  *append_str(char *dest, char *src, size_t dest_len, size_t src_len)
     j++;
   }
   new_str[dest_len + src_len] = '\0';
-  free(dest);
   return (new_str);
 }
 
-char  *get_next_line(int fd)
-{
-  static char buffer[BUFFER_SIZE];
-  static size_t leftover;
-  ssize_t nread;
-  char *line;
-  int newline_index;
+// char  *get_next_line(int fd)
+// {
+//   static char buffer[BUFFER_SIZE];
+//   static size_t leftover;
+//   ssize_t nread;
+//   char *line;
+//   int newline_index;
 
-  leftover = 0;
-  newline_index = -1;
-  nread = 0;
-  line = (char *)malloc(BUFFER_SIZE);
+//   leftover = 0;
+//   newline_index = -1;
+//   nread = 0;
+//   line = (char *)malloc(BUFFER_SIZE);
+//   if (fd < 0)
+//     return (NULL);
+//   if (leftover == 0)
+//   {
+//     nread = read(fd, buffer, BUFFER_SIZE); 
+//     if (nread < 0)
+//       return (NULL);
+//     buffer[nread] = '\0';
+//     leftover = nread;
+//   }
+//   while((nread = read(fd,buffer, 1)) > 0)
+//   {
+//     newline_index = find_newline(buffer);
+//     if (newline_index != -1)
+//     {
+//       line = append_str(line, buffer, ft_strlen(line), newline_index);
+//       break;
+//     }
+//     line = append_str(line, buffer, ft_strlen(line), ft_strlen(buffer));
+//   }
+//   leftover = 0;
+//   return (line);
+// }
+
+char *get_next_line(int fd)
+{
+  static char *buffer;
+  ssize_t nread;
+  size_t buffer_len;
+  int newline_index;
+  char *line;
+
   if (fd < 0)
     return (NULL);
-  if (leftover == 0)
+  if (!buffer)
   {
-    nread = read(fd, buffer, BUFFER_SIZE); 
-    if (nread < 0)
+    buffer = (char *)malloc(BUFFER_SIZE);
+    line = (char *)malloc(BUFFER_SIZE);
+    if (!buffer)
       return (NULL);
-    buffer[nread] = '\0';
-    leftover = nread;
+    buffer[0] = '\0';
   }
-  while((nread = read(fd,buffer, 1)) > 0)
+
+  buffer_len = ft_strlen(buffer);
+  if (buffer_len == 0)
   {
+    nread = read(fd, buffer, BUFFER_SIZE);
+    if (nread <= 0)
+    {
+      free(buffer);
+      buffer = NULL;
+      return (NULL);
+    }
+  }
+  if (buffer_len > 0)
+  {
+    printf("checking existing buffer: \n----\n%s\n----\n", buffer);
     newline_index = find_newline(buffer);
     if (newline_index != -1)
     {
       line = append_str(line, buffer, ft_strlen(line), newline_index);
-      break;
+      buffer += (newline_index + 1);
+      return (line);
     }
-    line = append_str(line, buffer, ft_strlen(line), ft_strlen(buffer));
   }
-  leftover = 0;
   return (line);
 }
