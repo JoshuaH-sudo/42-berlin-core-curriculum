@@ -6,15 +6,16 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/20 15:39:15 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/23 09:42:16 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = get_next_line.a
+BUFFER_SIZE = 42
 
 .PHONY: all clean fclean ar norm test test-mac
 all:
-	cc -Wall -Wextra -Werror -c *.c
+	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c *.c
 
 clean:
 	rm -f *.o

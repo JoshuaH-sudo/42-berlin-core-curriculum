@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 09:25:07 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 09:50:20 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 		buffer[leftover] = '\0';
 		return (line_new);
 	}
-	// No newline: append all, return the new line pointer
 	line_new = ft_joinstr(line, buffer, ft_strlen(line), nread);
 	free(line);
 	buffer[0] = '\0';
