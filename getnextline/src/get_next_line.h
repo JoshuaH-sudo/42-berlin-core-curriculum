@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:27:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 09:50:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 18:01:05 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #  define BUFFER_SIZE 42
 # endif
 
-char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 int		find_newline(char *str);
 char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len);
-char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread);
 void	*ft_memmove(void *dest, const void *src, size_t n);
+char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread);
+char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread);
+char	*get_next_line(int fd);
 #endif // GET_NEXT_LINE_H
