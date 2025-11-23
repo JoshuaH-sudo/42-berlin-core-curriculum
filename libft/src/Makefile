@@ -6,18 +6,18 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/21 17:00:19 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/23 16:04:22 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 .PHONY: all clean fclean ar norm test test-mac
-all:
-	cc -Wall -Wextra -Werror -c *.c
-
 $(NAME): all
 	ar rcs $(NAME) *.o
+
+all:
+	cc -Wall -Wextra -Werror -c *.c
 
 clean:
 	rm -f *.o

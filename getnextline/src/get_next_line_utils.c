@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 10:09:27 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 15:43:07 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,10 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 	size_t	leftover;
 	int		newline_index;
 
-	if (!buffer)
-	{
-		buffer = (char *)malloc(BUFFER_SIZE + 1);
-		buffer[0] = '\0';
-	}
-	if (!line)
-	{
-		line = (char *)malloc(BUFFER_SIZE + 1);
-		line[0] = '\0';
-	}
 	newline_index = find_newline(buffer);
 	if (newline_index != -1)
 	{
 		line_new = ft_joinstr(line, buffer, ft_strlen(line), newline_index + 1);
-		free(line);
 		leftover = ft_strlen(buffer) - (newline_index + 1);
 		if (leftover > 0)
 			ft_memmove(buffer, buffer + newline_index + 1, leftover);
@@ -116,7 +105,6 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 		return (line_new);
 	}
 	line_new = ft_joinstr(line, buffer, ft_strlen(line), nread);
-	free(line);
 	buffer[0] = '\0';
 	return (line_new);
 }

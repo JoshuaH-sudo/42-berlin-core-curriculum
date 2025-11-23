@@ -11,9 +11,10 @@ int	main(void)
 	while (1)
 	{
 		char *str = get_next_line(fd);
+		printf("Returned line address: %p\n", str);
 		if (!str)
 			break ;
-		printf("line: %s", str);
+		printf("line-found: %s\n", str);
 	}
 	close(fd);
 	return (0);

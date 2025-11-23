@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 10:08:53 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 15:31:04 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,32 @@ char	*get_next_line(int fd)
 {
 	static char		*buffer;
 	char			*line;
-	char			*line_new;
 	ssize_t			nread;
 
 	nread = 1;
-	line = NULL;
+	line = "";
 	if (fd < 0)
+		return (NULL);
+	if (!buffer)
+	{
+		buffer = (char *)malloc(BUFFER_SIZE + 1);
+		buffer[0] = '\0';
+	}
+	if (!buffer)
 		return (NULL);
 	while (nread > 0)
 	{
-		line_new = parse_line_from_buffer(buffer, line, nread);
-		if (line_new == NULL)
-			return (NULL);
-		if (find_newline(line_new) != -1)
-			return (line_new);
-		line = line_new;
-		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread <= 0)
+			return (NULL);
+		printf("buffer: ---\n%s\n---\n", buffer);
+		line = parse_line_from_buffer(buffer, line, nread);
+		if (!line)
+			return (NULL);
+		printf("line after parse: %s\n", line);
+		if (find_newline(line) != -1)
 			break ;
+		nread = read(fd, buffer, BUFFER_SIZE);
 		buffer[nread] = '\0';
 	}
-	free(line);
-	return (NULL);
+	return (line);
 }
