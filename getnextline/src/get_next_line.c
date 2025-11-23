@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 17:54:13 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 17:58:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ char	*get_next_line(int fd)
 			return (NULL);
 		buffer[0] = '\0';
 	}
-	// Allocate an empty string for line, to be accumulated
 	line = (char *)malloc(1);
 	if (!line)
 		return (NULL);
 	line[0] = '\0';
-
-	// First, process any data already in buffer
 	nread = ft_strlen(buffer);
 	while (1)
 	{
@@ -46,7 +43,6 @@ char	*get_next_line(int fd)
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread <= 0)
 		{
-			// If we have accumulated any data, return it (last line, no newline)
 			if (line[0] != '\0')
 				return line;
 			free(line);
