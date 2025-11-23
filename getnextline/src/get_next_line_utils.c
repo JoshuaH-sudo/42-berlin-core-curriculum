@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 19:02:22 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 19:03:23 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 
 char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (1)
