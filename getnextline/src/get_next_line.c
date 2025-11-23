@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 15:31:04 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 16:09:59 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ char	*get_next_line(int fd)
 	{
 		buffer = (char *)malloc(BUFFER_SIZE + 1);
 		buffer[0] = '\0';
+		if (!buffer)
+			return (NULL);
 	}
-	if (!buffer)
-		return (NULL);
 	while (nread > 0)
 	{
 		if (nread <= 0)
 			return (NULL);
-		printf("buffer: ---\n%s\n---\n", buffer);
+		printf("buffer:\n---\n%s\n---\n", buffer);
 		line = parse_line_from_buffer(buffer, line, nread);
 		if (!line)
 			return (NULL);
