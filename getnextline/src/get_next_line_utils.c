@@ -6,12 +6,13 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 09:55:32 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 10:09:27 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -62,7 +63,7 @@ char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len)
 	return (new_str);
 }
 
-char	*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	unsigned char		*d;
 	const unsigned char	*s;
@@ -93,6 +94,16 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 	size_t	leftover;
 	int		newline_index;
 
+	if (!buffer)
+	{
+		buffer = (char *)malloc(BUFFER_SIZE + 1);
+		buffer[0] = '\0';
+	}
+	if (!line)
+	{
+		line = (char *)malloc(BUFFER_SIZE + 1);
+		line[0] = '\0';
+	}
 	newline_index = find_newline(buffer);
 	if (newline_index != -1)
 	{
