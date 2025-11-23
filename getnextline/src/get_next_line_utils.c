@@ -6,12 +6,13 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 18:21:57 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 18:56:24 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -109,4 +110,23 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 	buffer[0] = '\0';
 	free(line);
 	return (line_new);
+}
+
+char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread)
+{
+	while (1)
+	{
+		line = parse_line_from_buffer(buffer, line, nread);
+		if (find_newline(line) != -1)
+			return (line);
+		nread = read(fd, buffer, BUFFER_SIZE);
+		if (nread <= 0)
+		{
+			if (line[0] != '\0')
+				return (line);
+			free(line);
+			return (NULL);
+		}
+		buffer[nread] = '\0';
+	}
 }

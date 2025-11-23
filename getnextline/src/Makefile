@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/23 17:39:06 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/23 18:56:13 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,8 @@ norm:
 
 test-mac: re
 	cc -o test test.c $(NAME)
-	echo "Running tests:"
-	./test | tee test_output.txt
-	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
+	./test
 
 test: re
 	cc -o test test.c $(NAME) -lbsd
-	echo "Running tests:"
-	./test | tee test_output.txt
-	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
+	./test

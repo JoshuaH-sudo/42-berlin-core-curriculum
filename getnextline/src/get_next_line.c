@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 18:21:51 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 18:56:24 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-static char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread)
-{
-	while (1)
-	{
-		line = parse_line_from_buffer(buffer, line, nread);
-		if (find_newline(line) != -1)
-			return (line);
-		nread = read(fd, buffer, BUFFER_SIZE);
-		if (nread <= 0)
-		{
-			if (line[0] != '\0')
-				return (line);
-			free(line);
-			return (NULL);
-		}
-		buffer[nread] = '\0';
-	}
-}
 
 char	*get_next_line(int fd)
 {
