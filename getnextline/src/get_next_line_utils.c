@@ -6,14 +6,14 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 18:56:24 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 19:02:22 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -23,20 +23,6 @@ size_t	ft_strlen(const char *s)
 	while (s[len] != '\0')
 		len++;
 	return (len);
-}
-
-int	find_newline(char *str)
-{
-	int	i;
-
-	i = 0;
-	while ((unsigned char)str[i] != '\0')
-	{
-		if ((unsigned char)str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
 }
 
 char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len)
@@ -93,18 +79,22 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 {
 	char	*line_new;
 	size_t	leftover;
-	int		newline_index;
+	int		i;
 
-	newline_index = find_newline(buffer);
-	if (newline_index != -1)
+	i = 0;
+	while ((unsigned char)buffer[i] != '\0')
 	{
-		line_new = ft_joinstr(line, buffer, ft_strlen(line), newline_index + 1);
-		leftover = ft_strlen(buffer) - (newline_index + 1);
-		if (leftover > 0)
-			ft_memmove(buffer, buffer + newline_index + 1, leftover);
-		buffer[leftover] = '\0';
-		free(line);
-		return (line_new);
+		if ((unsigned char)buffer[i] == '\n')
+		{
+			line_new = ft_joinstr(line, buffer, ft_strlen(line), i + 1);
+			leftover = ft_strlen(buffer) - (i + 1);
+			if (leftover > 0)
+				ft_memmove(buffer, buffer + i + 1, leftover);
+			buffer[leftover] = '\0';
+			free(line);
+			return (line_new);
+		}
+		i++;
 	}
 	line_new = ft_joinstr(line, buffer, ft_strlen(line), nread);
 	buffer[0] = '\0';
@@ -114,11 +104,18 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 
 char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread)
 {
+	int i;
+
+	i = 0;
 	while (1)
 	{
 		line = parse_line_from_buffer(buffer, line, nread);
-		if (find_newline(line) != -1)
-			return (line);
+		while ((unsigned char)line[i] != '\0')
+		{
+			if ((unsigned char)line[i] == '\n')
+				return (line);
+			i++;
+		}
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread <= 0)
 		{
