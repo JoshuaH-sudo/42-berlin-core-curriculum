@@ -9,5 +9,7 @@
     "stdlib.h": "c"
   },
   "42header.email": "jhoban@student.42berlin.de",
-  "42header.username": "jhoban"
+  "42header.username": "jhoban",
+  "editor.useTabStops": true,
+  "editor.tabSize": 4
 }
