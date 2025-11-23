@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/23 16:09:59 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/23 17:54:13 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,42 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	char			*line;
-	ssize_t			nread;
+	static char *buffer;
+	char *line;
+	ssize_t nread;
 
-	nread = 1;
-	line = "";
 	if (fd < 0)
 		return (NULL);
 	if (!buffer)
 	{
 		buffer = (char *)malloc(BUFFER_SIZE + 1);
-		buffer[0] = '\0';
 		if (!buffer)
 			return (NULL);
+		buffer[0] = '\0';
 	}
-	while (nread > 0)
+	// Allocate an empty string for line, to be accumulated
+	line = (char *)malloc(1);
+	if (!line)
+		return (NULL);
+	line[0] = '\0';
+
+	// First, process any data already in buffer
+	nread = ft_strlen(buffer);
+	while (1)
 	{
-		if (nread <= 0)
-			return (NULL);
-		printf("buffer:\n---\n%s\n---\n", buffer);
 		line = parse_line_from_buffer(buffer, line, nread);
-		if (!line)
-			return (NULL);
-		printf("line after parse: %s\n", line);
 		if (find_newline(line) != -1)
-			break ;
+			break;
 		nread = read(fd, buffer, BUFFER_SIZE);
+		if (nread <= 0)
+		{
+			// If we have accumulated any data, return it (last line, no newline)
+			if (line[0] != '\0')
+				return line;
+			free(line);
+			return NULL;
+		}
 		buffer[nread] = '\0';
 	}
-	return (line);
+	return line;
 }

@@ -11,9 +11,9 @@ int	main(void)
 	while (1)
 	{
 		char *str = get_next_line(fd);
-		printf("line-found: %s\n", str);
 		if (!str)
 			break ;
+		printf("line-found: %s", str);
 	}
 	close(fd);
 	return (0);
