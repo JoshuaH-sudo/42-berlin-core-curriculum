@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 15:43:47 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 16:05:45 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,69 +119,70 @@ void	handle_number(va_list *list, int *total_printed)
 	convert(n, 1, total_printed);
 }
 
-static void   convert_unsigned(unsigned int n, int fd, int *total_printed)
+static void	convert_unsigned(unsigned int n, int fd, int *total_printed)
 {
-    unsigned int    mod;
-    char            letter;
+	unsigned int	mod;
+	char			letter;
 
-    if (n != 0)
-    {
-        mod = n % 10;
-        n = n / 10;
-        convert_unsigned(n, fd, total_printed);
-        letter = mod + '0';
-        ft_putchar_fd(letter, fd);
-        (*total_printed)++;
-    }
+	if (n != 0)
+	{
+		mod = n % 10;
+		n = n / 10;
+		convert_unsigned(n, fd, total_printed);
+		letter = mod + '0';
+		ft_putchar_fd(letter, fd);
+		(*total_printed)++;
+	}
 }
 
-void    handle_unsigned(va_list *list, int *total_printed)
+void	handle_unsigned(va_list *list, int *total_printed)
 {
-    unsigned int    n;
+	unsigned int	n;
 
-    n = va_arg(*list, unsigned int);
-    if (n == 0)
-    {
-        ft_putchar_fd('0', 1);
-        (*total_printed)++;
-        return ;
-    }
-    convert_unsigned(n, 1, total_printed);
+	n = va_arg(*list, unsigned int);
+	if (n == 0)
+	{
+		ft_putchar_fd('0', 1);
+		(*total_printed)++;
+		return ;
+	}
+	convert_unsigned(n, 1, total_printed);
 }
 
-static void convert_hex(int fd, unsigned int n, char *hex_digits, int *total_printed) 
+static void	convert_hex(int fd, unsigned int n, char *hex_digits,
+		int *total_printed)
 {
-    unsigned int    mod;
-    char            letter;
+	unsigned int	mod;
+	char			letter;
 
-    if (n != 0)
-    {
-        mod = n % 16;
-        n = n / 16;
-        convert_hex(fd, n, hex_digits, total_printed);
-        letter = hex_digits[mod];
-        ft_putchar_fd(letter, fd);
-        (*total_printed)++;
-    }
+	if (n != 0)
+	{
+		mod = n % 16;
+		n = n / 16;
+		convert_hex(fd, n, hex_digits, total_printed);
+		letter = hex_digits[mod];
+		ft_putchar_fd(letter, fd);
+		(*total_printed)++;
+	}
 }
 
-void    handle_hex(va_list *list, int *total_printed, int uppercase)
+void	handle_hex(va_list *list, int *total_printed, int uppercase)
 {
-    unsigned int    n;
-    char    *hex_digits;
+	unsigned int	n;
+	char			*hex_digits;
 
-    n = va_arg(*list, unsigned int);
-    if (uppercase)
-        hex_digits = "0123456789ABCDEF";
-    else
-        hex_digits = "0123456789abcdef";
-    if (n == 0)
-    {
-        ft_putchar_fd('0', 1);
-        (*total_printed)++;
-        return ;
-    }
-    convert_hex(1, n, hex_digits, total_printed);
+	n = va_arg(*list, unsigned int);
+	if (uppercase)
+		hex_digits = "0123456789ABCDEF";
+	else
+		hex_digits = "0123456789abcdef";
+	if (n == 0)
+	{
+		ft_putchar_fd('0', 1);
+		(*total_printed)++;
+		return ;
+	}
+	convert_hex(1, n, hex_digits, total_printed);
 }
 
 void	handle_percent(int *total_printed)
@@ -190,7 +191,6 @@ void	handle_percent(int *total_printed)
 	(*total_printed)++;
 }
 
-// %c %s %p %d %i %u %x %X %%
 int	ft_printf(const char *format, ...)
 {
 	const char *ptr = format;
@@ -209,14 +209,14 @@ int	ft_printf(const char *format, ...)
 				handle_string(&list, &total_printed);
 			else if (*ptr == 'p')
 				handle_pointer(&list, &total_printed);
-            else if (*ptr == 'd' || *ptr == 'i')
-                handle_number(&list, &total_printed);
-            else if (*ptr == 'u')
-                handle_unsigned(&list, &total_printed);
-            else if (*ptr == 'x')
-                handle_hex(&list, &total_printed, 0);
-            else if (*ptr == 'X')
-                handle_hex(&list, &total_printed, 1);
+			else if (*ptr == 'd' || *ptr == 'i')
+				handle_number(&list, &total_printed);
+			else if (*ptr == 'u')
+				handle_unsigned(&list, &total_printed);
+			else if (*ptr == 'x')
+				handle_hex(&list, &total_printed, 0);
+			else if (*ptr == 'X')
+				handle_hex(&list, &total_printed, 1);
 			else if (*ptr == '%')
 				handle_percent(&total_printed);
 		}
