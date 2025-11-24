@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 11:33:17 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 18:21:24 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,10 @@ BUFFER_SIZE = 42
 FILES = get_next_line.c get_next_line_utils.c
 OUT_FILES = $(FILES:.c=.o)
 
-.PHONY: all clean fclean ar norm test test-mac
-all:
-	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c $(FILES)
+all: $(NAME)
 	
-$(NAME): all
+$(NAME): $(OUT_FILES)
+	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c $(FILES)
 	ar rcs $(NAME) $(OUT_FILES)
 
 clean:
@@ -38,3 +37,5 @@ test-mac: re
 test: re
 	cc -o test test.c $(NAME) -lbsd
 	./test
+
+.PHONY: all clean fclean re
