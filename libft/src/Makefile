@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 11:15:10 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 11:23:03 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,16 @@ FILES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
+OUT_FILES = $(FILES:.c=.o)
+
 .PHONY: all clean fclean ar norm test test-mac
 $(NAME): all
-	ar rcs $(NAME) *.o
-
+	ar rcs $(NAME) $(OUT_FILES)
 all:
 	cc -Wall -Wextra -Werror -c $(FILES)
 
 clean:
-	rm -f *.o
+	rm -f $(OUT_FILES)
 	rm -f test
 
 fclean: clean
