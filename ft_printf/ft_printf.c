@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 16:37:54 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 17:12:10 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,26 @@ void	handle_percent(int *total_printed)
 	(*total_printed)++;
 }
 
+void	handle_argument(const char *ptr, va_list *list, int *total_printed)
+{
+	if (*ptr == 'c')
+		handle_char(list, total_printed);
+	else if (*ptr == 's')
+		handle_string(list, total_printed);
+	else if (*ptr == 'p')
+		handle_pointer(list, total_printed);
+	else if (*ptr == 'd' || *ptr == 'i')
+		handle_number(list, total_printed);
+	else if (*ptr == 'u')
+		handle_unsigned(list, total_printed);
+	else if (*ptr == 'x')
+		handle_hex(list, total_printed, 0);
+	else if (*ptr == 'X')
+		handle_hex(list, total_printed, 1);
+	else if (*ptr == '%')
+		handle_percent(total_printed);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	const char *ptr = format;
@@ -199,22 +219,7 @@ int	ft_printf(const char *format, ...)
 		if (*ptr == '%')
 		{
 			ptr++;
-			if (*ptr == 'c')
-				handle_char(&list, &total_printed);
-			else if (*ptr == 's')
-				handle_string(&list, &total_printed);
-			else if (*ptr == 'p')
-				handle_pointer(&list, &total_printed);
-			else if (*ptr == 'd' || *ptr == 'i')
-				handle_number(&list, &total_printed);
-			else if (*ptr == 'u')
-				handle_unsigned(&list, &total_printed);
-			else if (*ptr == 'x')
-				handle_hex(&list, &total_printed, 0);
-			else if (*ptr == 'X')
-				handle_hex(&list, &total_printed, 1);
-			else if (*ptr == '%')
-				handle_percent(&total_printed);
+			handle_argument(ptr, &list, &total_printed);
 		}
 		else
 		{
