@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 17:25:58 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 17:37:18 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	ft_printf(const char *format, ...)
 {
 	const char	*ptr = format;
 	va_list		list;
-	int			total_printed = 0;
+	int			total_printed;
 
+	total_printed = 0;
 	va_start(list, format);
 	while (*ptr)
 	{
