@@ -29,5 +29,7 @@ int main()
     printf("printf x(lowercase hex): %x, X(uppercase hex): %X\n", hex_num, hex_num);
     ft_printf("ft_printf x(lowercase hex): %x, X(uppercase hex): %X\n", hex_num, hex_num);
     printf("\n---\n");
+    ft_printf("ft_printf percent sign: %%\n");
+    printf("printf percent sign: %%\n");
     return 0;
 }
