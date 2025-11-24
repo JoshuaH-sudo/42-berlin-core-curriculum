@@ -11,6 +11,7 @@ int	main(void)
 	while (1)
 	{
 		char *str = get_next_line(fd);
+		// char *str = get_next_line(1); // to read from standard input
 		if (!str)
 			break ;
 		printf("line-found: %s", str);
