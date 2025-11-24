@@ -6,19 +6,19 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 09:08:58 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 11:14:54 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = get_next_line.a
 BUFFER_SIZE = 42
+FILES = get_next_line.c get_next_line_utils.c
 
 .PHONY: all clean fclean ar norm test test-mac
+all:
+	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c $(FILES)
 $(NAME): all
 	ar rcs $(NAME) *.o
-
-all:
-	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c *.c
 
 clean:
 	rm -f *.o
