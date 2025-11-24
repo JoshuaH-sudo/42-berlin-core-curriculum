@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 12:45:51 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 13:03:12 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,3 +38,4 @@ test: $(NAME)
 	./test
 
 .PHONY: $(NAME) all clean fclean re
+.SILENT:
