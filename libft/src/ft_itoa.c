@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:11:16 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/21 17:05:49 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 10:30:52 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	count_digits(int n)
 	return (count);
 }
 
-int	check_negative(int n)
+static int	check_negative(int n)
 {
 	int		is_negative;
 
