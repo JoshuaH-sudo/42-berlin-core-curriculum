@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 14:48:51 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 15:28:55 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	convert(int nb, int fd, int *total_printed)
 	}
 }
 
-void	handle_decimal(va_list *list, int *total_printed)
+void	handle_number(va_list *list, int *total_printed)
 {
 	int	n;
 
@@ -117,6 +117,36 @@ void	handle_decimal(va_list *list, int *total_printed)
 		return ;
 	}
 	convert(n, 1, total_printed);
+}
+
+static void   convert_unsigned(unsigned int n, int fd, int *total_printed)
+{
+    unsigned int    mod;
+    char            letter;
+
+    if (n != 0)
+    {
+        mod = n % 10;
+        n = n / 10;
+        convert_unsigned(n, fd, total_printed);
+        letter = mod + '0';
+        ft_putchar_fd(letter, fd);
+        (*total_printed)++;
+    }
+}
+
+void    handle_unsigned(va_list *list, int *total_printed)
+{
+    unsigned int    n;
+
+    n = va_arg(*list, unsigned int);
+    if (n == 0)
+    {
+        ft_putchar_fd('0', 1);
+        (*total_printed)++;
+        return ;
+    }
+    convert_unsigned(n, 1, total_printed);
 }
 
 void	handle_percent(int *total_printed)
@@ -145,7 +175,13 @@ int	ft_printf(const char *format, ...)
 			else if (*ptr == 'p')
 				handle_pointer(&list, &total_printed);
             else if (*ptr == 'd' || *ptr == 'i')
-                handle_decimal(&list, &total_printed);
+                handle_number(&list, &total_printed);
+            else if (*ptr == 'u')
+                handle_unsigned(&list, &total_printed);
+            else if (*ptr == 'x')
+                ; // handle_hex_lower(&list, &total_printed);
+            else if (*ptr == 'X')
+                ; // handle_hex_upper(&list, &total_printed);
 			else if (*ptr == '%')
 				handle_percent(&total_printed);
 		}
