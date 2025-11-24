@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 15:36:08 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 15:43:47 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void    handle_unsigned(va_list *list, int *total_printed)
     convert_unsigned(n, 1, total_printed);
 }
 
-static char *convert_hex(int fd, unsigned int n, char *hex_digits, int *total_printed) 
+static void convert_hex(int fd, unsigned int n, char *hex_digits, int *total_printed) 
 {
     unsigned int    mod;
     char            letter;

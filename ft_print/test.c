@@ -25,5 +25,9 @@ int main()
     printf("\n---\n");
     printf("printf i: %i, u(unsigned): %u\n", unassigned_int, unassigned_int);
     ft_printf("ft_printf i: %i, u(unsigned): %u\n", unassigned_int, unassigned_int);
+    printf("\n---\n");
+    printf("printf x(lowercase hex): %x, X(uppercase hex): %X\n", hex_num, hex_num);
+    ft_printf("ft_printf x(lowercase hex): %x, X(uppercase hex): %X\n", hex_num, hex_num);
+    printf("\n---\n");
     return 0;
 }
