@@ -8,7 +8,8 @@
 	"string.h": "c",
 	"stdlib.h": "c",
 	"get_next_line.h": "c",
-	"stdarg.h": "c"
+	"stdarg.h": "c",
+	"ft_printf.h": "c"
 },
   "42header.email": "jhoban@student.42berlin.de",
   "42header.username": "jhoban",

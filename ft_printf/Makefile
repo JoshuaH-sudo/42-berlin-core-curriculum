@@ -6,21 +6,20 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 17:32:10 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 18:04:58 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-FILES = ft_printf.c srcs/handle_char.c srcs/handle_hex.c \
-		srcs/handle_nbr.c srcs/handle_str.c srcs/printf_utils.c
-LIBFT = ./srcs/libft
+FILES = ft_printf.c handle_char.c handle_hex.c \
+		handle_nbr.c handle_str.c printf_utils.c
+LIBFT = ./libft
 OUT_FILES = $(FILES:.c=.o)
-CFLAGS	= -Wall -Wextra -Werror -I.
+CFLAGS	= -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OUT_FILES)
-	cc $(CFLAGS) -c $(FILES)
 	$(MAKE) -C $(LIBFT)
 	cp $(LIBFT)/libft.a $(NAME)
 	ar rcs $(NAME) $(OUT_FILES)
