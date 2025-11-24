@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 13:29:25 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 14:48:51 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,90 @@ void	handle_string(va_list *list, int *total_printed)
 	}
 }
 
+char	*int_to_hex(unsigned long num)
+{
+	static char	buffer[17];
+	char		*ptr;
+	const char	*digits = "0123456789abcdef";
+
+	ptr = &buffer[16];
+	*ptr = '\0';
+	if (num == 0)
+	{
+		*(--ptr) = '0';
+		return (ptr);
+	}
+	while (num > 0)
+	{
+		*(--ptr) = digits[num % 16];
+		num /= 16;
+	}
+	return (ptr);
+}
+
+void	handle_pointer(va_list *list, int *total_printed)
+{
+	void	*ptr;
+	char	*hex_str;
+
+	ptr = va_arg(*list, void *);
+	ft_putstr_fd("0x", 1);
+	(*total_printed) += 2;
+	if (ptr == NULL)
+	{
+		ft_putstr_fd("0", 1);
+		(*total_printed) += 1;
+	}
+	else
+	{
+		hex_str = int_to_hex((unsigned long)ptr);
+		ft_putstr_fd(hex_str, 1);
+		(*total_printed) += ft_strlen(hex_str);
+	}
+}
+
+static void	convert(int nb, int fd, int *total_printed)
+{
+	int		mod;
+	char	letter;
+
+	if (nb != 0)
+	{
+		mod = nb % 10;
+		nb = nb / 10;
+		convert(nb, fd, total_printed);
+		if (mod < 0)
+			mod = 0 - mod;
+		letter = mod + '0';
+		ft_putchar_fd(letter, fd);
+		(*total_printed)++;
+	}
+}
+
+void	handle_decimal(va_list *list, int *total_printed)
+{
+	int	n;
+
+	n = va_arg(*list, int);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', 1);
+		n = -n;
+	}
+	if (n == 0)
+	{
+		ft_putchar_fd('0', 1);
+		return ;
+	}
+	convert(n, 1, total_printed);
+}
+
+void	handle_percent(int *total_printed)
+{
+	ft_putchar_fd('%', 1);
+	(*total_printed)++;
+}
+
 // %c %s %p %d %i %u %x %X %%
 int	ft_printf(const char *format, ...)
 {
@@ -58,11 +142,12 @@ int	ft_printf(const char *format, ...)
 				handle_char(&list, &total_printed);
 			else if (*ptr == 's')
 				handle_string(&list, &total_printed);
+			else if (*ptr == 'p')
+				handle_pointer(&list, &total_printed);
+            else if (*ptr == 'd' || *ptr == 'i')
+                handle_decimal(&list, &total_printed);
 			else if (*ptr == '%')
-			{
-				ft_putchar_fd('%', 1);
-				total_printed++;
-			}
+				handle_percent(&total_printed);
 		}
 		else
 		{
