@@ -6,13 +6,13 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:19:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 17:24:38 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 17:38:32 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft/libft.h"
-# include "ft_printf.h"
-# include <stdarg.h>
+#include "libft/libft.h"
+#include "ft_printf.h"
+#include <stdarg.h>
 
 char	*int_to_hex(unsigned long num)
 {
