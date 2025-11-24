@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   handle_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 17:25:58 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/24 17:15:27 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/24 17:30:24 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs/libft/libft.h"
-#include "ft_printf.h"
+#include "../libft/libft.h"
 #include <stdarg.h>
 
-int	ft_printf(const char *format, ...)
+void	handle_char(va_list *list, int *total_printed)
 {
-	const char	*ptr = format;
-	va_list		list;
-	int			total_printed = 0;
+	char	c;
 
-	va_start(list, format);
-	while (*ptr)
-	{
-		if (*ptr == '%')
-		{
-			ptr++;
-			handle_argument(ptr, &list, &total_printed);
-		}
-		else
-		{
-			ft_putchar_fd(*ptr, 1);
-			total_printed++;
-		}
-		ptr++;
-	}
-	va_end(list);
-	return (total_printed);
+	c = (char)va_arg(*list, int);
+	ft_putchar_fd(c, 1);
+	(*total_printed)++;
 }
