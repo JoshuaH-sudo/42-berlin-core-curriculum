@@ -23,8 +23,15 @@ int main()
     void *ptr = NULL;
     printf("Starting ft_printf tests...\n");
 
-    ft_printf("%s\n", " space"); 
-    printf("%s\n", " space"); 
+    printf("ft_printf\n");
+    int res1 = ft_printf(" NULL %s NULL ", NULL); 
+    printf("\n");
+    printf("printf\n");
+    // int res2 = printf(" NULL %s NULL ", NULL); 
+    printf("\n");
+    printf("ft_printf returned: %d\n", res1);
+    // printf("printf returned: %d\n", res2);
+    
     // printf("printf:\nc: %c, s: %s, p: %p, d: %d, i: %i, u: %u, x: %x, X: %X, %%: %%\n", 'A', "test", ptr, dec_num, dec_num, unassigned_int, hex_num, hex_num);
     // ft_printf("ft_printf:\nc: %c, s: %s, p: %p, d: %d, i: %i, u: %u, x: %x, X: %X, %%: %%\n", 'A', "test", ptr, dec_num, dec_num, unassigned_int, hex_num, hex_num);
     // printf("\n%%c / %%s ---\n");

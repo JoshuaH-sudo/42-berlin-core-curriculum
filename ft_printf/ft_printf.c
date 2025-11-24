@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 16:05:45 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 16:31:34 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,10 @@ void	handle_string(va_list *list, int *total_printed)
 	char		*str;
 
 	str = va_arg(*list, char *);
-	if (*str)
-	{
-		ft_putstr_fd(str, 1);
-		(*total_printed) += ft_strlen(str);
-	}
-	else
-	{
-		ft_putstr_fd((char *)null_str, 1);
-		(*total_printed) += ft_strlen(null_str);
-	}
+	if (str == NULL)
+		str = (char *)null_str;
+	ft_putstr_fd(str, 1);
+	(*total_printed) += ft_strlen(str);
 }
 
 char	*int_to_hex(unsigned long num)
