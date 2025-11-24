@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 16:31:34 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 16:37:54 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,12 @@ void	handle_number(va_list *list, int *total_printed)
 	{
 		ft_putchar_fd('-', 1);
 		n = -n;
+		(*total_printed)++;
 	}
 	if (n == 0)
 	{
 		ft_putchar_fd('0', 1);
+		(*total_printed)++;
 		return ;
 	}
 	convert(n, 1, total_printed);

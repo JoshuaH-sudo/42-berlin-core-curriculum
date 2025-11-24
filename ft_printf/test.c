@@ -24,13 +24,13 @@ int main()
     printf("Starting ft_printf tests...\n");
 
     printf("ft_printf\n");
-    int res1 = ft_printf(" NULL %s NULL ", NULL); 
+    int res1 = ft_printf(" %d ", 0); 
     printf("\n");
     printf("printf\n");
-    // int res2 = printf(" NULL %s NULL ", NULL); 
+    int res2 = printf(" %d ", 0); 
     printf("\n");
     printf("ft_printf returned: %d\n", res1);
-    // printf("printf returned: %d\n", res2);
+    printf("printf returned: %d\n", res2);
     
     // printf("printf:\nc: %c, s: %s, p: %p, d: %d, i: %i, u: %u, x: %x, X: %X, %%: %%\n", 'A', "test", ptr, dec_num, dec_num, unassigned_int, hex_num, hex_num);
     // ft_printf("ft_printf:\nc: %c, s: %s, p: %p, d: %d, i: %i, u: %u, x: %x, X: %X, %%: %%\n", 'A', "test", ptr, dec_num, dec_num, unassigned_int, hex_num, hex_num);
