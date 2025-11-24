@@ -6,20 +6,20 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 12:19:10 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 12:45:51 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 FILES = ft_printf.c
-OUT_FILES = $(FILES:.c=.o) ./libft/libft.a
+OUT_FILES = $(FILES:.c=.o)
 
-.PHONY: $(NAME) all clean fclean ar norm
 all:
-	make -C ./libft libft.a
-	cc -Wall -Wextra -Werror -c $(FILES)
+	cc -Wall -Wextra -Werror -c $(FILES) -I ./libft/
 
 $(NAME): all
+	$(MAKE) -C ./libft
+	cp ./libft/libft.a $(NAME)
 	ar rcs $(NAME) $(OUT_FILES)
 
 clean:
@@ -33,3 +33,8 @@ fclean: clean
 
 re: fclean $(NAME)
 
+test: $(NAME)
+	cc -o test test.c $(NAME)
+	./test
+
+.PHONY: $(NAME) all clean fclean re
