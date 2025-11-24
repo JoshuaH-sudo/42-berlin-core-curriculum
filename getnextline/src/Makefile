@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 11:22:48 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 11:32:23 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ OUT_FILES = $(FILES:.c=.o)
 .PHONY: all clean fclean ar norm test test-mac
 all:
 	cc -Wall -Wextra -Werror -D BUFFER_SIZE=$(BUFFER_SIZE) -c $(FILES)
+	
 $(NAME): all
 	ar rcs $(NAME) $(OUT_FILES)
 
@@ -29,9 +30,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean $(NAME)
-
-norm:
-	norminette
 
 test-mac: re
 	cc -o test test.c $(NAME)
