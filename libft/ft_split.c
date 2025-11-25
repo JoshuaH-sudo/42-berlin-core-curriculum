@@ -6,12 +6,13 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:06:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/25 15:39:24 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 18:55:21 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include <string.h>
 
 static size_t	count_substrings(char const *s, char c)
 {
@@ -38,12 +39,25 @@ static size_t	count_substrings(char const *s, char c)
 	return (count);
 }
 
+static char	*clean_up(char **result, size_t item)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < item)
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
+	return (NULL);
+}
+
 char	**assign_strings(char **result, char const *s, char c)
 {
 	size_t	index;
 	size_t	item;
 	size_t	start;
-	size_t	end;
 
 	index = 0;
 	item = 0;
@@ -54,8 +68,9 @@ char	**assign_strings(char **result, char const *s, char c)
 			start = index;
 			while (s[index] && s[index] != c)
 				index++;
-			end = index;
-			result[item] = ft_substr(s, start, end - start);
+			result[item] = ft_substr(s, start, index - start);
+			if (!result[item])
+				return (clean_up(result, item));
 			item++;
 		}
 		else
