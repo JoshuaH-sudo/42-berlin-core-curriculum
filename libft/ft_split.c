@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:06:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/25 18:55:21 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 19:00:58 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static size_t	count_substrings(char const *s, char c)
 	return (count);
 }
 
-static char	*clean_up(char **result, size_t item)
+static char	**clean_up(char **result, size_t item)
 {
 	size_t	i;
 
