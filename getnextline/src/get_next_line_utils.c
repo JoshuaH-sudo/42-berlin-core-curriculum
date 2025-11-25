@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 08:52:55 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/24 11:41:47 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,19 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 {
 	char	*line_new;
 	size_t	leftover;
+	size_t	line_len;
+	size_t	buffer_len;
 	int		i;
 
 	i = 0;
+	line_len = ft_strlen(line);
+	buffer_len = ft_strlen(buffer);
 	while ((unsigned char)buffer[i] != '\0')
 	{
 		if ((unsigned char)buffer[i] == '\n')
 		{
-			line_new = ft_joinstr(line, buffer, ft_strlen(line), i + 1);
-			leftover = ft_strlen(buffer) - (i + 1);
+			line_new = ft_joinstr(line, buffer, line_len, i + 1);
+			leftover = buffer_len - (i + 1);
 			if (leftover > 0)
 				ft_memmove(buffer, buffer + i + 1, leftover);
 			buffer[leftover] = '\0';
@@ -97,7 +101,7 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 		}
 		i++;
 	}
-	line_new = ft_joinstr(line, buffer, ft_strlen(line), nread);
+	line_new = ft_joinstr(line, buffer, line_len, nread);
 	buffer[0] = '\0';
 	free(line);
 	return (line_new);
