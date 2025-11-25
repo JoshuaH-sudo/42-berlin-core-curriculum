@@ -6,12 +6,12 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:11:16 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 10:57:17 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 15:39:56 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
+#include <string.h>
 
 static char	*convert(int nb, char *str, int start)
 {
