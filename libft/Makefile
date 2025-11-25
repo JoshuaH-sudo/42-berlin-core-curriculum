@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 18:18:55 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/25 15:30:34 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,15 +36,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-test-mac: all ar
-	cc -o test ../test.c $(NAME)
-	echo "Running tests:"
-	./test | tee test_output.txt
-	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
-
-test: all ar
-	cc -o test ../test.c $(NAME) -lbsd
-	echo "Running tests:"
-	./test | tee test_output.txt
-	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
 .PHONY: all clean fclean re
