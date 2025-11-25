@@ -6,7 +6,7 @@
 #    By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 21:17:16 by jhoban            #+#    #+#              #
-#    Updated: 2025/11/24 11:23:03 by jhoban           ###   ########.fr        #
+#    Updated: 2025/11/24 18:18:55 by jhoban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,12 @@ FILES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
 OUT_FILES = $(FILES:.c=.o)
+CFLAGS			= -Wall -Wextra -Werror -I.
 
-.PHONY: all clean fclean ar norm test test-mac
-$(NAME): all
+all: $(NAME)
+
+$(NAME): $(OUT_FILES)
 	ar rcs $(NAME) $(OUT_FILES)
-all:
-	cc -Wall -Wextra -Werror -c $(FILES)
 
 clean:
 	rm -f $(OUT_FILES)
@@ -35,9 +35,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean $(NAME)
-
-norm:
-	norminette
 
 test-mac: all ar
 	cc -o test ../test.c $(NAME)
@@ -50,3 +47,4 @@ test: all ar
 	echo "Running tests:"
 	./test | tee test_output.txt
 	grep "KO!" test_output.txt && echo "Some tests failed." || echo "All tests passed."
+.PHONY: all clean fclean re

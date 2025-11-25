@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 11:51:46 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/19 14:43:35 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/21 17:07:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
 
-char	*get_next_line(int fd)
+char	*ft_strdup(const char *s1)
 {
-	static char	*buffer;
-	char		*line;
-	ssize_t		nread;
+	size_t	len;
+	char	*dup;
 
-	if (fd < 0)
+	len = ft_strlen(s1);
+	dup = (char *)malloc(len + 1);
+	if (!dup)
 		return (NULL);
-	if (!buffer)
-	{
-		buffer = (char *)malloc(BUFFER_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		buffer[0] = '\0';
-	}
-	line = (char *)malloc(1);
-	if (!line)
-		return (NULL);
-	line[0] = '\0';
-	nread = ft_strlen(buffer);
-	return (get_next_line_loop(fd, buffer, line, nread));
+	ft_memcpy(dup, s1, len);
+	dup[len] = '\0';
+	return (dup);
 }

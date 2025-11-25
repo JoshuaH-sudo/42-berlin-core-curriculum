@@ -1,16 +1,20 @@
 {
   "files.associations": {
-    "stdio.h": "c",
-    "strings.h": "c",
-    "libft.h": "c",
-    "unistd.h": "c",
-    "fcntl.h": "c",
-    "string.h": "c",
-    "stdlib.h": "c",
-    "get_next_line.h": "c"
-  },
+	"stdio.h": "c",
+	"strings.h": "c",
+	"libft.h": "c",
+	"unistd.h": "c",
+	"fcntl.h": "c",
+	"string.h": "c",
+	"stdlib.h": "c",
+	"get_next_line.h": "c",
+	"stdarg.h": "c",
+	"ft_printf.h": "c"
+},
   "42header.email": "jhoban@student.42berlin.de",
   "42header.username": "jhoban",
   "editor.useTabStops": true,
-  "editor.tabSize": 4
+  "editor.tabSize": 4,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": false
 }
