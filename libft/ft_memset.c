@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:03:10 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 10:56:51 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 15:55:52 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	*ft_memset(void *s, int c, size_t n)
 	unsigned char	*str;
 	size_t			index;
 
-	str = s;
+	str = (unsigned char *)s;
 	index = 0;
 	while (index < n)
 	{
-		str[index] = c;
+		str[index] = (unsigned char)c;
 		index++;
 	}
 	return (str);
