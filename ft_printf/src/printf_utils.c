@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:19:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/26 15:59:59 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:03:15 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	handle_pointer(va_list *list, int *total_printed)
 	char	*hex_str;
 
 	ptr = va_arg(*list, void *);
-	ft_putstr_fd("0x", 1);
-	(*total_printed) += 2;
 	if (ptr == NULL)
 	{
-		ft_putstr_fd("0", 1);
-		(*total_printed) += 1;
+		ft_putstr_fd("(nil)", 1);
+		(*total_printed) += 5;
 	}
 	else
 	{
+		ft_putstr_fd("0x", 1);
+		(*total_printed) += 2;
 		hex_str = int_to_hex((unsigned long)ptr);
 		ft_putstr_fd(hex_str, 1);
 		(*total_printed) += ft_strlen(hex_str);

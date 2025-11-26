@@ -24,10 +24,10 @@ int main()
     printf("Starting ft_printf tests...\n");
 
     printf("ft_printf\n");
-    int res1 = ft_printf(" %d ", 0); 
+    int res1 = ft_printf(" %p %p ", 0, 0); 
     printf("\n");
     printf("printf\n");
-    int res2 = printf(" %d ", 0); 
+    int res2 = printf(" %p %p ", 0, 0); 
     printf("\n");
     printf("ft_printf returned: %d\n", res1);
     printf("printf returned: %d\n", res2);
