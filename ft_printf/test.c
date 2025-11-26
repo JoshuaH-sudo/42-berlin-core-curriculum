@@ -38,6 +38,8 @@ int main()
     TEST("hello c: %c, s: %s AAAA\n", '!', "joshuahoban");
     printf("\n%%p ---\n");
     TEST("hello p: %p, p(null): %p\n", &dec_num, ptr);
+    printf("\n%%p ---\n");
+    TEST("hello p: %p, p(null): %p\n", 0, 0);
     printf("\n%%d ---\n");
     TEST("fd(dec): %d, d(oct_num): %d, d(hex_num): %d\n", dec_num, oct_num, hex_num);
     printf("\n%%i ---\n");
