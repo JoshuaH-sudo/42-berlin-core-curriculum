@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:19:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/26 16:03:15 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 19:53:51 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,10 @@ void	handle_argument(const char *ptr, va_list *list, int *total_printed)
 		handle_hex(list, total_printed, 1);
 	else if (*ptr == '%')
 		handle_percent(total_printed);
+}
+
+int	is_valid_specifier(char c)
+{
+	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || \
+			c == 'u' || c == 'x' || c == 'X' || c == '%');
 }

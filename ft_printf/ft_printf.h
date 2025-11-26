@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:16:35 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 17:37:37 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 19:25:54 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 
 int		ft_printf(const char *format, ...);
+int		is_valid_specifier(char c);
 void	handle_argument(const char *ptr, va_list *list, int *total_printed);
 void	handle_char(va_list *list, int *total_printed);
 void	handle_string(va_list *list, int *total_printed);
