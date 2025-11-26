@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:06:05 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 12:15:25 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 19:06:36 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,25 @@ static size_t	count_substrings(char const *s, char c)
 	return (count);
 }
 
+static char	**clean_up(char **result, size_t item)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < item)
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
+	return (NULL);
+}
+
 char	**assign_strings(char **result, char const *s, char c)
 {
 	size_t	index;
 	size_t	item;
 	size_t	start;
-	size_t	end;
 
 	index = 0;
 	item = 0;
@@ -55,8 +68,9 @@ char	**assign_strings(char **result, char const *s, char c)
 			start = index;
 			while (s[index] && s[index] != c)
 				index++;
-			end = index;
-			result[item] = ft_substr(s, start, end - start);
+			result[item] = ft_substr(s, start, index - start);
+			if (!result[item])
+				return (clean_up(result, item));
 			item++;
 		}
 		else
@@ -72,9 +86,9 @@ char	**ft_split(char const *s, char c)
 
 	count = count_substrings(s, c);
 	result = (char **)malloc((count + 1) * sizeof(char *));
-	result = assign_strings(result, s, c);
 	if (!result)
 		return (NULL);
+	result = assign_strings(result, s, c);
 	if (!result)
 		return (NULL);
 	result[count] = NULL;

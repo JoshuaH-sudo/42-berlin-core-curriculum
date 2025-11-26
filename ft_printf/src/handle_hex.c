@@ -6,11 +6,11 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:23:19 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 18:05:23 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:58:26 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include <stdarg.h>
 
 void	convert_hex(int fd, unsigned int n, char *hex_digits,

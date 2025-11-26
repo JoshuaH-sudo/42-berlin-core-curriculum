@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:43:39 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/21 17:06:01 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 19:03:29 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	size_t				i;
 
 	d = dest;
+	if (!dest && !src)
+		return (NULL);
 	if (d < s)
 	{
 		return (ft_memcpy(dest, src, n));

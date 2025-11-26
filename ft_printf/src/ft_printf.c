@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 13:53:17 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/25 15:38:38 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/24 12:03:54 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/26 15:58:17 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <string.h>
+#include "../libft/libft.h"
+#include "../ft_printf.h"
+#include <stdarg.h>
 
-/**
- * Gets the last occurrence of a character in a string.
- */
-char	*ft_strrchr(const char *s, int c)
+int	ft_printf(const char *format, ...)
 {
-	int		index;
-	char	*ptr_to_char;
+	const char	*ptr = format;
+	va_list		list;
+	int			total_printed;
 
-	index = ft_strlen(s);
-	while (index >= 0)
+	total_printed = 0;
+	va_start(list, format);
+	while (*ptr)
 	{
-		if (s[index] == (char)c)
+		if (*ptr == '%')
 		{
-			ptr_to_char = (char *)&s[index];
-			return (ptr_to_char);
+			ptr++;
+			handle_argument(ptr, &list, &total_printed);
 		}
-		index--;
+		else
+		{
+			ft_putchar_fd(*ptr, 1);
+			total_printed++;
+		}
+		ptr++;
 	}
-	return (NULL);
+	va_end(list);
+	return (total_printed);
 }

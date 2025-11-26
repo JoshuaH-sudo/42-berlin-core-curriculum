@@ -6,13 +6,12 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:01:13 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/22 14:56:27 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 15:39:12 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-#include <string.h>
 
 static char	*join(char *dest, const char *src, size_t start)
 {

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoban <jhoban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:11:16 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/24 10:30:52 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/25 19:38:18 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
+#include <string.h>
 
 static char	*convert(int nb, char *str, int start)
 {
@@ -71,13 +71,13 @@ char	*ft_itoa(int n)
 		return (str);
 	}
 	is_negative = check_negative(n);
-	digits = count_digits(n) + is_negative;
+	digits = count_digits(n);
 	str = ft_calloc(digits + 1, sizeof(char));
 	if (!str)
 		return (NULL);
 	if (is_negative)
 		str[0] = '-';
-	str = convert(n, str, digits - 1 - is_negative);
+	str = convert(n, str, digits - 1);
 	str[digits] = '\0';
 	return (str);
 }

@@ -6,12 +6,12 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:19:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/25 19:15:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:59:59 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_printf.h"
+#include "../libft/libft.h"
+#include "../ft_printf.h"
 #include <stdarg.h>
 #include <string.h>
 

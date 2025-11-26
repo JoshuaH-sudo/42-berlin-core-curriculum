@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   handle_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 17:06:30 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/20 10:34:42 by jhoban           ###   ########.fr       */
+/*   Created: 2025/11/24 17:15:27 by jhoban            #+#    #+#             */
+/*   Updated: 2025/11/26 15:58:38 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../libft/libft.h"
+#include <stdarg.h>
+#include <string.h>
 
-void	ft_putchar_fd(char c, int fd)
+void	handle_string(va_list *list, int *total_printed)
 {
-	write(fd, &c, 1);
+	const char	*null_str = "(null)";
+	char		*str;
+
+	str = va_arg(*list, char *);
+	if (str == NULL)
+		str = (char *)null_str;
+	ft_putstr_fd(str, 1);
+	(*total_printed) += ft_strlen(str);
 }
