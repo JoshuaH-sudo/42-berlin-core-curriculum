@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/25 19:13:52 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:50:13 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 {
 	char	*line_new;
-	size_t	leftover;
 	size_t	line_len;
 	size_t	buffer_len;
 	int		i;
@@ -92,10 +91,9 @@ char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
 		if ((unsigned char)buffer[i] == '\n')
 		{
 			line_new = ft_joinstr(line, buffer, line_len, i + 1);
-			leftover = buffer_len - (i + 1);
-			if (leftover > 0)
-				ft_memmove(buffer, buffer + i + 1, leftover);
-			buffer[leftover] = '\0';
+			if ((buffer_len - (i + 1)) > 0)
+				ft_memmove(buffer, (buffer + i + 1), buffer_len - (i + 1));
+			buffer[(buffer_len - (i + 1))] = '\0';
 			free(line);
 			return (line_new);
 		}
