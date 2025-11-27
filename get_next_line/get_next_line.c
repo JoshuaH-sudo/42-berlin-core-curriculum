@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/27 17:39:18 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 18:02:09 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ char	*read_buffer(int fd, char *buffer, char *left_over)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
+		{
+			if (left_over)
+				free(left_over);
 			return (NULL);
+		}
 		if (nread == 0)
 			break ;
 		buffer[nread] = '\0';
@@ -96,7 +100,10 @@ char	*get_next_line(int fd)
 	line = read_buffer(fd, buffer, left_over);
 	free(buffer);
 	if (!line)
+	{
+		left_over = NULL;
 		return (NULL);
+	}
 	left_over = extract_line(line);
 	return (line);
 }
