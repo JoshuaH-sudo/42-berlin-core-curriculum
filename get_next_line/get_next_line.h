@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:27:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/26 18:01:59 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 16:41:04 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # endif
 
 size_t	ft_strlen(const char *s);
-char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len);
-void	*ft_memmove(void *dest, const void *src, size_t n);
-char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread);
-char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread);
+char	*ft_joinstr(char *dest, char *src);
+char	*ft_strchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*extract_line(char *line_buffer);
+char	*get_next_line_loop(int fd, char *buffer, char *left_over);
 char	*get_next_line(int fd);
 #endif // GET_NEXT_LINE_H

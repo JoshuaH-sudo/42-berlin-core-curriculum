@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/26 18:01:36 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 16:41:20 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,80 +15,83 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-char	*parse_line_from_buffer(char *buffer, char *line, ssize_t nread)
-{
-	char	*line_new;
-	size_t	line_len;
-	size_t	buffer_len;
-	int		i;
+#include <stdio.h>
 
-	i = 0;
-	line_len = ft_strlen(line);
-	buffer_len = ft_strlen(buffer);
-	while ((unsigned char)buffer[i] != '\0')
-	{
-		if ((unsigned char)buffer[i] == '\n')
-		{
-			line_new = ft_joinstr(line, buffer, line_len, i + 1);
-			if ((buffer_len - (i + 1)) > 0)
-				ft_memmove(buffer, (buffer + i + 1), buffer_len - (i + 1));
-			buffer[(buffer_len - (i + 1))] = '\0';
-			free(line);
-			return (line_new);
-		}
-		i++;
-	}
-	line_new = ft_joinstr(line, buffer, line_len, nread);
-	buffer[0] = '\0';
-	free(line);
-	return (line_new);
-}
-
-char	*get_next_line_loop(int fd, char *buffer, char *line, ssize_t nread)
+char	*get_next_line_loop(int fd, char *buffer, char *left_over)
 {
 	int		i;
+	ssize_t	nread;
+	char	*tmp;
 
 	i = 0;
-	while (1)
+	nread = 1;
+	while (nread > 0)
 	{
-		line = parse_line_from_buffer(buffer, line, nread);
-		while ((unsigned char)line[i] != '\0')
-		{
-			if ((unsigned char)line[i] == '\n')
-				return (line);
-			i++;
-		}
 		nread = read(fd, buffer, BUFFER_SIZE);
-		if (nread <= 0)
+		if (nread == -1)
 		{
-			if (line[0] != '\0')
-				return (line);
-			free(line);
+			if (left_over)
+				free(left_over);
 			return (NULL);
 		}
+		if (nread == 0)
+			break ;
 		buffer[nread] = '\0';
+		if (!left_over)
+		{
+			left_over = (char *)malloc(1 * sizeof(char));
+			if (!left_over)
+				return (NULL);
+			left_over[0] = '\0';
+		}
+		tmp = left_over;
+		left_over = ft_joinstr(left_over, buffer);
+		free(tmp);
+		if (!left_over)
+			return (NULL);
+		if (ft_strchr(buffer, '\n'))
+			break ;
 	}
+	return (left_over);
+}
+
+char *extract_line(char *line_buffer)
+{
+    char    *left_over;
+    ssize_t    i;
+    
+    i = 0;
+    while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
+        i++;
+    if (line_buffer[i] == 0 || line_buffer[1] == 0)
+        return (NULL);
+    left_over = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
+    if (*left_over == 0)
+    {
+        free(left_over);
+        left_over = NULL;
+    }
+    line_buffer[i + 1] = 0;
+    return (left_over);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*left_over;
+	char		*buffer;
 	char		*line;
-	ssize_t		nread;
 
-	if (fd < 0)
-		return (NULL);
-	if (!buffer)
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
-		buffer = (char *)malloc(BUFFER_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		buffer[0] = '\0';
-	}
-	line = (char *)malloc(1);
-	if (!line)
+		free(buffer);
+		free(left_over);
 		return (NULL);
-	line[0] = '\0';
-	nread = ft_strlen(buffer);
-	return (get_next_line_loop(fd, buffer, line, nread));
+	}
+	if (!buffer)
+		return (NULL);
+	line = get_next_line_loop(fd, buffer, left_over);
+	left_over = extract_line(line);
+	free(buffer);
+	return (line);
 }

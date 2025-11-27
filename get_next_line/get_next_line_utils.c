@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/27 14:52:58 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 16:42:25 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len)
+char	*ft_joinstr(char *dest, char *src)
 {
 	char	*new_str;
 	size_t	i;
 	size_t	j;
+	size_t	dest_len;
+	size_t	src_len;
 
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
 	new_str = (char *)malloc((dest_len + src_len + 1) * sizeof(char));
 	if (!new_str)
 		return (NULL);
@@ -51,27 +55,48 @@ char	*ft_joinstr(char *dest, char *src, size_t dest_len, size_t src_len)
 	return (new_str);
 }
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
-	size_t				i;
+	int		index;
+	char	*ptr_to_char;
 
-	d = dest;
-	s = src;
-	if (d < s)
+	index = 0;
+	while (s[index] != '\0')
 	{
-		while (n--)
-			*d++ = *s++;
-	}
-	else
-	{
-		i = n;
-		while (i > 0)
+		if (s[index] == (char)c)
 		{
-			d[i - 1] = s[i - 1];
-			i--;
+			ptr_to_char = (char *)&s[index];
+			return (ptr_to_char);
 		}
+		index++;
 	}
-	return (dest);
+	if (s[index] == (char)c)
+	{
+		ptr_to_char = (char *)&s[index];
+		return (ptr_to_char);
+	}
+	return (NULL);
 }
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	substr = (char *)malloc((len + 1) * sizeof(char));
+	if (!substr)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start + i])
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
+}
+
