@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/27 18:02:09 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 18:08:18 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,24 @@ char	*init_left_over(void)
 	return (left_over);
 }
 
+char	*append_buffer(char *left_over, char *buffer)
+{
+	char	*tmp;
+	char	*new_left_over;
+
+	if (!left_over)
+		left_over = init_left_over();
+	if (!left_over)
+		return (NULL);
+	tmp = left_over;
+	new_left_over = ft_joinstr(left_over, buffer);
+	free(tmp);
+	return (new_left_over);
+}
+
 char	*read_buffer(int fd, char *buffer, char *left_over)
 {
 	ssize_t	nread;
-	char	*tmp;
 
 	nread = 1;
 	while (nread > 0)
@@ -46,13 +60,7 @@ char	*read_buffer(int fd, char *buffer, char *left_over)
 		if (nread == 0)
 			break ;
 		buffer[nread] = '\0';
-		if (!left_over)
-			left_over = init_left_over();
-		if (!left_over)
-			return (NULL);
-		tmp = left_over;
-		left_over = ft_joinstr(left_over, buffer);
-		free(tmp);
+		left_over = append_buffer(left_over, buffer);
 		if (!left_over)
 			return (NULL);
 		if (ft_strchr(buffer, '\n'))
