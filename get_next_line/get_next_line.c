@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/27 16:41:20 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 17:22:44 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,16 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(buffer);
-		free(left_over);
+		if (left_over)
+			free(left_over);
 		return (NULL);
 	}
 	if (!buffer)
 		return (NULL);
 	line = get_next_line_loop(fd, buffer, left_over);
-	left_over = extract_line(line);
 	free(buffer);
+	if (!line)
+		return (NULL);
+	left_over = extract_line(line);
 	return (line);
 }
