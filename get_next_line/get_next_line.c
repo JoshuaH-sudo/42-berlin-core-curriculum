@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/27 18:08:18 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/27 18:09:35 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
-
-#include <stdio.h>
 
 char	*init_left_over(void)
 {
