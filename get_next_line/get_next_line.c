@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/29 09:23:43 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/29 10:06:48 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*extract_line(char *line_buffer)
 	i = 0;
 	while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
 		i++;
-	if (line_buffer[i] == 0 || line_buffer[1] == 0)
+	if (line_buffer[i] == '\0' || line_buffer[1] == '\0')
 		return (NULL);
 	left_over = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
 	if (*left_over == 0)
@@ -83,7 +83,7 @@ char	*extract_line(char *line_buffer)
 		free(left_over);
 		left_over = NULL;
 	}
-	line_buffer[i + 1] = 0;
+	line_buffer[i + 1] = '\0';
 	return (left_over);
 }
 

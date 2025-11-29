@@ -43,11 +43,12 @@ int	main(void)
     while (1)
     {
         str = get_next_line(fd);
+        printf("line %d found: %s", counter++, str);
         if (!str)
             break ;
-        printf("line %d found: %s", counter++, str);
         free(str);
     }
+	printf("\n--done--\n");
     close(fd);
     return (0);
 }
