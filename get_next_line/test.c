@@ -36,7 +36,8 @@ int	main(void)
 
     // Normal test
     printf("Test 5: Valid fd\n");
-    fd = open("test.txt", O_RDONLY);
+    fd = open("multiple_nl.txt", O_RDONLY);
+	int counter = 1;
     if (fd < 0)
         return (1);
     while (1)
@@ -44,7 +45,7 @@ int	main(void)
         str = get_next_line(fd);
         if (!str)
             break ;
-        printf("line-found: %s", str);
+        printf("line %d found: %s", counter++, str);
         free(str);
     }
     close(fd);
