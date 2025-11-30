@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/30 13:56:27 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/30 15:59:17 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-char	*init_left_over(void)
+char	*init_left_over(char *left_over)
 {
-	char	*left_over;
-
+	if (left_over)
+		return (left_over);
 	left_over = (char *)malloc(1 * sizeof(char));
 	if (!left_over)
 		return (NULL);
@@ -31,8 +31,7 @@ char	*append_buffer(char *left_over, char *buffer)
 	char	*tmp;
 	char	*new_left_over;
 
-	if (!left_over)
-		left_over = init_left_over();
+	left_over = init_left_over(left_over);
 	if (!left_over)
 		return (NULL);
 	tmp = left_over;
