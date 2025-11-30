@@ -36,31 +36,20 @@ int	main(void)
 
     // Normal test
     printf("Test 5: Valid fd\n");
-    fd = open("multiple_nl.txt", O_RDONLY);
-	char *str2;
-    int fd2 = open("test.txt", O_RDONLY);
+    fd = open("test.txt", O_RDONLY);
 	int counter = 1;
-	int counter2 = 1;
 	printf("BUFFER_SIZE: %d\n\n", BUFFER_SIZE);
     if (fd < 0)
         return (1);
     while (str)
     {
         str = get_next_line(fd);
-		str2 = get_next_line(fd2);
 		if (str)
 		{
         	printf("str1: line %d found: %s\n", counter++, str);
-			free(str);
-		}
-		if (str2)
-		{
-        	printf("str2: line %d found: %s\n", counter2++, str2);
-        	free(str2);
 		}
     }
 	printf("\n--done--\n");
     close(fd);
-    close(fd2);
     return (0);
 }
