@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/29 10:06:48 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/30 10:17:57 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,7 @@ char	*read_buffer(int fd, char *buffer, char *left_over)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
-		{
-			if (left_over)
-				free(left_over);
-			return (NULL);
-		}
+			return cleanup_and_return_null(&left_over);
 		if (nread == 0)
 			break ;
 		buffer[nread] = '\0';
@@ -65,6 +61,16 @@ char	*read_buffer(int fd, char *buffer, char *left_over)
 			break ;
 	}
 	return (left_over);
+}
+
+void	*cleanup_and_return_null(char **ptr)
+{
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+	return (NULL);
 }
 
 char	*extract_line(char *line_buffer)
@@ -93,23 +99,15 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*line;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		free(buffer);
-		if (left_over)
-			free(left_over);
-		return (NULL);
-	}
+		return cleanup_and_return_null(&left_over);
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return cleanup_and_return_null(&left_over);
 	line = read_buffer(fd, buffer, left_over);
 	free(buffer);
 	if (!line)
-	{
-		left_over = NULL;
-		return (NULL);
-	}
+		return cleanup_and_return_null(&left_over);
 	left_over = extract_line(line);
 	return (line);
 }

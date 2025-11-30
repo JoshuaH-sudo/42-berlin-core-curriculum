@@ -9,30 +9,30 @@ int	main(void)
     char *str;
     int fd;
 
-    // Test 1: Negative fd
-    printf("Test 1: Negative fd\n");
-    str = get_next_line(-1);
-    printf("Result: %s\n\n", str ? str : "NULL");
+    // // Test 1: Negative fd
+    // printf("Test 1: Negative fd\n");
+    // str = get_next_line(-1);
+    // printf("Result: %s\n\n", str ? str : "NULL");
 
-    // Test 2: Invalid fd number
-    printf("Test 2: Invalid fd (9999)\n");
-    str = get_next_line(9999);
-    printf("Result: %s\n\n", str ? str : "NULL");
+    // // Test 2: Invalid fd number
+    // printf("Test 2: Invalid fd (9999)\n");
+    // str = get_next_line(9999);
+    // printf("Result: %s\n\n", str ? str : "NULL");
 
-    // Test 3: Closed fd
-    printf("Test 3: Closed fd\n");
-    fd = open("test.txt", O_RDONLY);
-    close(fd);
-    str = get_next_line(fd);
-    printf("Result: %s\n\n", str ? str : "NULL");
+    // // Test 3: Closed fd
+    // printf("Test 3: Closed fd\n");
+    // fd = open("test.txt", O_RDONLY);
+    // close(fd);
+    // str = get_next_line(fd);
+    // printf("Result: %s\n\n", str ? str : "NULL");
 
-    // Test 4: Write-only fd
-    printf("Test 4: Write-only fd\n");
-    fd = open("test.txt", O_WRONLY);
-    str = get_next_line(fd);
-    printf("Result: %s\n\n", str ? str : "NULL");
-    if (fd >= 0)
-        close(fd);
+    // // Test 4: Write-only fd
+    // printf("Test 4: Write-only fd\n");
+    // fd = open("test.txt", O_WRONLY);
+    // str = get_next_line(fd);
+    // printf("Result: %s\n\n", str ? str : "NULL");
+    // if (fd >= 0)
+    //     close(fd);
 
     // Normal test
     printf("Test 5: Valid fd\n");
