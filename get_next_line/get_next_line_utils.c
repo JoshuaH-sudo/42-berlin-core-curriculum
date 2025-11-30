@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/30 19:42:18 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/30 20:29:05 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-void	*cleanup_and_return_null(char **ptr)
+void	*cleanup(char **ptr)
 {
 	if (ptr && *ptr)
 	{

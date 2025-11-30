@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/30 20:07:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/11/30 20:29:05 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ char	*read_buffer(int fd, char *buffer, char **left_over_ptr)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
-			return (cleanup_and_return_null(left_over_ptr));
+			return (cleanup(left_over_ptr));
 		if (nread == 0)
 			break ;
 		buffer[nread] = '\0';
 		left_over = append_buffer(left_over, buffer);
 		if (!left_over)
-			return (cleanup_and_return_null(left_over_ptr));
+			return (cleanup(left_over_ptr));
 		*left_over_ptr = left_over;
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -90,9 +90,9 @@ char	*extract_line(char **line_buffer)
 	free(*line_buffer);
 	*line_buffer = left_over;
 	if (!line)
-		return (cleanup_and_return_null(line_buffer));
+		return (cleanup(line_buffer));
 	if ((*line_buffer)[0] == '\0')
-		cleanup_and_return_null(line_buffer);
+		cleanup(line_buffer);
 	return (line);
 }
 
@@ -103,10 +103,10 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (cleanup_and_return_null(&left_over));
+		return (cleanup(&left_over));
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (cleanup_and_return_null(&left_over));
+		return (cleanup(&left_over));
 	left_over = read_buffer(fd, buffer, &left_over);
 	free(buffer);
 	if (!left_over)
