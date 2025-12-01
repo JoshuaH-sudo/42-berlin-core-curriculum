@@ -31,11 +31,14 @@ void	run_test(char *filename)
 
 int	main(void)
 {
+	printf("----- get_next_line Test Suite -----\n\n");
+	printf("BUFFER_SIZE: %d\n\n", BUFFER_SIZE);
 	// TEST_FILE("test.txt");
 	// TEST_FILE("multiple_nl.txt");
-	// TEST_FILE("single_line_no_nl.txt");
+	TEST_FILE("single_line_no_nl.txt");
 	// TEST_FILE("empty.txt");
-	TEST_FILE("1char.txt");
+	// TEST_FILE("1char.txt");
 	// TEST_FILE("long_line.txt");
+	printf("----- End of Test Suite -----\n");
 	return (0);
 }
