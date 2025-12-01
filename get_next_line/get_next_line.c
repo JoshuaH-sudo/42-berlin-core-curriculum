@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 10:47:07 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 11:00:18 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*read_buffer(int fd, char *left_over)
 	if (!left_over)
 		left_over = ft_substr("", 0, 0);
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (cleanup(left_over));
 	nread = 1;
 	while (nread > 0)
 	{
@@ -74,9 +76,9 @@ char	*extract_remaining(char *buffer)
 	ssize_t	len;
 
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
-	if (!buffer[i])
+	if (buffer[i] == '\0')
 		return (cleanup(buffer));
 	len = ft_strlen(buffer);
 	remaining = ft_substr(buffer, i + 1, len - (i + 1));
