@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 10:33:48 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 10:35:51 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*read_buffer(int fd, char *left_over)
 		left_over = append_buffer(left_over, buffer);
 		if (!left_over)
 			return (cleanup(buffer));
-		if (ft_strchr(buffer, '\n'))
+		if (ft_strchr(left_over, '\n'))
 			break ;
 	}
 	free(buffer);
