@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 09:07:00 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 09:24:36 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*read_buffer(int fd, char *left_over)
 	if (!left_over)
 		left_over = ft_substr("", 0, 0);
 	nread = 1;
-	while (nread > 0 && left_over)
+	while (nread > 0)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
@@ -72,20 +72,10 @@ char	*extract_remaining(char *buffer)
 	ssize_t	len;
 
 	i = 0;
-	if (!buffer)
+	if (!buffer || buffer[0] == '\0')
 		return (NULL);
-	if (buffer[0] == '\0')
-	{
-		free(buffer);
-		return (NULL);
-	}
 	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
-	if (buffer[i] == '\0')
-	{
-		free(buffer);
-		return (NULL);
-	}
 	len = ft_strlen(buffer);
 	remaining = ft_substr(buffer, i + 1, len - (i + 1));
 	free(buffer);
@@ -95,6 +85,7 @@ char	*extract_remaining(char *buffer)
 char	*get_next_line(int fd)
 {
 	static char	*left_over;
+	char		*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
