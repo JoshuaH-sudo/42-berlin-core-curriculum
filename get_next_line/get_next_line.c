@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 08:57:46 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 09:07:00 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*append_buffer(char *left_over, char *buffer)
 	char	*tmp;
 
 	tmp = ft_joinstr(left_over, buffer);
+	free(left_over);
 	if (!tmp)
 		return (NULL);
 	return (tmp);
@@ -33,7 +34,7 @@ char	*read_buffer(int fd, char *left_over)
 	if (!left_over)
 		left_over = ft_substr("", 0, 0);
 	nread = 1;
-	while (nread > 0)
+	while (nread > 0 && left_over)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
@@ -71,10 +72,20 @@ char	*extract_remaining(char *buffer)
 	ssize_t	len;
 
 	i = 0;
-	if (!buffer || buffer[0] == '\0')
+	if (!buffer)
 		return (NULL);
+	if (buffer[0] == '\0')
+	{
+		free(buffer);
+		return (NULL);
+	}
 	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
+	if (buffer[i] == '\0')
+	{
+		free(buffer);
+		return (NULL);
+	}
 	len = ft_strlen(buffer);
 	remaining = ft_substr(buffer, i + 1, len - (i + 1));
 	free(buffer);
