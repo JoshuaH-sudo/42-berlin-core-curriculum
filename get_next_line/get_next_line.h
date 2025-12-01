@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:27:38 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/30 20:29:05 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 08:45:49 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ char	*ft_joinstr(char *dest, char *src);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
-void	*cleanup(char **ptr);
+void	*cleanup(char *ptr);
 #endif // GET_NEXT_LINE_H

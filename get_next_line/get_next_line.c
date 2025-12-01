@@ -6,25 +6,14 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 08:42:10 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 08:44:56 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/types.h>
-
-char	*init_left_over(char *left_over)
-{
-	if (left_over)
-		return (left_over);
-	left_over = (char *)malloc(1 * sizeof(char));
-	if (!left_over)
-		return (NULL);
-	left_over[0] = '\0';
-	return (left_over);
-}
+#include <unistd.h>
 
 char	*append_buffer(char *left_over, char *buffer)
 {
@@ -42,9 +31,7 @@ char	*read_buffer(int fd, char *left_over)
 	char	buffer[BUFFER_SIZE + 1];
 
 	if (!left_over)
-		left_over = init_left_over(left_over);
-	// if (left_over && ft_strchr(left_over, '\n'))
-	// 	return (left_over);
+		left_over = ft_substr("", 0, 0);
 	nread = 1;
 	while (nread > 0)
 	{
@@ -100,7 +87,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (cleanup(&left_over));
+		return (cleanup(left_over));
 	left_over = read_buffer(fd, left_over);
 	if (!left_over)
 		return (NULL);
