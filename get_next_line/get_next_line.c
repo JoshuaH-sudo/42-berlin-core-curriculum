@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/11/30 20:29:05 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 08:35:09 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,93 +29,84 @@ char	*init_left_over(char *left_over)
 char	*append_buffer(char *left_over, char *buffer)
 {
 	char	*tmp;
-	char	*new_left_over;
 
-	left_over = init_left_over(left_over);
-	if (!left_over)
+	tmp = ft_joinstr(left_over, buffer);
+	if (!tmp)
 		return (NULL);
-	tmp = left_over;
-	new_left_over = ft_joinstr(left_over, buffer);
-	if (!new_left_over)
-	{
-		free(tmp);
-		return (NULL);
-	}
-	free(tmp);
-	return (new_left_over);
+	free(buffer);
+	return (tmp);
 }
 
-char	*read_buffer(int fd, char *buffer, char **left_over_ptr)
+char	*read_buffer(int fd, char *left_over)
 {
 	ssize_t	nread;
-	char	*left_over;
+	char	buffer[BUFFER_SIZE + 1];
 
-	left_over = *left_over_ptr;
+	if (!left_over)
+		left_over = init_left_over(left_over);
+	// if (left_over && ft_strchr(left_over, '\n'))
+	// 	return (left_over);
 	nread = 1;
-	if (left_over && ft_strchr(left_over, '\n'))
-		return (left_over);
 	while (nread > 0)
 	{
 		nread = read(fd, buffer, BUFFER_SIZE);
 		if (nread == -1)
-			return (cleanup(left_over_ptr));
+			return (NULL);
 		if (nread == 0)
 			break ;
 		buffer[nread] = '\0';
 		left_over = append_buffer(left_over, buffer);
 		if (!left_over)
-			return (cleanup(left_over_ptr));
-		*left_over_ptr = left_over;
+			return (NULL);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
 	return (left_over);
 }
 
-char	*extract_line(char **line_buffer)
+char	*extract_line(char *buffer)
 {
-	char	*left_over;
 	char	*line;
 	ssize_t	i;
 
 	i = 0;
-	while ((*line_buffer)[i] != '\n' && (*line_buffer)[i] != '\0')
+	if (!buffer || buffer[0] == '\0')
+		return (NULL);
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
-	if ((*line_buffer)[i] == '\0')
-		return (NULL);
-	left_over = ft_substr(*line_buffer, i + 1, ft_strlen(*line_buffer) - i);
-	if (!left_over)
-		return (NULL);
-	line = ft_substr(*line_buffer, 0, i + 1);
-	free(*line_buffer);
-	*line_buffer = left_over;
-	if (!line)
-		return (cleanup(line_buffer));
-	if ((*line_buffer)[0] == '\0')
-		cleanup(line_buffer);
+	line = ft_substr(buffer, 0, i + 1);
 	return (line);
+}
+
+char	*extract_remaining(char *buffer)
+{
+	char	*remaining;
+	ssize_t	i;
+	ssize_t	j;
+	ssize_t	len;
+
+	i = 0;
+	if (!buffer || buffer[0] == '\0')
+		return (NULL);
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+		i++;
+	len = ft_strlen(buffer);
+	remaining = ft_substr(buffer, i + 1, len - (i + 1));
+	free(buffer);
+	return (remaining);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*left_over;
-	char		*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (cleanup(&left_over));
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (cleanup(&left_over));
-	left_over = read_buffer(fd, buffer, &left_over);
-	free(buffer);
+	left_over = read_buffer(fd, left_over);
 	if (!left_over)
 		return (NULL);
-	line = extract_line(&left_over);
-	if (!line)
-	{
-		line = left_over;
-		left_over = NULL;
-	}
+	line = extract_line(left_over);
+	left_over = extract_remaining(left_over);
 	return (line);
 }
