@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:54 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 09:24:13 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 12:31:52 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len] != '\0')
 		len++;
 	return (len);
@@ -61,6 +63,8 @@ char	*ft_strchr(const char *s, int c)
 	char	*ptr_to_char;
 
 	index = 0;
+	if (!s)
+		return (NULL);
 	while (s[index] != '\0')
 	{
 		if (s[index] == (char)c)
