@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 08:37:10 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 08:42:10 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*append_buffer(char *left_over, char *buffer)
 	tmp = ft_joinstr(left_over, buffer);
 	if (!tmp)
 		return (NULL);
-	free(buffer);
 	return (tmp);
 }
 
