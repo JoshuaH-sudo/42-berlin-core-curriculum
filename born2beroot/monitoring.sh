@@ -109,10 +109,10 @@ wall "	#Architecture: $architecture
 	#CPU load: $cpu_percent%
 	#Last boot: $last_boot
 	#LVM use: $lvm_used
-	Connections TCP: $tcp_connections ESTABLISHED
-	User log: $users_logged_in
-	Network: IP $ip ($mac)
-	Sudo: $sudo_count cmd"
+	#Connections TCP: $tcp_connections ESTABLISHED
+	#User log: $users_logged_in
+	#Network: IP $ip ($mac)
+	#Sudo: $sudo_count cmd"
 
 # ============================================================================
 # KEY COMMANDS SUMMARY FOR EVALUATION
