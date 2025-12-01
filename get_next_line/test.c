@@ -32,7 +32,9 @@ void	run_test(char *filename)
 int	main(void)
 {
 	// TEST_FILE("test.txt");
-	TEST_FILE("multiple_nl.txt");
-	// TEST_FILE("single_line_no_nl.txt");
+	// TEST_FILE("multiple_nl.txt");
+	TEST_FILE("single_line_no_nl.txt");
+	// TEST_FILE("empty.txt");
+	// TEST_FILE("long_line.txt");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 09:31:24 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 09:37:04 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char	*read_buffer(int fd, char *left_over)
 
 	if (!left_over)
 		left_over = ft_substr("", 0, 0);
-	if (!left_over)
-		return (NULL);
 	nread = 1;
 	while (nread > 0)
 	{
@@ -74,9 +72,9 @@ char	*extract_remaining(char *buffer)
 	ssize_t	len;
 
 	i = 0;
-	if (!buffer)
-		return (NULL);
-	if (buffer[0] == '\0')
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
 	{
 		free(buffer);
 		return (NULL);
@@ -90,8 +88,8 @@ char	*extract_remaining(char *buffer)
 char	*get_next_line(int fd)
 {
 	static char	*left_over;
-	char		*buffer;
 	char		*line;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (cleanup(left_over));
 	left_over = read_buffer(fd, left_over);
