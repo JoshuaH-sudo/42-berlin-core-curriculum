@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 10:35:51 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 10:46:24 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*append_buffer(char *left_over, char *buffer)
 	char	*tmp;
 
 	tmp = ft_joinstr(left_over, buffer);
-	free(left_over);
+	cleanup(left_over);
 	if (!tmp)
 		return (NULL);
 	return (tmp);
@@ -77,13 +77,10 @@ char	*extract_remaining(char *buffer)
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
+		return (cleanup(buffer));
 	len = ft_strlen(buffer);
 	remaining = ft_substr(buffer, i + 1, len - (i + 1));
-	free(buffer);
+	cleanup(buffer);
 	return (remaining);
 }
 
