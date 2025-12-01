@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 10:46:24 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 10:47:07 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*read_buffer(int fd, char *left_over)
 		if (ft_strchr(left_over, '\n'))
 			break ;
 	}
-	free(buffer);
+	cleanup(buffer);
 	return (left_over);
 }
 
