@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:28:44 by jhoban            #+#    #+#             */
-/*   Updated: 2025/12/01 08:35:09 by jhoban           ###   ########.fr       */
+/*   Updated: 2025/12/01 08:37:10 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char	*extract_remaining(char *buffer)
 {
 	char	*remaining;
 	ssize_t	i;
-	ssize_t	j;
 	ssize_t	len;
 
 	i = 0;
