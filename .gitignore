@@ -56,7 +56,8 @@ dkms.conf
 test_output.txt
 test
 
-.DS_store
+.DS_Store
+*.zip
 Supreme-Tester-Libft/
 gnlTester/
 printfTester/
