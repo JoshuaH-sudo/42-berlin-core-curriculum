@@ -1,0 +1,12 @@
+[submodule "42-get-next-line"]
+	path = 42-get-next-line
+	url = https://github.com/JoshuaH-sudo/42-get-next-line
+[submodule "42-ft_printf"]
+	path = 42-ft_printf
+	url = https://github.com/JoshuaH-sudo/42-ft_printf
+[submodule "42-libft"]
+	path = 42-libft
+	url = https://github.com/JoshuaH-sudo/42-libft
+[submodule "42-push-swap"]
+	path = 42-push-swap
+	url = https://github.com/JoshuaH-sudo/42-push-swap
