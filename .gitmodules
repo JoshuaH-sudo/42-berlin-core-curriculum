@@ -10,3 +10,6 @@
 [submodule "42-push-swap"]
 	path = 42-push-swap
 	url = https://github.com/JoshuaH-sudo/42-push-swap
+[submodule "42-python-module-00"]
+	path = 42-python-module-00
+	url = git@github.com:JoshuaH-sudo/42-python-module-00.git
