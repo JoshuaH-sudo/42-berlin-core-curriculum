@@ -6,7 +6,7 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:57:26 by jhoban            #+#    #+#             */
-/*   Updated: 2026/03/12 20:08:40 by jhoban           ###   ########.fr       */
+/*   Updated: 2026/03/13 12:43:33 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,11 @@ char **ft_split(char *str)
     }
     result[wordIndex] = NULL;
     return (result); 
+}
+
+int main(int argc, char **argv)
+{
+    if (argc >= 2)
+        ft_split(argv[1]);
+    return(0);
 }

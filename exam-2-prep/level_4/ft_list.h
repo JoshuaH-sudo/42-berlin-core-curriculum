@@ -6,12 +6,12 @@
 /*   By: jhoban <jhoban@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 20:17:07 by jhoban            #+#    #+#             */
-/*   Updated: 2026/03/12 20:17:08 by jhoban           ###   ########.fr       */
+/*   Updated: 2026/03/13 12:03:14 by jhoban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct    s_list
+typedef struct    t_list
 {
-    struct s_list *next;
+    struct t_list *next;
     void          *data;
-}                 t_list;
+}                t_list;
