@@ -39,6 +39,7 @@ char *ft_itoa(int nbr)
 
 int main()
 {
-    char *nbr = ft_itoa(123);
+    char *nbr = ft_itoa(-123);
+    printf("%s\n", nbr);
     return (0);
 }
