@@ -13,3 +13,6 @@
 [submodule "42-python-module-00"]
 	path = 42-python-module-00
 	url = git@github.com:JoshuaH-sudo/42-python-module-00.git
+[submodule "call-me-mabye"]
+	path = call-me-mabye
+	url = git@github.com:JoshuaH-sudo/call-me-mabye.git
