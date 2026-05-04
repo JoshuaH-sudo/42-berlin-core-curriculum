@@ -16,3 +16,6 @@
 [submodule "call-me-mabye"]
 	path = call-me-mabye
 	url = git@github.com:JoshuaH-sudo/call-me-mabye.git
+[submodule "a-maze-ing"]
+	path = a-maze-ing
+	url = git@github.com:JoshuaH-sudo/a-maze-ing.git
