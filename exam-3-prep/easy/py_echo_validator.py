@@ -4,4 +4,6 @@
 
 def echo_validator(text: str) -> bool:
     cleaned_text = ''.join(char.lower() for char in text if char.isalpha())
+    if not cleaned_text:
+        return False
     return cleaned_text == cleaned_text[::-1]

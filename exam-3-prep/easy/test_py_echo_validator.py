@@ -1,4 +1,4 @@
-from py_echo_validator import echo_validator
+from .py_echo_validator import echo_validator
 
 
 def test_simple_palindrome():
