@@ -7,3 +7,6 @@ def echo_validator(text: str) -> bool:
     if not cleaned_text:
         return False
     return cleaned_text == cleaned_text[::-1]
+
+if __name__ == "__main__":
+    print(echo_validator("racecar"))

@@ -1,4 +1,4 @@
-from .py_whisper_cipher import whisper_cipher
+from ..py_whisper_cipher import whisper_cipher
 
 
 def test_basic_shift():

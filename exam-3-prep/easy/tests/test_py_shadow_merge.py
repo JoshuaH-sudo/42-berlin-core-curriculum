@@ -1,4 +1,4 @@
-from .py_shadow_merge import shadow_merge
+from ..py_shadow_merge import shadow_merge
 
 
 def test_interleaved_sorted_lists():

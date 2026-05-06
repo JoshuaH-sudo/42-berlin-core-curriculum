@@ -1,4 +1,4 @@
-from .py_mirror_matrix import mirror_matrix
+from ..py_mirror_matrix import mirror_matrix
 
 
 def test_mirror_matrix_3x2():
