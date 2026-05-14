@@ -30,3 +30,7 @@
 	path = codexion
 	url = git@github.com:JoshuaH-sudo/codexion.git
 	branch = main
+[submodule "fly-in"]
+	path = fly-in
+	url = git@github.com:JoshuaH-sudo/fly-in.git
+	branch = main
