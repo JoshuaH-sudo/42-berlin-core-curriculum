@@ -19,3 +19,6 @@
 [submodule "a-maze-ing"]
 	path = a-maze-ing
 	url = git@github.com:JoshuaH-sudo/a-maze-ing.git
+[submodule "codexion"]
+	path = codexion
+	url = git@github.com:JoshuaH-sudo/codexion.git
