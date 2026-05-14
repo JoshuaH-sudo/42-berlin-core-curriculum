@@ -1,24 +1,32 @@
 [submodule "42-get-next-line"]
 	path = 42-get-next-line
 	url = git@github.com:JoshuaH-sudo/42-get-next-line.git
+	branch = main
 [submodule "42-libft"]
 	path = 42-libft
 	url = git@github.com:JoshuaH-sudo/42-libft.git
+	branch = main
 [submodule "42-ft_printf"]
 	path = 42-ft_printf
 	url = git@github.com:JoshuaH-sudo/42-ft_printf.git
+	branch = main
 [submodule "42-push-swap"]
 	path = 42-push-swap
 	url = git@github.com:JoshuaH-sudo/42-push-swap.git
+	branch = main
 [submodule "42-python-module-00"]
 	path = 42-python-module-00
 	url = git@github.com:JoshuaH-sudo/42-python-module-00.git
+	branch = main
 [submodule "call-me-mabye"]
 	path = call-me-mabye
 	url = git@github.com:JoshuaH-sudo/call-me-mabye.git
+	branch = main
 [submodule "a-maze-ing"]
 	path = a-maze-ing
 	url = git@github.com:JoshuaH-sudo/a-maze-ing.git
+	branch = main
 [submodule "codexion"]
 	path = codexion
 	url = git@github.com:JoshuaH-sudo/codexion.git
+	branch = main
